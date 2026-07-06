@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>朱晋 | 个人主页与作品空间</title>
+    <!-- 引入 Font Awesome 图标库与优雅中文字体 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+        /* --- 全局样式与天蓝色调变量 --- */
+        :root {
+            --primary-color: #0d9488; 
+            --sky-blue: #bae6fd;      
+            --dark-color: #0f172a;
+            --light-color: #f0f9ff;
+            --text-color: #475569;
+            --gray-color: #0284c7;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, #bae6fd, #e0f2fe, #f0f9ff, #ffffff);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-shadow: none;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        /* --- 蕾丝波浪花边装饰线 --- */
+        .lace-divider {
+            background-image: radial-gradient(circle at 50% 100%, transparent 8px, #ffffff 8px);
+            background-size: 16px 16px;
+            height: 16px;
+            width: 100%;
+        }
+
+        .lace-divider-reverse {
+            background-image: radial-gradient(circle at 50% 0%, transparent 8px, #ffffff 8px);
+            background-size: 16px 16px;
+            height: 16px;
+            width: 100%;
+        }
+
+        /* --- 胶囊式顶部导航栏 --- */
+        header {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px rgba(14, 165, 233, 0.15);
+            border-radius: 50px;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gray-color);
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--dark-color);
+        }
+
+        /* --- 通用布局与栅格 --- */
+        section {
+            padding: 6rem 2rem 4rem 2rem;
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 3rem;
+            color: #0369a1;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--sky-blue);
+            margin: 0.6rem auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* --- 第一页左右并分结构（Hero） --- */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            width: 100%;
+            align-items: start;
+        }
+
+        @media (min-width: 992px) {
+            .intro-grid {
+                grid-template-columns: 4fr 7fr;
+                gap: 3.5rem;
+            }
+        }
+
+        /* 左侧分栏名片卡 */
+        .diary-left-card {
+            background: linear-gradient(to bottom, rgba(224, 242, 254, 0.6), rgba(255, 255, 255, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 28px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.08);
+            text-align: center;
+        }
+
+        /* 右侧分栏信息流 */
+        .diary-right-content {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 28px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.04);
+        }
+
+        .hero-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #ffffff;
+            padding: 4px;
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #38bdf8;
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid #e0f2fe;
+        }
+
+        /* 标签流样式 */
+        .tag-chips {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .tag-chip {
+            background: #ffffff;
+            border: 1px solid #e0f2fe;
+            color: #0369a1;
+            padding: 0.15rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* 极简联系icon组 */
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .contact-icon:hover {
+            color: var(--gray-color);
+            border-color: var(--sky-blue);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--dark-color);
+            color: white;
+            padding: 0.65rem 2.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+            margin-top: 1.5rem;
+        }
+
+        .btn:hover {
+            background: #334155;
+            transform: translateY(-2px);
+        }
+
+        /* --- 第二页：可横向滚动选择的卡片舞台 --- */
+        #portfolio {
+            background-color: #ffffff;
+            min-height: 100vh;
+            overflow: hidden;
+            padding-bottom: 8rem;
+        }
+
+        /* 横向滚动选择包装层 */
+        .scroll-stage-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .scroll-track-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 1.5rem 0.5rem 2.5rem 0.5rem;
+            snap-type: x mandatory;
+        }
+
+        /* 隐藏标准横向滚动条 */
+        .scroll-track-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .portfolio-card {
+            flex: 0 0 320px;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid #f1f5f9;
+            snap-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .portfolio-card {
+                flex: 0 0 335px;
+            }
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.1);
+        }
+
+        .portfolio-thumb {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1600 / 972; /* 完美契合 1600x972 的比例比例 */
+            background: #cbd5e1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portfolio-thumb img, .portfolio-thumb video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .portfolio-info {
+            padding: 1.5rem;
+            background: #ffffff;
+        }
+
+        .portfolio-info h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .portfolio-info p {
+            color: #64748b;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 左右控制选择按纽 */
+        .scroll-control-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            cursor: pointer;
+            z-index: 20;
+            transition: var(--transition);
+        }
+
+        .scroll-control-btn:hover {
+            background: var(--dark-color);
+            color: white;
+            border-color: var(--dark-color);
+        }
+
+        .scroll-btn-left { left: -1rem; }
+        .scroll-btn-right { right: -1rem; }
+
+        /* --- 模态框弹窗 --- */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 760px;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.95);
+            transition: var(--transition);
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #94a3b8;
+            z-index: 10;
+        }
+
+        .modal-hero {
+            height: auto;
+            aspect-ratio: 1600 / 972; /* 弹窗大图舞台同样完美适配 1600x972 比例 */
+            background: #0f172a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-hero img, .modal-hero video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- 弹窗内的滚动相册样式 --- */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            width: 100%;
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 30;
+            border: none;
+            transition: var(--transition);
+        }
+
+        .carousel-btn:hover {
+            background: #1e293b;
+            color: #ffffff;
+        }
+
+        .carousel-prev { left: 1rem; }
+        .carousel-next { right: 1rem; }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 30;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-dot.active {
+            background: #ffffff;
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        .modal-body {
+            padding: 2.5rem;
+        }
+
+        .modal-body h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .modal-tag {
+            display: inline-block;
+            background: #f0f9ff;
+            color: #0369a1;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-desc {
+            margin-bottom: 1.5rem;
+            color: #475569;
+            font-size: 0.9rem;
+            text-align: justify;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid #38bdf8;
+            font-size: 0.85rem;
+        }
+
+        /* --- 页脚 --- */
+        footer {
+            background: #f8fafc;
+            color: #94a3b8;
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.75rem;
+            border-top: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 胶囊导航栏 -->
+    <header>
+        <nav class="nav-container">
+            <div class="logo">个人主页</div>
+            <ul class="nav-links">
+                <li><a href="#hero" class="active">关于我</a></li>
+                <li><a href="#portfolio">设计作品</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 第一页：左右并分布局的个人简介区（对应 image_1aacc3.png） -->
+    <section id="hero" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 6rem;">
+        <div class="intro-grid">
+            
+            <!-- 【左侧分栏】：名片名牌卡 -->
+            <div class="diary-left-card">
+                <div class="hero-avatar">
+                    <i class="fa-solid fa-face-smile-beam"></i>
+                </div>
+                <h1 style="font-size: 1.8rem; font-weight: 700; color: var(--dark-color); margin-bottom: 0.2rem;">朱晋</h1>
+                <p style="font-size: 0.8rem; font-weight: 600; color: #0d9488; margin-bottom: 1.2rem;">求职意向：虚幻UE工程 / UI设计师</p>
+                
+                <p style="color: #64748b; font-size: 0.8rem; text-align: justify; line-height: 1.6; border-top: 1px dashed rgba(14, 165, 233, 0.15); padding-top: 1rem;">
+                    我是数媒技术专业大三在读的学生。平时最喜欢钻研虚幻引擎的交互机制和实际界面落地。在写代码和做设计时，我更愿意去探究底层的实现原理，在保证美观的同时，考虑如何让程序同学更方便地对接，避免画不实用的“飞机稿”。虽然目前还是个新人，但我有着不怕踩坑的耐心，乐于花时间琢磨每一个像素的对齐和弹性微反馈，希望能动手把界面调得好用又好看。
+                </p>
+
+                <!-- 直接罗列详细联系方式 -->
+                <div style="text-align: left; display: inline-block; font-size: 0.8rem; color: #64748b; margin-top: 1.2rem; border-top: 1px dashed rgba(14, 165, 233, 0.15); padding-top: 1rem; width: 100%; max-width: 240px;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <i class="fa-solid fa-phone" style="color: #0284c7; width: 14px; text-align: center;"></i>
+                        <span>电话：150-6762-0415</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <i class="fa-solid fa-envelope" style="color: #0284c7; width: 14px; text-align: center;"></i>
+                        <span>邮箱：sickoez@outlook.com</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <i class="fa-brands fa-github" style="color: #0284c7; width: 14px; text-align: center;"></i>
+                        <span>主页：github.com/SickoEz</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <i class="fa-solid fa-location-dot" style="color: #0284c7; width: 14px; text-align: center;"></i>
+                        <span>意向：杭州（可随时到岗）</span>
+                    </div>
+                    <!-- 证书角落 -->
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; border-top: 1px dotted rgba(14, 165, 233, 0.15); padding-top: 0.5rem; font-size: 0.75rem; color: #94a3b8;">
+                        <i class="fa-solid fa-award" style="color: #0284c7; width: 14px; text-align: center;"></i>
+                        <span>证书：英语四级 · 普通话二乙</span>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <a href="#portfolio" class="btn">浏览作品</a>
+                </div>
+            </div>
+
+            <!-- 【右侧分栏】：履历展示 -->
+            <div class="diary-right-content space-y-5">
+                <!-- 教育流 -->
+                <div style="border-bottom: 1px dashed rgba(14, 165, 233, 0.15); padding-bottom: 1rem;">
+                    <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;">
+                        <i class="fa-solid fa-graduation-cap text-sky-500"></i> 教育履历
+                    </h3>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #334155;">
+                        <span style="flex-grow: 1;">浙江水利水电学院 · 数字媒体技术 (本科)</span>
+                        <span style="color: #94a3b8;">2023 - 2027</span>
+                    </div>
+                    <p style="font-size: 0.75rem; color: #64748b; line-height: 1.5; margin-top: 0.4rem;">
+                        <strong>主要学习：</strong>虚幻引擎开发、用户体验设计流程、移动端UI设计实践、PBR材质流、三维视觉渲染、网页前端开发基础。
+                    </p>
+                </div>
+
+                <!-- 核心长处 -->
+                <div style="border-bottom: 1px dashed rgba(14, 165, 233, 0.15); padding-bottom: 1rem;">
+                    <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;">
+                        <i class="fa-solid fa-star text-sky-500"></i> 课外实践与长处
+                    </h3>
+                    <div style="font-size: 0.75rem; color: #64748b;" class="space-y-1.5">
+                        <p>• <strong>三维场景里的UI控制：</strong>试过让三维场景里的天气和光影随着UI按键点击直接发生改变，能让手绘或科技风的界面平滑地融进游戏空间里。</p>
+                        <p>• <strong>大屏信息整理：</strong>习惯用结构清晰的卡片布局来整理复杂数据，不管是学校能耗还是监控信息，都能排得整整齐齐、清晰易读。</p>
+                    </div>
+                </div>
+
+                <!-- 个人优势与工作态度 -->
+                <div style="border-bottom: 1px dashed rgba(14, 165, 233, 0.15); padding-bottom: 1rem;">
+                    <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;">
+                        <i class="fa-solid fa-heart text-sky-500"></i> 个人优势与工作态度
+                    </h3>
+                    <div style="font-size: 0.75rem; color: #64748b;" class="space-y-1.5">
+                        <p>• <strong>自控且耐心：</strong>无论是界面的像素级对齐还是蓝图事件在多端原型下的跳转连贯，我都会耐心地在开发对接前反复调整和实机验证。</p>
+                        <p>• <strong>自学和尝试AI大模型：</strong>平时很喜欢折腾新事物，经常尝试用各种 AI 大模型（像 ChatGPT、Claude、Gemini 等）来帮自己查技术资料、找设计灵感，甚至协助写网页（比如这个网页就是跟 AI 协作一起边学边改出来的）。虽然目前还在摸索阶段，但我觉得积极去用新工具能大大提高我的自学和干活效率。</p>
+                    </div>
+                </div>
+
+                <!-- 工具栈 -->
+                <div>
+                    <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem;">
+                        <i class="fa-solid fa-layer-group text-sky-500"></i> 平时常用的软件
+                    </h3>
+                    <div class="tag-chips">
+                        <span class="tag-chip">Unreal Engine</span>
+                        <span class="tag-chip">Figma</span>
+                        <span class="tag-chip">Blender</span>
+                        <span class="tag-chip">3ds Max</span>
+                        <span class="tag-chip">Substance 3D</span>
+                        <span class="tag-chip">HTML / CSS</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="lace-divider"></div>
+
+    <!-- 第二页：下方三个多媒体项目横向可滚动流（数字孪生为第一顺位） -->
+    <section id="portfolio">
+        <h2 class="section-title">核心作品展台</h2>
+        
+        <!-- 横向滚动控制台包装 -->
+        <div class="scroll-stage-wrapper">
+            <!-- 左右平滑滚动切页按钮 -->
+            <button class="scroll-control-btn scroll-btn-left" onclick="slideContainer('left')"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="scroll-control-btn scroll-btn-right" onclick="slideContainer('right')"><i class="fa-solid fa-chevron-right"></i></button>
+
+            <!-- 核心滚动轨 -->
+            <div class="scroll-track-container" id="scrollTrack">
+                
+                <!-- 【第一顺位】作品 2：校园数字孪生大屏 -->
+                <div class="portfolio-card" onclick="openModal('smart_campus')">
+                    <div class="portfolio-thumb">
+                        <!-- 素材引用：campus.mp4 -->
+                        <video src="campus.mp4" autoplay loop muted playsinline></video>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>《校园数字孪生智能平台》三维可视化</h3>
+                        <p>做了一个对称的双翼看板。点击侧边面板可以一键切换晴天、阴天、雨天和黑夜，而且镜头画面也会跟着平滑拉近拉远。</p>
+                    </div>
+                </div>
+
+                <!-- 作品 1：Sugar Dock -->
+                <div class="portfolio-card" onclick="openModal('sugar_dock')">
+                    <div class="portfolio-thumb">
+                        <!-- 素材引用：sugar_dock.png -->
+                        <img src="sugar_dock.png" alt="Sugar Dock">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Sugar Dock - 基于 UE5 的唯美二次元主界面重构</h3>
+                        <p>用的是清新舒服的马卡龙粉紫配色。通过调整按钮的半透明度加上白色边框，让整个主菜单在3D游戏背景里看得很清楚，不刺眼。</p>
+                    </div>
+                </div>
+
+                <!-- 作品 3：海外金融App -->
+                <div class="portfolio-card" onclick="openModal('finance_app')">
+                    <div class="portfolio-thumb">
+                        <!-- 素材引用：finance.jpg -->
+                        <img src="finance.jpg" alt="海外金融App">
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>全球化海外移动金融 / 银行App体验设计</h3>
+                        <p>规范地做了忘记/修改密码、多国语言切换、汇率折算以及转账页面的动效设计。背景用大面积干净的白色，让界面看起来很轻巧。</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 多媒体自适应模态弹窗（支持视频渲染与图片滚动选择交互） -->
+    <div class="modal" id="portfolioModal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            
+            <!-- 顶置多媒体展示舞台 -->
+            <div class="modal-hero" id="modalMediaStage"></div>
+            
+            <div class="modal-body">
+                <h2 id="modalTitle">作品名称</h2>
+                <span class="modal-tag" id="modalTag">分类</span>
+                <p class="modal-desc" id="modalDesc">作品详细描述...</p>
+                
+                <div class="tech-stack">
+                    <strong>涉及软件与设计规范：</strong>
+                    <p id="modalTech" style="margin-top: 0.3rem; font-family: monospace; color: #64748b; font-size: 0.8rem;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2026 张设计. 响应式多媒体作品展示个人档案.</p>
+    </footer>
+
+    <!-- 交互逻辑 JavaScript -->
+    <script>
+        // 核心多媒体数据源，将游戏与软件设定为带有多图切换（gallery）的架构
+        const projectData = {
+            smart_campus: {
+                title: "《校园数字孪生智能平台》三维大屏可视化",
+                tag: "数字孪生大屏 / 后勤数据集成",
+                type: "video",
+                mediaUrl: "campus.mp4",
+                desc: "针对学校做的一个智慧后勤大屏。主要解决复杂多源信息堆在一起不好看、不直观的毛病。将复杂的能耗、安防、车辆等底层数据重新规划，分别整理成半透明的侧边卡片，中间留给三维校区模型展示，完美解决了大屏数据堆积混乱的问题。系统深度打通气象控制蓝图，通过点击控制UI能够让关卡环境一键平滑过渡至早、晚、晴、夜气象状态，并具备视点跟踪与拉近逻辑。",
+                tech: "campus.mp4 / B端数据大屏排版 / 气象控制器联动机制"
+            },
+            sugar_dock: {
+                title: "Sugar Dock - 基于 UE5 的唯美二次元主界面重构",
+                tag: "游戏 UI 设计 / UE5 场景搭建",
+                type: "gallery",
+                // 默认第一张为主大图，后两张为生成的辅图卡片来供滚动选择
+                images: [
+                    "sugar_dock.png",
+                    "sugar_dock_2.png",
+                    "sugar_dock_3.png"
+                ],
+                desc: "在虚幻引擎5里搭建的一个清新风格的海湾主场景。为了防止复杂的次世代三维背景把前面的2D菜单按钮挡住或者混在一起导致信息缺失，专门提取了游戏世界高频颜色，并调校了一整套带高亮白色描边、具有极高易读性的轻质感半透明粉色控制面板。完美规范了黄金单手触控热区、点击反馈态与阻尼感弹性微动效。",
+                tech: "sugar_dock.png / Unreal Engine 5 场景搭建 / 界面按钮触控微动效 / 唯美色彩配置体系"
+            },
+            finance_app: {
+                title: "全球化海外移动金融 / 银行App体验设计",
+                tag: "移动端 UI/UX",
+                type: "gallery",
+                images: [
+                    "finance.jpg",
+                    "finance_2.jpg",
+                    "finance_3.jpg"
+                ],
+                desc: "做了一套海外手机钱包的操作流程。重点思考怎样通过清爽、干净的深蓝和白色搭配，把繁琐的多币种换算、密码安全校验和核心转账页面理顺，弱化用户填数据时的焦虑感。遵循金融无障碍交互准则，以大面积透亮呼吸白底座烘托操作安全与极简体验，全案推演并动效化落地了转账（Transfer）流程闭环。",
+                tech: "finance.jpg / 移动端高保真交互原型 / 多语言界面适配方案"
+            }
+        };
+
+        // 当前弹窗内的幻灯片索引
+        let modalSlideIndex = 0;
+        let activeGalleryImages = [];
+
+        // 主界面横向滚动卡片
+        function slideContainer(direction) {
+            const track = document.getElementById('scrollTrack');
+            const scrollAmount = 340; 
+            if (direction === 'left') {
+                track.scrollLeft -= scrollAmount;
+            } else {
+                track.scrollLeft += scrollAmount;
+            }
+        }
+
+        // 弹窗开启与渲染引擎
+        function openModal(id) {
+            const data = projectData[id];
+            if(!data) return;
+            
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalTag').innerText = data.tag;
+            document.getElementById('modalDesc').innerText = data.desc;
+            document.getElementById('modalTech').innerText = data.tech;
+            
+            const stage = document.getElementById('modalMediaStage');
+            stage.innerHTML = ''; 
+            
+            if (data.type === "video") {
+                // 渲染视频播放器
+                stage.innerHTML = `<video src="${data.mediaUrl}" autoplay loop muted playsinline class="w-full h-full object-cover" controls></video>`;
+            } else if (data.type === "gallery") {
+                // 渲染带平滑左右滚动的相册交互器
+                activeGalleryImages = data.images;
+                modalSlideIndex = 0;
+                
+                let slidesHTML = '';
+                let dotsHTML = '';
+                
+                activeGalleryImages.forEach((imgSrc, idx) => {
+                    slidesHTML += `
+                        <div class="carousel-slide flex-shrink-0 w-full h-full">
+                            <img src="${imgSrc}" class="w-full h-full object-cover" alt="作品大图 ${idx + 1}" onerror="this.src='https://placehold.co/800x450/e2e8f0/64748b?text=Image+Load+Failed'">
+                        </div>
+                    `;
+                    dotsHTML += `
+                        <span class="carousel-dot ${idx === 0 ? 'active' : ''}" onclick="setModalSlide(${idx})" data-index="${idx}"></span>
+                    `;
+                });
+
+                stage.innerHTML = `
+                    <div class="relative w-full h-full overflow-hidden">
+                        <!-- 滑轨 -->
+                        <div class="carousel-track flex h-full w-full" id="modalCarouselTrack">
+                            ${slidesHTML}
+                        </div>
+                        <!-- 控制手柄 -->
+                        <button class="carousel-btn carousel-prev" onclick="prevModalSlide(event)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="carousel-btn carousel-next" onclick="nextModalSlide(event)"><i class="fa-solid fa-chevron-right"></i></button>
+                        <!-- 点状指示器 -->
+                        <div class="carousel-indicators">
+                            ${dotsHTML}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('portfolioModal').classList.add('active');
+        }
+
+        // 幻灯片平滑滚动触发
+        function updateModalCarousel() {
+            const track = document.getElementById('modalCarouselTrack');
+            if (!track) return;
+            track.style.transform = `translateX(-${modalSlideIndex * 100}%)`;
+            
+            // 更新小圆点状态
+            const dots = document.querySelectorAll('.carousel-dot');
+            dots.forEach((dot, idx) => {
+                if (idx === modalSlideIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        function prevModalSlide(e) {
+            if(e) e.stopPropagation();
+            modalSlideIndex = (modalSlideIndex - 1 + activeGalleryImages.length) % activeGalleryImages.length;
+            updateModalCarousel();
+        }
+
+        function nextModalSlide(e) {
+            if(e) e.stopPropagation();
+            modalSlideIndex = (modalSlideIndex + 1) % activeGalleryImages.length;
+            updateModalCarousel();
+        }
+
+        function setModalSlide(idx) {
+            modalSlideIndex = idx;
+            updateModalCarousel();
+        }
+
+        // 弹窗关闭
+        function closeModal() {
+            document.getElementById('portfolioModal').classList.remove('active');
+            document.getElementById('modalMediaStage').innerHTML = ''; 
+        }
+
+        // 导航栏平滑过渡绑定
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                const targetId = link.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
