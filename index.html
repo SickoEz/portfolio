@@ -261,7 +261,7 @@
         .scroll-stage-wrapper {
             position: relative;
             width: 100%;
-            max-width: 1050px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 1rem;
         }
@@ -306,8 +306,8 @@
         .portfolio-thumb {
             width: 100%;
             height: auto;
-            aspect-ratio: 1600 / 972; /* 完美契合 1600x972 的比例比例 */
-            background: #cbd5e1;
+            aspect-ratio: 1600 / 972;
+            background: #0f172a;
             position: relative;
             overflow: hidden;
         }
@@ -340,7 +340,7 @@
             overflow: hidden;
         }
 
-        /* 左右控制选择按纽 */
+        /* 左右控制选择按钮 */
         .scroll-control-btn {
             position: absolute;
             top: 50%;
@@ -395,13 +395,13 @@
         .modal-content {
             background: white;
             width: 90%;
-            max-width: 760px;
+            max-width: 780px;
             border-radius: 24px;
             overflow: hidden;
             position: relative;
             transform: scale(0.95);
             transition: var(--transition);
-            max-height: 85vh;
+            max-height: 88vh;
             overflow-y: auto;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
         }
@@ -422,7 +422,7 @@
 
         .modal-hero {
             height: auto;
-            aspect-ratio: 1600 / 972; /* 弹窗大图舞台同样完美适配 1600x972 比例 */
+            aspect-ratio: 1600 / 972;
             background: #0f172a;
             position: relative;
             overflow: hidden;
@@ -561,7 +561,7 @@
         </nav>
     </header>
 
-    <!-- 第一页：左右并分布局的个人简介区（对应 image_1aacc3.png） -->
+    <!-- 第一页：左右并分布局的个人简介区 -->
     <section id="hero" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 6rem;">
         <div class="intro-grid">
             
@@ -571,13 +571,13 @@
                     <i class="fa-solid fa-face-smile-beam"></i>
                 </div>
                 <h1 style="font-size: 1.8rem; font-weight: 700; color: var(--dark-color); margin-bottom: 0.2rem;">朱晋</h1>
-                <p style="font-size: 0.8rem; font-weight: 600; color: #0d9488; margin-bottom: 1.2rem;">求职意向：虚幻UE工程 / UI设计师</p>
+                <p style="font-size: 0.8rem; font-weight: 600; color: #0d9488; margin-bottom: 1.2rem;">数字媒体技术 · 本科在读</p>
                 
                 <p style="color: #64748b; font-size: 0.8rem; text-align: justify; line-height: 1.6; border-top: 1px dashed rgba(14, 165, 233, 0.15); padding-top: 1rem;">
-                    我是数媒技术专业大三在读的学生。平时最喜欢钻研虚幻引擎的交互机制和实际界面落地。在写代码和做设计时，我更愿意去探究底层的实现原理，在保证美观的同时，考虑如何让程序同学更方便地对接，避免画不实用的“飞机稿”。虽然目前还是个新人，但我有着不怕踩坑的耐心，乐于花时间琢磨每一个像素的对齐和弹性微反馈，希望能动手把界面调得好用又好看。
+                    我是数媒技术专业大四在读的学生。平时热衷于钻研虚幻引擎交互机制、AIGC 视觉叙事与界面落地。在创作与工程实现中，我注重探究底层原理，兼顾视觉质感与工程落地性。对待细节有极高的耐性与自驱力，乐于尝试新技术工具，希望能不断创作出兼具观赏性与实用价值的高品质数字化作品。
                 </p>
 
-                <!-- 直接罗列详细联系方式 -->
+                <!-- 详细联系方式 -->
                 <div style="text-align: left; display: inline-block; font-size: 0.8rem; color: #64748b; margin-top: 1.2rem; border-top: 1px dashed rgba(14, 165, 233, 0.15); padding-top: 1rem; width: 100%; max-width: 240px;">
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
                         <i class="fa-solid fa-phone" style="color: #0284c7; width: 14px; text-align: center;"></i>
@@ -593,9 +593,8 @@
                     </div>
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
                         <i class="fa-solid fa-location-dot" style="color: #0284c7; width: 14px; text-align: center;"></i>
-                        <span>意向：杭州（可随时到岗）</span>
+                        <span>城市：浙江省杭州市</span>
                     </div>
-                    <!-- 证书角落 -->
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; border-top: 1px dotted rgba(14, 165, 233, 0.15); padding-top: 0.5rem; font-size: 0.75rem; color: #94a3b8;">
                         <i class="fa-solid fa-award" style="color: #0284c7; width: 14px; text-align: center;"></i>
                         <span>证书：英语四级 · 普通话二乙</span>
@@ -612,51 +611,51 @@
                 <!-- 教育流 -->
                 <div style="border-bottom: 1px dashed rgba(14, 165, 233, 0.15); padding-bottom: 1rem;">
                     <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;">
-                        <i class="fa-solid fa-graduation-cap text-sky-500"></i> 教育履历
+                        <i class="fa-solid fa-graduation-cap text-sky-500"></i> 教育背景
                     </h3>
                     <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #334155;">
-                        <span style="flex-grow: 1;">浙江水利水电学院 · 数字媒体技术 (本科)</span>
+                        <span style="flex-grow: 1;">浙江水利水电学院 · 数字媒体技术 (本科在读)</span>
                         <span style="color: #94a3b8;">2023 - 2027</span>
                     </div>
                     <p style="font-size: 0.75rem; color: #64748b; line-height: 1.5; margin-top: 0.4rem;">
-                        <strong>主要学习：</strong>虚幻引擎开发、用户体验设计流程、移动端UI设计实践、PBR材质流、三维视觉渲染、网页前端开发基础。
+                        <strong>专业核心课：</strong>虚幻引擎三维关卡设计、用户体验与交互设计、次世代PBR材质贴图流、数字媒体技术导论、前端开发技术基础。
                     </p>
                 </div>
 
-                <!-- 核心长处 -->
+                <!-- 校园工作与综合经历 -->
                 <div style="border-bottom: 1px dashed rgba(14, 165, 233, 0.15); padding-bottom: 1rem;">
                     <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;">
-                        <i class="fa-solid fa-star text-sky-500"></i> 课外实践与长处
+                        <i class="fa-solid fa-users text-sky-500"></i> 校园骨干与综合实践
                     </h3>
                     <div style="font-size: 0.75rem; color: #64748b;" class="space-y-1.5">
-                        <p>• <strong>三维场景里的UI控制：</strong>试过让三维场景里的天气和光影随着UI按键点击直接发生改变，能让手绘或科技风的界面平滑地融进游戏空间里。</p>
-                        <p>• <strong>大屏信息整理：</strong>习惯用结构清晰的卡片布局来整理复杂数据，不管是学校能耗还是监控信息，都能排得整整齐齐、清晰易读。</p>
+                        <p>• <strong>班级学习委员：</strong>担任任课教师与全班同学的核心沟通纽带，高效同步课业任务与考试信息，组织专业技术互助与资料共享，强化班级凝聚力与学风建设。</p>
+                        <p>• <strong>学院学生会 · 学习部骨干：</strong>深度参与策划并落地“学风建设月”、学术经验分享会与技能讲座，负责物料统筹、考务考勤记录与数据整理归档，具备较强的多线程协作能力。</p>
                     </div>
                 </div>
 
                 <!-- 个人优势与工作态度 -->
                 <div style="border-bottom: 1px dashed rgba(14, 165, 233, 0.15); padding-bottom: 1rem;">
                     <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;">
-                        <i class="fa-solid fa-heart text-sky-500"></i> 个人优势与工作态度
+                        <i class="fa-solid fa-heart text-sky-500"></i> 个人优势与技术态度
                     </h3>
                     <div style="font-size: 0.75rem; color: #64748b;" class="space-y-1.5">
-                        <p>• <strong>自控且耐心：</strong>无论是界面的像素级对齐还是蓝图事件在多端原型下的跳转连贯，我都会耐心地在开发对接前反复调整和实机验证。</p>
-                        <p>• <strong>自学和尝试AI大模型：</strong>平时很喜欢折腾新事物，经常尝试用各种 AI 大模型（像 ChatGPT、Claude、Gemini 等）来帮自己查技术资料、找设计灵感，甚至协助写网页（比如这个网页就是跟 AI 协作一起边学边改出来的）。虽然目前还在摸索阶段，但我觉得积极去用新工具能大大提高我的自学和干活效率。</p>
+                        <p>• <strong>务实自驱与工程落地：</strong>无论是三维蓝图逻辑还是动态效果调优，都提前考量渲染消耗与落地可行性，输出规范化的工程工程方案。</p>
+                        <p>• <strong>善用 AI 前沿工具赋能创作：</strong>熟练利用最新 AI 视效生成工具、大型语言模型协助资料检索、灵感发散、脚本调试及多媒体资产分层制作，具备极强的自主检索与问题解决能力。</p>
                     </div>
                 </div>
 
                 <!-- 工具栈 -->
                 <div>
                     <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem;">
-                        <i class="fa-solid fa-layer-group text-sky-500"></i> 平时常用的软件
+                        <i class="fa-solid fa-layer-group text-sky-500"></i> 技术工具栈
                     </h3>
                     <div class="tag-chips">
-                        <span class="tag-chip">Unreal Engine</span>
-                        <span class="tag-chip">Figma</span>
-                        <span class="tag-chip">Blender</span>
-                        <span class="tag-chip">3ds Max</span>
+                        <span class="tag-chip">Unreal Engine 5</span>
+                        <span class="tag-chip">AI 视效工具 / AIGC</span>
+                        <span class="tag-chip">Blender / 3ds Max</span>
                         <span class="tag-chip">Substance 3D</span>
-                        <span class="tag-chip">HTML / CSS</span>
+                        <span class="tag-chip">Figma / PS</span>
+                        <span class="tag-chip">HTML5 / CSS3 / JS</span>
                     </div>
                 </div>
             </div>
@@ -666,7 +665,7 @@
 
     <div class="lace-divider"></div>
 
-    <!-- 第二页：下方三个多媒体项目横向可滚动流（数字孪生为第一顺位） -->
+    <!-- 第二页：多媒体项目横向可滚动流（AI动画视频短片置于第一位） -->
     <section id="portfolio">
         <h2 class="section-title">核心作品展台</h2>
         
@@ -679,39 +678,48 @@
             <!-- 核心滚动轨 -->
             <div class="scroll-track-container" id="scrollTrack">
                 
-                <!-- 【第一顺位】作品 2：校园数字孪生大屏 -->
+                <!-- 【第一顺位】新增 AI 动画短片项目 -->
+                <div class="portfolio-card" onclick="openModal('ai_corruption_film')">
+                    <div class="portfolio-thumb">
+                        <!-- 素材引用：玉琮杯短片视频文件 -->
+                        <video src="数媒23-4_朱晋_失守：小王的选择_1080p.mp4" poster="玉琮杯-朱晋-海报.png" autoplay loop muted playsinline></video>
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>《一念越界，终须担责》廉洁警示动画短片</h3>
+                        <p>全国“玉琮杯”大赛参评作品。结合手绘剪纸与复古档案拼贴风格，借助 AI 辅助分层绘图与微动效，打造富有隐喻感的光影递进叙事。</p>
+                    </div>
+                </div>
+
+                <!-- 【第二顺位】校园数字孪生大屏 -->
                 <div class="portfolio-card" onclick="openModal('smart_campus')">
                     <div class="portfolio-thumb">
-                        <!-- 素材引用：campus.mp4 -->
                         <video src="campus.mp4" autoplay loop muted playsinline></video>
                     </div>
                     <div class="portfolio-info">
                         <h3>《校园数字孪生智能平台》三维可视化</h3>
-                        <p>做了一个对称的双翼看板。点击侧边面板可以一键切换晴天、阴天、雨天和黑夜，而且镜头画面也会跟着平滑拉近拉远。</p>
+                        <p>设计并实现了一套对称双翼大屏。在 UE5 中集成天气与光影蓝图，打通 UI 与控制器通信，支持晴雨昼夜平滑过渡与镜头轨道平滑跟随。</p>
                     </div>
                 </div>
 
-                <!-- 作品 1：Sugar Dock -->
+                <!-- 【第三顺位】Sugar Dock -->
                 <div class="portfolio-card" onclick="openModal('sugar_dock')">
                     <div class="portfolio-thumb">
-                        <!-- 素材引用：sugar_dock.png -->
-                        <img src="sugar_dock.png" alt="Sugar Dock">
+                        <img src="sugar_dock.png" alt="Sugar Dock" onerror="this.src='https://placehold.co/800x486/fbcfe8/be185d?text=Sugar+Dock'">
                     </div>
                     <div class="portfolio-info">
-                        <h3>Sugar Dock - 基于 UE5 的唯美二次元主界面重构</h3>
-                        <p>用的是清新舒服的马卡龙粉紫配色。通过调整按钮的半透明度加上白色边框，让整个主菜单在3D游戏背景里看得很清楚，不刺眼。</p>
+                        <h3>《Sugar Dock》二次元唯美探索小游戏</h3>
+                        <p>在虚幻 5 中搭建唯美马卡龙海湾场景，设计沉浸式角色漫游探索、触控交互热区与粒子轻动效反馈。</p>
                     </div>
                 </div>
 
-                <!-- 作品 3：海外金融App -->
+                <!-- 【第四顺位】海外金融 App -->
                 <div class="portfolio-card" onclick="openModal('finance_app')">
                     <div class="portfolio-thumb">
-                        <!-- 素材引用：finance.jpg -->
-                        <img src="finance.jpg" alt="海外金融App">
+                        <img src="finance.jpg" alt="海外金融App" onerror="this.src='https://placehold.co/800x486/bae6fd/0369a1?text=Finance+App'">
                     </div>
                     <div class="portfolio-info">
-                        <h3>全球化海外移动金融 / 银行App体验设计</h3>
-                        <p>规范地做了忘记/修改密码、多国语言切换、汇率折算以及转账页面的动效设计。背景用大面积干净的白色，让界面看起来很轻巧。</p>
+                        <h3>全球化海外移动端钱包金融全案</h3>
+                        <p>规范化设计多币种折算、密码重设与转账交互全流程，通过呼吸感蓝白配比构建安全轻盈的体验闭环。</p>
                     </div>
                 </div>
 
@@ -719,7 +727,7 @@
         </div>
     </section>
 
-    <!-- 多媒体自适应模态弹窗（支持视频渲染与图片滚动选择交互） -->
+    <!-- 多媒体自适应模态弹窗（支持视频原生播放与相册画廊交互） -->
     <div class="modal" id="portfolioModal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -733,7 +741,7 @@
                 <p class="modal-desc" id="modalDesc">作品详细描述...</p>
                 
                 <div class="tech-stack">
-                    <strong>涉及软件与设计规范：</strong>
+                    <strong>涉及软件与技术方法：</strong>
                     <p id="modalTech" style="margin-top: 0.3rem; font-family: monospace; color: #64748b; font-size: 0.8rem;"></p>
                 </div>
             </div>
@@ -742,33 +750,41 @@
 
     <!-- 页脚 -->
     <footer>
-        <p>&copy; 2026 张设计. 响应式多媒体作品展示个人档案.</p>
+        <p>&copy; 2026 朱晋. 响应式多媒体作品展示个人档案.</p>
     </footer>
 
     <!-- 交互逻辑 JavaScript -->
     <script>
-        // 核心多媒体数据源，将游戏与软件设定为带有多图切换（gallery）的架构
+        // 核心多媒体数据源
         const projectData = {
+            ai_corruption_film: {
+                title: "《一念越界，终须担责》廉洁警示教育动画短片",
+                tag: "全国“玉琮杯”大赛参评作品 / AI 辅助动画与叙事设计",
+                type: "video",
+                mediaUrl: "数媒23-4_朱晋_失守：小王的选择_1080p.mp4",
+                poster: "玉琮杯-朱晋-海报.png",
+                desc: "以主人公财务青年“小王”步步失守的抉择为叙事主线，采用复古牛皮档案拼贴与手绘剪纸画风。创作中综合运用 AI 工具辅助生成角色各角度分层、关键表情与道具资产，并完成抠像、分层绑定与动态微动效合成。重点设计了剧情推动的光影隐喻：从开篇平淡安稳的暖黄平光，到利欲侵蚀时的深褐压抑暗调，再到结局违纪暴露时冷硬刺目的审讯强光，实现叙事内核、道具元素与视效节奏的有机融合。",
+                tech: "数媒23-4_朱晋_失守：小王的选择_1080p.mp4 / AI 分层绘图 / 复古拼贴剪纸风格 / 视觉动效合成 / 光影隐喻体系设计"
+            },
             smart_campus: {
                 title: "《校园数字孪生智能平台》三维大屏可视化",
                 tag: "数字孪生大屏 / 后勤数据集成",
                 type: "video",
                 mediaUrl: "campus.mp4",
                 desc: "针对学校做的一个智慧后勤大屏。主要解决复杂多源信息堆在一起不好看、不直观的毛病。将复杂的能耗、安防、车辆等底层数据重新规划，分别整理成半透明的侧边卡片，中间留给三维校区模型展示，完美解决了大屏数据堆积混乱的问题。系统深度打通气象控制蓝图，通过点击控制UI能够让关卡环境一键平滑过渡至早、晚、晴、夜气象状态，并具备视点跟踪与拉近逻辑。",
-                tech: "campus.mp4 / B端数据大屏排版 / 气象控制器联动机制"
+                tech: "campus.mp4 / B端数据大屏排版 / 气象控制器联动机制 / 镜头轨道动画绑定"
             },
             sugar_dock: {
-                title: "Sugar Dock - 基于 UE5 的唯美二次元主界面重构",
-                tag: "游戏 UI 设计 / UE5 场景搭建",
+                title: "Sugar Dock - 基于 UE5 的唯美二次元探索小游戏",
+                tag: "UE5 场景搭建 / 轻互动探索",
                 type: "gallery",
-                // 默认第一张为主大图，后两张为生成的辅图卡片来供滚动选择
                 images: [
                     "sugar_dock.png",
                     "sugar_dock_2.png",
                     "sugar_dock_3.png"
                 ],
-                desc: "在虚幻引擎5里搭建的一个清新风格的海湾主场景。为了防止复杂的次世代三维背景把前面的2D菜单按钮挡住或者混在一起导致信息缺失，专门提取了游戏世界高频颜色，并调校了一整套带高亮白色描边、具有极高易读性的轻质感半透明粉色控制面板。完美规范了黄金单手触控热区、点击反馈态与阻尼感弹性微动效。",
-                tech: "sugar_dock.png / Unreal Engine 5 场景搭建 / 界面按钮触控微动效 / 唯美色彩配置体系"
+                desc: "在虚幻引擎5里搭建的一个清新风格的海湾唯美探索场景。搭建了完整的角色第三人称移动与相机视角控制蓝图，设计了探索道具触发、环境粒子动效反馈。同时调校了一套带高亮白色描边的轻质感半透明粉紫控制面板，兼具游玩趣味与唯美清爽的视觉表现力。",
+                tech: "Unreal Engine 5 关卡搭建 / 角色移动与交互蓝图 / 唯美粉系调色 / 动效粒子反馈"
             },
             finance_app: {
                 title: "全球化海外移动金融 / 银行App体验设计",
@@ -780,7 +796,7 @@
                     "finance_3.jpg"
                 ],
                 desc: "做了一套海外手机钱包的操作流程。重点思考怎样通过清爽、干净的深蓝和白色搭配，把繁琐的多币种换算、密码安全校验和核心转账页面理顺，弱化用户填数据时的焦虑感。遵循金融无障碍交互准则，以大面积透亮呼吸白底座烘托操作安全与极简体验，全案推演并动效化落地了转账（Transfer）流程闭环。",
-                tech: "finance.jpg / 移动端高保真交互原型 / 多语言界面适配方案"
+                tech: "移动端高保真原型设计 / 多语言与多币种界面适配 / Figma"
             }
         };
 
@@ -791,7 +807,7 @@
         // 主界面横向滚动卡片
         function slideContainer(direction) {
             const track = document.getElementById('scrollTrack');
-            const scrollAmount = 340; 
+            const scrollAmount = 350; 
             if (direction === 'left') {
                 track.scrollLeft -= scrollAmount;
             } else {
@@ -813,8 +829,14 @@
             stage.innerHTML = ''; 
             
             if (data.type === "video") {
-                // 渲染视频播放器
-                stage.innerHTML = `<video src="${data.mediaUrl}" autoplay loop muted playsinline class="w-full h-full object-cover" controls></video>`;
+                // 渲染带控制条的高清视频播放器
+                stage.innerHTML = `
+                    <video src="${data.mediaUrl}" 
+                           ${data.poster ? `poster="${data.poster}"` : ''} 
+                           autoplay controls playsinline 
+                           style="width: 100%; height: 100%; object-fit: contain; background: #000;">
+                    </video>
+                `;
             } else if (data.type === "gallery") {
                 // 渲染带平滑左右滚动的相册交互器
                 activeGalleryImages = data.images;
@@ -826,7 +848,7 @@
                 activeGalleryImages.forEach((imgSrc, idx) => {
                     slidesHTML += `
                         <div class="carousel-slide flex-shrink-0 w-full h-full">
-                            <img src="${imgSrc}" class="w-full h-full object-cover" alt="作品大图 ${idx + 1}" onerror="this.src='https://placehold.co/800x450/e2e8f0/64748b?text=Image+Load+Failed'">
+                            <img src="${imgSrc}" style="width: 100%; height: 100%; object-fit: cover;" alt="作品大图 ${idx + 1}" onerror="this.src='https://placehold.co/800x486/e2e8f0/64748b?text=Image+Load+Failed'">
                         </div>
                     `;
                     dotsHTML += `
@@ -835,15 +857,12 @@
                 });
 
                 stage.innerHTML = `
-                    <div class="relative w-full h-full overflow-hidden">
-                        <!-- 滑轨 -->
-                        <div class="carousel-track flex h-full w-full" id="modalCarouselTrack">
+                    <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+                        <div class="carousel-track" id="modalCarouselTrack">
                             ${slidesHTML}
                         </div>
-                        <!-- 控制手柄 -->
                         <button class="carousel-btn carousel-prev" onclick="prevModalSlide(event)"><i class="fa-solid fa-chevron-left"></i></button>
                         <button class="carousel-btn carousel-next" onclick="nextModalSlide(event)"><i class="fa-solid fa-chevron-right"></i></button>
-                        <!-- 点状指示器 -->
                         <div class="carousel-indicators">
                             ${dotsHTML}
                         </div>
@@ -854,13 +873,12 @@
             document.getElementById('portfolioModal').classList.add('active');
         }
 
-        // 幻灯片平滑滚动触发
+        // 幻灯片滚动触发
         function updateModalCarousel() {
             const track = document.getElementById('modalCarouselTrack');
             if (!track) return;
             track.style.transform = `translateX(-${modalSlideIndex * 100}%)`;
             
-            // 更新小圆点状态
             const dots = document.querySelectorAll('.carousel-dot');
             dots.forEach((dot, idx) => {
                 if (idx === modalSlideIndex) {
@@ -890,8 +908,13 @@
 
         // 弹窗关闭
         function closeModal() {
+            const stage = document.getElementById('modalMediaStage');
+            const video = stage.querySelector('video');
+            if(video) {
+                video.pause();
+            }
             document.getElementById('portfolioModal').classList.remove('active');
-            document.getElementById('modalMediaStage').innerHTML = ''; 
+            stage.innerHTML = ''; 
         }
 
         // 导航栏平滑过渡绑定
