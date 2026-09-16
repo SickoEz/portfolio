@@ -3,76 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>朱晋 | 个人主页与作品空间</title>
-    <!-- 引入 Font Awesome 图标库与优雅中文字体 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>朱晋 | 个人主页与多媒体交互展台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
-
-        /* --- 全局样式与天蓝色调变量 --- */
         :root {
-            --primary-color: #0d9488; 
-            --sky-blue: #bae6fd;      
-            --dark-color: #0f172a;
-            --light-color: #f0f9ff;
-            --text-color: #475569;
-            --gray-color: #0284c7;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #0284c7;
+            --primary-light: #38bdf8;
+            --primary-dark: #0369a1;
+            --accent: #0d9488;
+            --dark: #0f172a;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.78);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --glass-shadow: 0 20px 45px -10px rgba(14, 165, 233, 0.12), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            font-family: 'Plus Jakarta Sans', 'Noto Sans SC', sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background: linear-gradient(to bottom, #bae6fd, #e0f2fe, #f0f9ff, #ffffff);
-            color: var(--text-color);
+            background-color: #f0f9ff;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(186, 230, 253, 0.45) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(224, 242, 254, 0.6) 0%, transparent 35%),
+                linear-gradient(180deg, #bae6fd 0%, #e0f2fe 30%, #f8fafc 85%, #ffffff 100%);
+            color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        a {
-            text-shadow: none;
-            text-decoration: none;
-            color: inherit;
-        }
+        a { text-decoration: none; color: inherit; }
 
-        li {
-            list-style: none;
-        }
-
-        /* --- 蕾丝波浪花边装饰线 --- */
-        .lace-divider {
-            background-image: radial-gradient(circle at 50% 100%, transparent 8px, #ffffff 8px);
-            background-size: 16px 16px;
-            height: 16px;
-            width: 100%;
-        }
-
-        .lace-divider-reverse {
-            background-image: radial-gradient(circle at 50% 0%, transparent 8px, #ffffff 8px);
-            background-size: 16px 16px;
-            height: 16px;
-            width: 100%;
-        }
-
-        /* --- 胶囊式顶部导航栏 --- */
         header {
             position: fixed;
-            top: 1.5rem;
+            top: 1.25rem;
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 500px;
-            background-color: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 8px 32px rgba(14, 165, 233, 0.15);
-            border-radius: 50px;
+            max-width: 540px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 12px 36px rgba(14, 165, 233, 0.12);
+            border-radius: 9999px;
             z-index: 1000;
         }
 
@@ -80,304 +70,513 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.6rem 2rem;
+            padding: 0.6rem 1.75rem;
         }
 
-        .logo {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--gray-color);
-            letter-spacing: 1px;
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .nav-brand .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
         }
 
         .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 0.5rem;
+            background: rgba(241, 245, 249, 0.6);
+            padding: 0.25rem;
+            border-radius: 9999px;
         }
 
         .nav-links a {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 600;
-            color: #64748b;
+            color: var(--text-muted);
+            padding: 0.4rem 1.1rem;
+            border-radius: 9999px;
             transition: var(--transition);
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: var(--dark-color);
+            color: var(--dark);
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
-        /* --- 通用布局与栅格 --- */
         section {
-            padding: 6rem 2rem 4rem 2rem;
-            max-width: 1140px;
+            padding: 7rem 1.5rem 4rem 1.5rem;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
-        .section-title {
+        .section-header {
             text-align: center;
-            font-size: 2rem;
-            font-weight: 300;
-            letter-spacing: 4px;
-            margin-bottom: 3rem;
-            color: #0369a1;
+            margin-bottom: 3.5rem;
         }
 
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 2px;
-            background: var(--sky-blue);
-            margin: 0.6rem auto 0 auto;
-            border-radius: 2px;
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            background: rgba(224, 242, 254, 0.7);
+            padding: 0.35rem 0.9rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            border: 1px solid rgba(186, 230, 253, 0.6);
         }
 
-        /* --- 第一页左右并分结构（Hero） --- */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
         .intro-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 2.5rem;
-            width: 100%;
+            gap: 2rem;
             align-items: start;
         }
 
         @media (min-width: 992px) {
             .intro-grid {
-                grid-template-columns: 4fr 7fr;
-                gap: 3.5rem;
+                grid-template-columns: 380px 1fr;
+                gap: 2.5rem;
             }
         }
 
-        /* 左侧分栏名片卡 */
-        .diary-left-card {
-            background: linear-gradient(to bottom, rgba(224, 242, 254, 0.6), rgba(255, 255, 255, 0.9));
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 28px;
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .profile-card {
             padding: 2.5rem 2rem;
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.08);
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* 右侧分栏信息流 */
-        .diary-right-content {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(6px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            border-radius: 28px;
-            padding: 2.5rem;
-            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.04);
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(13, 148, 136, 0.25));
+            z-index: 0;
         }
 
-        .hero-avatar {
-            width: 80px;
-            height: 80px;
+        .profile-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1.25rem;
+        }
+
+        .avatar-box {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1rem auto;
             border-radius: 50%;
             background: #ffffff;
             padding: 4px;
-            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.1);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #38bdf8;
-            font-size: 2.2rem;
-            margin-bottom: 1.2rem;
-            border: 1px solid #e0f2fe;
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.2);
         }
 
-        /* 标签流样式 */
-        .tag-chips {
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-            margin-top: 0.5rem;
-        }
-
-        .tag-chip {
-            background: #ffffff;
-            border: 1px solid #e0f2fe;
-            color: #0369a1;
-            padding: 0.15rem 0.6rem;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        /* 极简联系icon组 */
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-top: 1.5rem;
-        }
-
-        .contact-icon {
-            width: 34px;
-            height: 34px;
+        .avatar-box .avatar-inner {
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #94a3b8;
-            font-size: 0.9rem;
-            transition: var(--transition);
+            font-size: 2.2rem;
+            color: var(--primary);
         }
 
-        .contact-icon:hover {
-            color: var(--gray-color);
-            border-color: var(--sky-blue);
-            transform: translateY(-2px);
+        .user-name {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
         }
 
-        .btn {
+        .user-tagline {
             display: inline-block;
-            background: var(--dark-color);
-            color: white;
-            padding: 0.65rem 2.5rem;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 1px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: rgba(13, 148, 136, 0.1);
+            padding: 0.25rem 0.85rem;
+            border-radius: 9999px;
+        }
+
+        .bio-text {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            text-align: justify;
+            line-height: 1.65;
+            margin: 1.25rem 0;
+            padding: 1.25rem 0;
+            border-top: 1px dashed rgba(14, 165, 233, 0.2);
+            border-bottom: 1px dashed rgba(14, 165, 233, 0.2);
+        }
+
+        .contact-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.82rem;
+            color: #475569;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(226, 232, 240, 0.8);
             transition: var(--transition);
-            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
-            margin-top: 1.5rem;
         }
 
-        .btn:hover {
-            background: #334155;
+        .contact-item:hover {
+            background: #ffffff;
+            border-color: var(--primary-light);
+            transform: translateX(4px);
+        }
+
+        .contact-item i {
+            width: 18px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .action-cta-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            width: 100%;
+            background: linear-gradient(135deg, var(--dark), #1e293b);
+            color: white;
+            padding: 0.85rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+            transition: var(--transition);
+        }
+
+        .action-cta-btn:hover {
             transform: translateY(-2px);
+            background: #000000;
         }
 
-        /* --- 第二页：可横向滚动选择的卡片舞台 --- */
+        .experience-flow {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .flow-block-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .flow-block-title i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .edu-card-body {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(224, 242, 254, 0.8);
+            padding: 1.25rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .edu-headline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 0.92rem;
+            color: var(--dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .time-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            background: rgba(186, 230, 253, 0.5);
+            padding: 0.15rem 0.6rem;
+            border-radius: 9999px;
+        }
+
+        .highlight-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.84rem;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .highlight-item .bullet-icon {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+            border-radius: 6px;
+            background: rgba(14, 165, 233, 0.12);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            margin-top: 0.15rem;
+        }
+
+        .tech-pill-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-pill {
+            background: #ffffff;
+            border: 1px solid #e0f2fe;
+            color: var(--primary-dark);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .tech-pill:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(14, 165, 233, 0.1);
+        }
+
         #portfolio {
-            background-color: #ffffff;
-            min-height: 100vh;
-            overflow: hidden;
+            position: relative;
             padding-bottom: 8rem;
         }
 
-        /* 横向滚动选择包装层 */
-        .scroll-stage-wrapper {
+        .stage-carousel-wrapper {
             position: relative;
             width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 1rem;
         }
 
-        .scroll-track-container {
+        .stage-scroll-container {
             display: flex;
-            gap: 2rem;
+            gap: 1.75rem;
             overflow-x: auto;
             scroll-behavior: smooth;
             padding: 1.5rem 0.5rem 2.5rem 0.5rem;
             snap-type: x mandatory;
         }
 
-        /* 隐藏标准横向滚动条 */
-        .scroll-track-container::-webkit-scrollbar {
-            display: none;
-        }
+        .stage-scroll-container::-webkit-scrollbar { display: none; }
 
-        .portfolio-card {
-            flex: 0 0 320px;
-            background: white;
-            border-radius: 20px;
+        .work-card {
+            flex: 0 0 350px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
             transition: var(--transition);
             cursor: pointer;
-            border: 1px solid #f1f5f9;
-            snap-align: center;
+            snap-align: start;
+            display: flex;
+            flex-direction: column;
         }
 
         @media (min-width: 768px) {
-            .portfolio-card {
-                flex: 0 0 335px;
-            }
+            .work-card { flex: 0 0 360px; }
         }
 
-        .portfolio-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.1);
+        .work-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-light);
+            box-shadow: 0 22px 45px -10px rgba(14, 165, 233, 0.18);
         }
 
-        .portfolio-thumb {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 1600 / 972;
-            background: #0f172a;
+        .work-media-box {
             position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9.5;
+            background: #090d16;
             overflow: hidden;
         }
-        
-        .portfolio-thumb img, .portfolio-thumb video {
+
+        .work-media-box video, .work-media-box img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .portfolio-info {
-            padding: 1.5rem;
-            background: #ffffff;
+        .work-card:hover .work-media-box video, 
+        .work-card:hover .work-media-box img {
+            transform: scale(1.05);
         }
 
-        .portfolio-info h3 {
-            font-size: 1.05rem;
+        .badge-type {
+            position: absolute;
+            top: 0.85rem;
+            left: 0.85rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 0.7rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            z-index: 2;
         }
 
-        .portfolio-info p {
-            color: #64748b;
-            font-size: 0.8rem;
+        .play-hint-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .play-hint-overlay i {
+            width: 46px;
+            height: 46px;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(0.85);
+            transition: var(--transition);
+        }
+
+        .work-card:hover .play-hint-overlay { opacity: 1; }
+        .work-card:hover .play-hint-overlay i { transform: scale(1); }
+
+        .work-details {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .work-details h3 {
+            font-size: 1.08rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .work-details p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
             line-height: 1.6;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            margin-bottom: 1.25rem;
         }
 
-        /* 左右控制选择按钮 */
-        .scroll-control-btn {
+        .work-meta-row {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--primary);
+            padding-top: 0.85rem;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .stage-nav-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 44px;
-            height: 44px;
-            background: white;
+            width: 46px;
+            height: 46px;
+            background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #64748b;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            color: var(--dark);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
             cursor: pointer;
-            z-index: 20;
+            z-index: 10;
             transition: var(--transition);
         }
 
-        .scroll-control-btn:hover {
-            background: var(--dark-color);
-            color: white;
-            border-color: var(--dark-color);
+        .stage-nav-btn:hover {
+            background: var(--dark);
+            color: #ffffff;
+            border-color: var(--dark);
+            transform: translateY(-50%) scale(1.08);
         }
 
-        .scroll-btn-left { left: -1rem; }
-        .scroll-btn-right { right: -1rem; }
+        .stage-nav-btn.prev-btn { left: -1.25rem; }
+        .stage-nav-btn.next-btn { right: -1.25rem; }
 
-        /* --- 模态框弹窗 --- */
-        .modal {
+        .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(8px);
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -385,341 +584,394 @@
             opacity: 0;
             pointer-events: none;
             transition: var(--transition);
+            padding: 1.5rem;
         }
 
-        .modal.active {
+        .modal-overlay.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .modal-content {
-            background: white;
-            width: 90%;
-            max-width: 780px;
-            border-radius: 24px;
+        .modal-window {
+            background: #ffffff;
+            width: 100%;
+            max-width: 820px;
+            border-radius: var(--radius-xl);
             overflow: hidden;
-            position: relative;
-            transform: scale(0.95);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
+            transform: scale(0.96) translateY(20px);
             transition: var(--transition);
-            max-height: 88vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
 
-        .modal.active .modal-content {
-            transform: scale(1);
+        .modal-overlay.active .modal-window {
+            transform: scale(1) translateY(0);
         }
 
-        .close-btn {
+        .modal-dismiss-btn {
             position: absolute;
             top: 1rem;
-            right: 1.5rem;
-            font-size: 1.8rem;
+            right: 1.2rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
             cursor: pointer;
-            color: #94a3b8;
-            z-index: 10;
+            z-index: 50;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: var(--transition);
         }
 
-        .modal-hero {
-            height: auto;
-            aspect-ratio: 1600 / 972;
-            background: #0f172a;
+        .modal-dismiss-btn:hover {
+            background: #000000;
+            transform: rotate(90deg);
+        }
+
+        .modal-theater-screen {
             position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000000;
             overflow: hidden;
         }
 
-        .modal-hero img, .modal-hero video {
+        .modal-theater-screen video, .modal-theater-screen img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
         }
 
-        /* --- 弹窗内的滚动相册样式 --- */
-        .carousel-track {
+        .gallery-rail {
             display: flex;
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             height: 100%;
             width: 100%;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .carousel-slide {
+        .gallery-item {
             flex: 0 0 100%;
             height: 100%;
-            position: relative;
+            background: #000000;
         }
 
-        .carousel-btn {
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .gallery-control-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.85);
-            color: #1e293b;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            color: var(--dark);
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            z-index: 30;
-            border: none;
+            z-index: 20;
             transition: var(--transition);
         }
 
-        .carousel-btn:hover {
-            background: #1e293b;
-            color: #ffffff;
+        .gallery-control-btn:hover { background: #ffffff; transform: translateY(-50%) scale(1.1); }
+        .gallery-prev { left: 1rem; }
+        .gallery-next { right: 1rem; }
+
+        .modal-article-body {
+            padding: 2rem 2.25rem;
+            overflow-y: auto;
         }
 
-        .carousel-prev { left: 1rem; }
-        .carousel-next { right: 1rem; }
-
-        .carousel-indicators {
-            position: absolute;
-            bottom: 1rem;
-            left: 50%;
-            transform: translateX(-50%);
+        .modal-badge-row {
             display: flex;
-            gap: 0.5rem;
-            z-index: 30;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.75rem;
         }
 
-        .carousel-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: var(--transition);
+        .modal-tag-chip {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: rgba(224, 242, 254, 0.6);
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
         }
 
-        .carousel-dot.active {
-            background: #ffffff;
-            width: 20px;
-            border-radius: 4px;
-        }
-
-        .modal-body {
-            padding: 2.5rem;
-        }
-
-        .modal-body h2 {
+        .modal-heading {
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
         }
 
-        .modal-tag {
-            display: inline-block;
-            background: #f0f9ff;
-            color: #0369a1;
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-desc {
-            margin-bottom: 1.5rem;
-            color: #475569;
+        .modal-narrative {
             font-size: 0.9rem;
+            line-height: 1.75;
+            color: #475569;
             text-align: justify;
-            line-height: 1.7;
+            margin-bottom: 1.5rem;
         }
 
-        .tech-stack {
+        .tech-box-card {
             background: #f8fafc;
-            padding: 1rem;
-            border-radius: 12px;
-            border-left: 4px solid #38bdf8;
-            font-size: 0.85rem;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 1.1rem;
+            font-size: 0.84rem;
         }
 
-        /* --- 页脚 --- */
+        .tech-box-card span {
+            font-weight: 700;
+            color: var(--dark);
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
         footer {
-            background: #f8fafc;
-            color: #94a3b8;
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.75rem;
+            background: #ffffff;
             border-top: 1px solid #e2e8f0;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- 胶囊导航栏 -->
     <header>
         <nav class="nav-container">
-            <div class="logo">个人主页</div>
-            <ul class="nav-links">
-                <li><a href="#hero" class="active">关于我</a></li>
-                <li><a href="#portfolio">设计作品</a></li>
-            </ul>
+            <div class="nav-brand">
+                <span class="pulse-dot"></span>
+                <span>ZHU JIN</span>
+            </div>
+            <div class="nav-links">
+                <a href="#hero" class="active">个人概况</a>
+                <a href="#portfolio">核心作品</a>
+            </div>
         </nav>
     </header>
 
-    <!-- 第一页：左右并分布局的个人简介区 -->
-    <section id="hero" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding-top: 6rem;">
+    <section id="hero">
         <div class="intro-grid">
             
-            <!-- 【左侧分栏】：名片名牌卡 -->
-            <div class="diary-left-card">
-                <div class="hero-avatar">
-                    <i class="fa-solid fa-face-smile-beam"></i>
+            <div class="glass-panel profile-card">
+                <div class="profile-header">
+                    <div class="avatar-box">
+                        <div class="avatar-inner">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                    </div>
+                    <h1 class="user-name">朱晋</h1>
+                    <span class="user-tagline">数字媒体技术 · 本科在读</span>
                 </div>
-                <h1 style="font-size: 1.8rem; font-weight: 700; color: var(--dark-color); margin-bottom: 0.2rem;">朱晋</h1>
-                <p style="font-size: 0.8rem; font-weight: 600; color: #0d9488; margin-bottom: 1.2rem;">数字媒体技术 · 本科在读</p>
-                
-                <p style="color: #64748b; font-size: 0.8rem; text-align: justify; line-height: 1.6; border-top: 1px dashed rgba(14, 165, 233, 0.15); padding-top: 1rem;">
+
+                <p class="bio-text">
                     我是数媒技术专业大四在读的学生。平时热衷于钻研虚幻引擎交互机制、AIGC 视觉叙事与界面落地。在创作与工程实现中，我注重探究底层原理，兼顾视觉质感与工程落地性。对待细节有极高的耐性与自驱力，乐于尝试新技术工具，希望能不断创作出兼具观赏性与实用价值的高品质数字化作品。
                 </p>
 
-                <!-- 详细联系方式 -->
-                <div style="text-align: left; display: inline-block; font-size: 0.8rem; color: #64748b; margin-top: 1.2rem; border-top: 1px dashed rgba(14, 165, 233, 0.15); padding-top: 1rem; width: 100%; max-width: 240px;">
-                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <i class="fa-solid fa-phone" style="color: #0284c7; width: 14px; text-align: center;"></i>
-                        <span>电话：150-6762-0415</span>
+                <div class="contact-stack">
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>150-6762-0415</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <i class="fa-solid fa-envelope" style="color: #0284c7; width: 14px; text-align: center;"></i>
-                        <span>邮箱：sickoez@outlook.com</span>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>sickoez@outlook.com</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <i class="fa-brands fa-github" style="color: #0284c7; width: 14px; text-align: center;"></i>
-                        <span>主页：github.com/SickoEz</span>
+                    <div class="contact-item">
+                        <i class="fa-brands fa-github"></i>
+                        <span>github.com/SickoEz</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                        <i class="fa-solid fa-location-dot" style="color: #0284c7; width: 14px; text-align: center;"></i>
-                        <span>城市：浙江省杭州市</span>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>浙江省杭州市（可随时到岗）</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; border-top: 1px dotted rgba(14, 165, 233, 0.15); padding-top: 0.5rem; font-size: 0.75rem; color: #94a3b8;">
-                        <i class="fa-solid fa-award" style="color: #0284c7; width: 14px; text-align: center;"></i>
-                        <span>证书：英语四级 · 普通话二乙</span>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-certificate"></i>
+                        <span>英语四级 · 普通话二乙</span>
                     </div>
                 </div>
 
-                <div style="text-align: center; margin-top: 1.5rem;">
-                    <a href="#portfolio" class="btn">浏览作品</a>
-                </div>
+                <a href="#portfolio" class="action-cta-btn">
+                    <span>浏览核心作品展台</span>
+                    <i class="fa-solid fa-arrow-down"></i>
+                </a>
             </div>
 
-            <!-- 【右侧分栏】：履历展示 -->
-            <div class="diary-right-content space-y-5">
-                <!-- 教育流 -->
-                <div style="border-bottom: 1px dashed rgba(14, 165, 233, 0.15); padding-bottom: 1rem;">
-                    <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;">
-                        <i class="fa-solid fa-graduation-cap text-sky-500"></i> 教育背景
-                    </h3>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: #334155;">
-                        <span style="flex-grow: 1;">浙江水利水电学院 · 数字媒体技术 (本科在读)</span>
-                        <span style="color: #94a3b8;">2023 - 2027</span>
-                    </div>
-                    <p style="font-size: 0.75rem; color: #64748b; line-height: 1.5; margin-top: 0.4rem;">
-                        <strong>专业核心课：</strong>虚幻引擎三维关卡设计、用户体验与交互设计、次世代PBR材质贴图流、数字媒体技术导论、前端开发技术基础。
-                    </p>
-                </div>
-
-                <!-- 校园工作与综合经历 -->
-                <div style="border-bottom: 1px dashed rgba(14, 165, 233, 0.15); padding-bottom: 1rem;">
-                    <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;">
-                        <i class="fa-solid fa-users text-sky-500"></i> 校园骨干与综合实践
-                    </h3>
-                    <div style="font-size: 0.75rem; color: #64748b;" class="space-y-1.5">
-                        <p>• <strong>班级学习委员：</strong>担任任课教师与全班同学的核心沟通纽带，高效同步课业任务与考试信息，组织专业技术互助与资料共享，强化班级凝聚力与学风建设。</p>
-                        <p>• <strong>学院学生会 · 学习部骨干：</strong>深度参与策划并落地“学风建设月”、学术经验分享会与技能讲座，负责物料统筹、考务考勤记录与数据整理归档，具备较强的多线程协作能力。</p>
-                    </div>
-                </div>
-
-                <!-- 个人优势与工作态度 -->
-                <div style="border-bottom: 1px dashed rgba(14, 165, 233, 0.15); padding-bottom: 1rem;">
-                    <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.6rem;">
-                        <i class="fa-solid fa-heart text-sky-500"></i> 个人优势与技术态度
-                    </h3>
-                    <div style="font-size: 0.75rem; color: #64748b;" class="space-y-1.5">
-                        <p>• <strong>务实自驱与工程落地：</strong>无论是三维蓝图逻辑还是动态效果调优，都提前考量渲染消耗与落地可行性，输出规范化的工程工程方案。</p>
-                        <p>• <strong>善用 AI 前沿工具赋能创作：</strong>熟练利用最新 AI 视效生成工具、大型语言模型协助资料检索、灵感发散、脚本调试及多媒体资产分层制作，具备极强的自主检索与问题解决能力。</p>
-                    </div>
-                </div>
-
-                <!-- 工具栈 -->
+            <div class="glass-panel experience-flow">
+                
                 <div>
-                    <h3 style="font-size: 0.85rem; font-weight: 700; color: var(--dark-color); display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.5rem;">
-                        <i class="fa-solid fa-layer-group text-sky-500"></i> 技术工具栈
-                    </h3>
-                    <div class="tag-chips">
-                        <span class="tag-chip">Unreal Engine 5</span>
-                        <span class="tag-chip">AI 视效工具 / AIGC</span>
-                        <span class="tag-chip">Blender / 3ds Max</span>
-                        <span class="tag-chip">Substance 3D</span>
-                        <span class="tag-chip">Figma / PS</span>
-                        <span class="tag-chip">HTML5 / CSS3 / JS</span>
+                    <div class="flow-block-title">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>教育背景</span>
+                    </div>
+                    <div class="edu-card-body">
+                        <div class="edu-headline">
+                            <span>浙江水利水电学院 · 数字媒体技术 (本科在读)</span>
+                            <span class="time-badge">2023 - 2027</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #64748b; line-height: 1.6; margin-top: 0.35rem;">
+                            <strong>核心课业：</strong>虚幻引擎三维关卡设计、用户体验与交互设计、次世代 PBR 材质贴图流、数字媒体技术导论、前端开发技术基础。
+                        </p>
                     </div>
                 </div>
+
+                <div>
+                    <div class="flow-block-title">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <span>校园骨干经历与组织协同</span>
+                    </div>
+                    <div class="highlight-bullets">
+                        <div class="highlight-item">
+                            <span class="bullet-icon"><i class="fa-solid fa-check"></i></span>
+                            <div>
+                                <strong>班级学习委员：</strong>担任任课教师与全班同学的核心沟通纽带，高效同步课业任务与考务规范，自驱组织课后技术互助与资料共享，强化班级学风建设。
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="bullet-icon"><i class="fa-solid fa-check"></i></span>
+                            <div>
+                                <strong>学院学生会 · 学习部骨干：</strong>深度参与筹办学院“学风建设月”、学术经验交流沙龙与专业技能宣讲，细致把控物料调度、考勤考务与数据归档，具备敏捷的跨角色协作能力。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flow-block-title">
+                        <i class="fa-solid fa-compass-drafting"></i>
+                        <span>专业态度与工程自驱</span>
+                    </div>
+                    <div class="highlight-bullets">
+                        <div class="highlight-item">
+                            <span class="bullet-icon"><i class="fa-solid fa-layer-group"></i></span>
+                            <div>
+                                <strong>务实自驱与落地思维：</strong>在设计与蓝图开发阶段注重代码实现成本与渲染性能调优，拒绝脱离实装的“飞机稿”，输出对开发友好的规范化工程方案。
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="bullet-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                            <div>
+                                <strong>AI 工具链赋能增效：</strong>积极探索 AIGC 工具在分层原画生成、角色动作序列打磨与脚本编写中的赋能价值，具有较强的新技术检索与自主攻坚能力。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flow-block-title">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <span>熟练工具栈</span>
+                    </div>
+                    <div class="tech-pill-grid">
+                        <span class="tech-pill">Unreal Engine 5</span>
+                        <span class="tech-pill">AIGC 视效生成</span>
+                        <span class="tech-pill">Blender / 3ds Max</span>
+                        <span class="tech-pill">Substance 3D Painter</span>
+                        <span class="tech-pill">Figma / Photoshop</span>
+                        <span class="tech-pill">HTML5 / CSS3 / JavaScript</span>
+                    </div>
+                </div>
+
             </div>
 
         </div>
     </section>
 
-    <div class="lace-divider"></div>
-
-    <!-- 第二页：多媒体项目横向可滚动流（AI动画视频短片置于第一位） -->
     <section id="portfolio">
-        <h2 class="section-title">核心作品展台</h2>
-        
-        <!-- 横向滚动控制台包装 -->
-        <div class="scroll-stage-wrapper">
-            <!-- 左右平滑滚动切页按钮 -->
-            <button class="scroll-control-btn scroll-btn-left" onclick="slideContainer('left')"><i class="fa-solid fa-chevron-left"></i></button>
-            <button class="scroll-control-btn scroll-btn-right" onclick="slideContainer('right')"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="section-header">
+            <span class="section-badge"><i class="fa-solid fa-shapes"></i> Selected Portfolio</span>
+            <h2 class="section-title">核心作品展台</h2>
+        </div>
 
-            <!-- 核心滚动轨 -->
-            <div class="scroll-track-container" id="scrollTrack">
+        <div class="stage-carousel-wrapper">
+            <button class="stage-nav-btn prev-btn" onclick="slideCarousel('left')">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="stage-nav-btn next-btn" onclick="slideCarousel('right')">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+
+            <div class="stage-scroll-container" id="stageTrack">
                 
-                <!-- 【第一顺位】新增 AI 动画短片项目 -->
-                <div class="portfolio-card" onclick="openModal('ai_corruption_film')">
-                    <div class="portfolio-thumb">
-                        <!-- 素材引用：玉琮杯短片视频文件 -->
-                        <video src="数媒23-4_朱晋_失守：小王的选择_1080p.mp4" poster="玉琮杯-朱晋-海报.png" autoplay loop muted playsinline></video>
+                <div class="work-card" onclick="openWorkModal('ai_corruption_film')">
+                    <div class="work-media-box">
+                        <span class="badge-type">AIGC 视效动画</span>
+                        <video src="corruption.mp4" poster="corruption.png" muted loop playsinline></video>
+                        <div class="play-hint-overlay"><i class="fa-solid fa-play"></i></div>
                     </div>
-                    <div class="portfolio-info">
+                    <div class="work-details">
                         <h3>《一念越界，终须担责》廉洁警示动画短片</h3>
-                        <p>全国“玉琮杯”大赛参评作品。结合手绘剪纸与复古档案拼贴风格，借助 AI 辅助分层绘图与微动效，打造富有隐喻感的光影递进叙事。</p>
+                        <p>全国“玉琮杯”大赛参评短片。融合复古档案拼贴与手绘剪纸风，依托 AI 辅助分层绘图与微动效，打造光影隐喻叙事。</p>
+                        <div class="work-meta-row">
+                            <span>全国大赛参评</span>
+                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 【第二顺位】校园数字孪生大屏 -->
-                <div class="portfolio-card" onclick="openModal('smart_campus')">
-                    <div class="portfolio-thumb">
-                        <video src="campus.mp4" autoplay loop muted playsinline></video>
+                <div class="work-card" onclick="openWorkModal('smart_campus')">
+                    <div class="work-media-box">
+                        <span class="badge-type">三维可视化能耗大屏</span>
+                        <video src="campus.mp4" muted loop playsinline></video>
+                        <div class="play-hint-overlay"><i class="fa-solid fa-play"></i></div>
                     </div>
-                    <div class="portfolio-info">
+                    <div class="work-details">
                         <h3>《校园数字孪生智能平台》三维可视化</h3>
-                        <p>设计并实现了一套对称双翼大屏。在 UE5 中集成天气与光影蓝图，打通 UI 与控制器通信，支持晴雨昼夜平滑过渡与镜头轨道平滑跟随。</p>
+                        <p>在 UE5 中集成天气与光影环境蓝图，打通 UI 与控制器通信，实现晴雨昼夜平滑过渡与镜头轨道跟随。</p>
+                        <div class="work-meta-row">
+                            <span>数字孪生 / 交互蓝图</span>
+                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 【第三顺位】Sugar Dock -->
-                <div class="portfolio-card" onclick="openModal('sugar_dock')">
-                    <div class="portfolio-thumb">
+                <div class="work-card" onclick="openWorkModal('sugar_dock')">
+                    <div class="work-media-box">
+                        <span class="badge-type">轻互动探索小游戏</span>
                         <img src="sugar_dock.png" alt="Sugar Dock" onerror="this.src='https://placehold.co/800x486/fbcfe8/be185d?text=Sugar+Dock'">
+                        <div class="play-hint-overlay"><i class="fa-solid fa-images"></i></div>
                     </div>
-                    <div class="portfolio-info">
+                    <div class="work-details">
                         <h3>《Sugar Dock》二次元唯美探索小游戏</h3>
-                        <p>在虚幻 5 中搭建唯美马卡龙海湾场景，设计沉浸式角色漫游探索、触控交互热区与粒子轻动效反馈。</p>
+                        <p>基于虚幻 5 搭建唯美马卡龙海湾场景，重构探索移动控制与触控交互热区，营造治愈系粒子微动效反馈。</p>
+                        <div class="work-meta-row">
+                            <span>UE5 场景 / 交互微动效</span>
+                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- 【第四顺位】海外金融 App -->
-                <div class="portfolio-card" onclick="openModal('finance_app')">
-                    <div class="portfolio-thumb">
+                <div class="work-card" onclick="openWorkModal('finance_app')">
+                    <div class="work-media-box">
+                        <span class="badge-type">移动端 UI/UX 全案</span>
                         <img src="finance.jpg" alt="海外金融App" onerror="this.src='https://placehold.co/800x486/bae6fd/0369a1?text=Finance+App'">
+                        <div class="play-hint-overlay"><i class="fa-solid fa-images"></i></div>
                     </div>
-                    <div class="portfolio-info">
+                    <div class="work-details">
                         <h3>全球化海外移动端钱包金融全案</h3>
-                        <p>规范化设计多币种折算、密码重设与转账交互全流程，通过呼吸感蓝白配比构建安全轻盈的体验闭环。</p>
+                        <p>规范化推演多币种实时折算、账户安全校验与核心转账流程闭环，打造呼吸感高对比度金融交互规范。</p>
+                        <div class="work-meta-row">
+                            <span>UI/UX 规范 / 交互原型</span>
+                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
                     </div>
                 </div>
 
@@ -727,208 +979,171 @@
         </div>
     </section>
 
-    <!-- 多媒体自适应模态弹窗（支持视频原生播放与相册画廊交互） -->
-    <div class="modal" id="portfolioModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div class="modal-overlay" id="workModal" onclick="dismissModal()">
+        <div class="modal-window" onclick="event.stopPropagation()">
+            <button class="modal-dismiss-btn" onclick="dismissModal()">&times;</button>
             
-            <!-- 顶置多媒体展示舞台 -->
-            <div class="modal-hero" id="modalMediaStage"></div>
+            <div class="modal-theater-screen" id="modalScreen"></div>
             
-            <div class="modal-body">
-                <h2 id="modalTitle">作品名称</h2>
-                <span class="modal-tag" id="modalTag">分类</span>
-                <p class="modal-desc" id="modalDesc">作品详细描述...</p>
+            <div class="modal-article-body">
+                <div class="modal-badge-row">
+                    <span class="modal-tag-chip" id="modalTag">分类</span>
+                </div>
+                <h2 class="modal-heading" id="modalTitle">作品名称</h2>
+                <p class="modal-narrative" id="modalDesc">作品详细描述...</p>
                 
-                <div class="tech-stack">
-                    <strong>涉及软件与技术方法：</strong>
-                    <p id="modalTech" style="margin-top: 0.3rem; font-family: monospace; color: #64748b; font-size: 0.8rem;"></p>
+                <div class="tech-box-card">
+                    <span>涉及软件与核心技术方法：</span>
+                    <p id="modalTech" style="color: #64748b; font-family: monospace;"></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 页脚 -->
     <footer>
-        <p>&copy; 2026 朱晋. 响应式多媒体作品展示个人档案.</p>
+        <p>&copy; 2026 朱晋. 个人多媒体作品展台与工程实践档案.</p>
     </footer>
 
-    <!-- 交互逻辑 JavaScript -->
     <script>
-        // 核心多媒体数据源
-        const projectData = {
+        const worksDatabase = {
             ai_corruption_film: {
                 title: "《一念越界，终须担责》廉洁警示教育动画短片",
-                tag: "全国“玉琮杯”大赛参评作品 / AI 辅助动画与叙事设计",
+                tag: "全国“玉琮杯”大赛参评作品 / AIGC 视觉叙事",
                 type: "video",
-                mediaUrl: "数媒23-4_朱晋_失守：小王的选择_1080p.mp4",
-                poster: "玉琮杯-朱晋-海报.png",
-                desc: "以主人公财务青年“小王”步步失守的抉择为叙事主线，采用复古牛皮档案拼贴与手绘剪纸画风。创作中综合运用 AI 工具辅助生成角色各角度分层、关键表情与道具资产，并完成抠像、分层绑定与动态微动效合成。重点设计了剧情推动的光影隐喻：从开篇平淡安稳的暖黄平光，到利欲侵蚀时的深褐压抑暗调，再到结局违纪暴露时冷硬刺目的审讯强光，实现叙事内核、道具元素与视效节奏的有机融合。",
-                tech: "数媒23-4_朱晋_失守：小王的选择_1080p.mp4 / AI 分层绘图 / 复古拼贴剪纸风格 / 视觉动效合成 / 光影隐喻体系设计"
+                mediaUrl: "corruption.mp4",
+                poster: "corruption.png",
+                desc: "以职场青年小王步步失守的抉择为叙事核心，采用复古档案拼贴与手绘剪纸画风。创作中综合运用 AI 工具辅助生成角色多视角、分层姿态与道具资产，完成抠像、分级骨骼绑定与动态视效合成。影片核心设计了光影递进隐喻：从开篇平淡安稳的暖黄平光，到利欲滋生时的局促深褐暗调，再到结局违纪暴露时冰冷刺目的强光，让环境光影、道具状态与心理防线崩解同频共振。",
+                tech: "corruption.mp4 / AI 分层绘图 / 复古档案剪纸风 / 镜头动效合成 / 光影隐喻体系"
             },
             smart_campus: {
                 title: "《校园数字孪生智能平台》三维大屏可视化",
-                tag: "数字孪生大屏 / 后勤数据集成",
+                tag: "数字孪生系统 / B端大屏交互",
                 type: "video",
                 mediaUrl: "campus.mp4",
-                desc: "针对学校做的一个智慧后勤大屏。主要解决复杂多源信息堆在一起不好看、不直观的毛病。将复杂的能耗、安防、车辆等底层数据重新规划，分别整理成半透明的侧边卡片，中间留给三维校区模型展示，完美解决了大屏数据堆积混乱的问题。系统深度打通气象控制蓝图，通过点击控制UI能够让关卡环境一键平滑过渡至早、晚、晴、夜气象状态，并具备视点跟踪与拉近逻辑。",
-                tech: "campus.mp4 / B端数据大屏排版 / 气象控制器联动机制 / 镜头轨道动画绑定"
+                desc: "针对传统智慧校园监控大屏数据繁杂堆叠的痛点，创新设计半透明双翼卡片化界面，将底层安防、能耗及车辆监控信息归集展示。深度打通虚幻引擎 5 关卡气象与光影系统通信蓝图，通过界面控件触发昼夜平滑过渡、晴雨切换及全景相机轨道跟随轨迹，兼具工业级落地性与视觉科技感。",
+                tech: "campus.mp4 / Unreal Engine 5 蓝图交互 / 气象控制器数据通信 / 镜头轨道动画绑定 / B端卡片布局规范"
             },
             sugar_dock: {
-                title: "Sugar Dock - 基于 UE5 的唯美二次元探索小游戏",
-                tag: "UE5 场景搭建 / 轻互动探索",
+                title: "《Sugar Dock》二次元唯美探索小游戏",
+                tag: "UE5 独立小游戏 / 轻度探索",
                 type: "gallery",
-                images: [
-                    "sugar_dock.png",
-                    "sugar_dock_2.png",
-                    "sugar_dock_3.png"
-                ],
-                desc: "在虚幻引擎5里搭建的一个清新风格的海湾唯美探索场景。搭建了完整的角色第三人称移动与相机视角控制蓝图，设计了探索道具触发、环境粒子动效反馈。同时调校了一套带高亮白色描边的轻质感半透明粉紫控制面板，兼具游玩趣味与唯美清爽的视觉表现力。",
-                tech: "Unreal Engine 5 关卡搭建 / 角色移动与交互蓝图 / 唯美粉系调色 / 动效粒子反馈"
+                images: ["sugar_dock.png", "sugar_dock_2.png", "sugar_dock_3.png"],
+                desc: "在虚幻引擎 5 中搭建马卡龙粉紫配色的治愈系海湾关卡。设计了第三人称轻盈跳跃移动操控、探索收集物触发及治愈系环境音画粒子反馈。针对 3D 复杂背景，专门调校了带高亮白色描边、半透明磨砂质感的触控界面与微动效热区，保障了高易读性与沉浸感。",
+                tech: "Unreal Engine 5 关卡场景搭建 / 角色移动与交互蓝图 / 唯美粉色系调色 / 动效粒子反馈"
             },
             finance_app: {
-                title: "全球化海外移动金融 / 银行App体验设计",
-                tag: "移动端 UI/UX",
+                title: "全球化海外移动端钱包金融 App 体验全案",
+                tag: "移动端体验设计 / UI/UX 全案",
                 type: "gallery",
-                images: [
-                    "finance.jpg",
-                    "finance_2.jpg",
-                    "finance_3.jpg"
-                ],
-                desc: "做了一套海外手机钱包的操作流程。重点思考怎样通过清爽、干净的深蓝和白色搭配，把繁琐的多币种换算、密码安全校验和核心转账页面理顺，弱化用户填数据时的焦虑感。遵循金融无障碍交互准则，以大面积透亮呼吸白底座烘托操作安全与极简体验，全案推演并动效化落地了转账（Transfer）流程闭环。",
-                tech: "移动端高保真原型设计 / 多语言与多币种界面适配 / Figma"
+                images: ["finance.jpg", "finance_2.jpg", "finance_3.jpg"],
+                desc: "立足跨国金融场景设计的电子钱包交互全流程方案。合理规划账户登录验证、多币种实时折算及快速转账页面的视觉层级与操作链路。采用呼吸感极强的清透深蓝与大面积留白，有效降低金融交易中的操作焦虑，全链路动效验证了转账业务闭环。",
+                tech: "Figma 高保真组件库 / 多语言界面适配 / 金融业务状态流全链路推演"
             }
         };
 
-        // 当前弹窗内的幻灯片索引
-        let modalSlideIndex = 0;
-        let activeGalleryImages = [];
+        let currentGalleryIndex = 0;
+        let activeGalleryList = [];
 
-        // 主界面横向滚动卡片
-        function slideContainer(direction) {
-            const track = document.getElementById('scrollTrack');
-            const scrollAmount = 350; 
+        function slideCarousel(direction) {
+            const track = document.getElementById('stageTrack');
+            const step = 380;
             if (direction === 'left') {
-                track.scrollLeft -= scrollAmount;
+                track.scrollLeft -= step;
             } else {
-                track.scrollLeft += scrollAmount;
+                track.scrollLeft += step;
             }
         }
 
-        // 弹窗开启与渲染引擎
-        function openModal(id) {
-            const data = projectData[id];
-            if(!data) return;
-            
+        document.querySelectorAll('.work-card').forEach(card => {
+            const video = card.querySelector('video');
+            if (video) {
+                card.addEventListener('mouseenter', () => {
+                    video.play().catch(() => {});
+                });
+                card.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            }
+        });
+
+        function openWorkModal(id) {
+            const data = worksDatabase[id];
+            if (!data) return;
+
             document.getElementById('modalTitle').innerText = data.title;
             document.getElementById('modalTag').innerText = data.tag;
             document.getElementById('modalDesc').innerText = data.desc;
             document.getElementById('modalTech').innerText = data.tech;
-            
-            const stage = document.getElementById('modalMediaStage');
-            stage.innerHTML = ''; 
-            
-            if (data.type === "video") {
-                // 渲染带控制条的高清视频播放器
-                stage.innerHTML = `
+
+            const screen = document.getElementById('modalScreen');
+            screen.innerHTML = '';
+
+            if (data.type === 'video') {
+                screen.innerHTML = `
                     <video src="${data.mediaUrl}" 
                            ${data.poster ? `poster="${data.poster}"` : ''} 
                            autoplay controls playsinline 
                            style="width: 100%; height: 100%; object-fit: contain; background: #000;">
                     </video>
                 `;
-            } else if (data.type === "gallery") {
-                // 渲染带平滑左右滚动的相册交互器
-                activeGalleryImages = data.images;
-                modalSlideIndex = 0;
-                
-                let slidesHTML = '';
-                let dotsHTML = '';
-                
-                activeGalleryImages.forEach((imgSrc, idx) => {
-                    slidesHTML += `
-                        <div class="carousel-slide flex-shrink-0 w-full h-full">
-                            <img src="${imgSrc}" style="width: 100%; height: 100%; object-fit: cover;" alt="作品大图 ${idx + 1}" onerror="this.src='https://placehold.co/800x486/e2e8f0/64748b?text=Image+Load+Failed'">
+            } else if (data.type === 'gallery') {
+                activeGalleryList = data.images;
+                currentGalleryIndex = 0;
+
+                let slidesHtml = '';
+                activeGalleryList.forEach(src => {
+                    slidesHtml += `
+                        <div class="gallery-item">
+                            <img src="${src}" onerror="this.src='https://placehold.co/800x450/e2e8f0/64748b?text=Image+Load+Failed'">
                         </div>
-                    `;
-                    dotsHTML += `
-                        <span class="carousel-dot ${idx === 0 ? 'active' : ''}" onclick="setModalSlide(${idx})" data-index="${idx}"></span>
                     `;
                 });
 
-                stage.innerHTML = `
+                screen.innerHTML = `
                     <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
-                        <div class="carousel-track" id="modalCarouselTrack">
-                            ${slidesHTML}
-                        </div>
-                        <button class="carousel-btn carousel-prev" onclick="prevModalSlide(event)"><i class="fa-solid fa-chevron-left"></i></button>
-                        <button class="carousel-btn carousel-next" onclick="nextModalSlide(event)"><i class="fa-solid fa-chevron-right"></i></button>
-                        <div class="carousel-indicators">
-                            ${dotsHTML}
-                        </div>
+                        <div class="gallery-rail" id="galleryRail">${slidesHtml}</div>
+                        <button class="gallery-control-btn gallery-prev" onclick="shiftGallery(event, -1)">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button class="gallery-control-btn gallery-next" onclick="shiftGallery(event, 1)">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
                     </div>
                 `;
             }
-            
-            document.getElementById('portfolioModal').classList.add('active');
+
+            document.getElementById('workModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        // 幻灯片滚动触发
-        function updateModalCarousel() {
-            const track = document.getElementById('modalCarouselTrack');
-            if (!track) return;
-            track.style.transform = `translateX(-${modalSlideIndex * 100}%)`;
-            
-            const dots = document.querySelectorAll('.carousel-dot');
-            dots.forEach((dot, idx) => {
-                if (idx === modalSlideIndex) {
-                    dot.classList.add('active');
-                } else {
-                    dot.classList.remove('active');
-                }
-            });
-        }
-
-        function prevModalSlide(e) {
-            if(e) e.stopPropagation();
-            modalSlideIndex = (modalSlideIndex - 1 + activeGalleryImages.length) % activeGalleryImages.length;
-            updateModalCarousel();
-        }
-
-        function nextModalSlide(e) {
-            if(e) e.stopPropagation();
-            modalSlideIndex = (modalSlideIndex + 1) % activeGalleryImages.length;
-            updateModalCarousel();
-        }
-
-        function setModalSlide(idx) {
-            modalSlideIndex = idx;
-            updateModalCarousel();
-        }
-
-        // 弹窗关闭
-        function closeModal() {
-            const stage = document.getElementById('modalMediaStage');
-            const video = stage.querySelector('video');
-            if(video) {
-                video.pause();
+        function shiftGallery(e, step) {
+            if (e) e.stopPropagation();
+            currentGalleryIndex = (currentGalleryIndex + step + activeGalleryList.length) % activeGalleryList.length;
+            const rail = document.getElementById('galleryRail');
+            if (rail) {
+                rail.style.transform = `translateX(-${currentGalleryIndex * 100}%)`;
             }
-            document.getElementById('portfolioModal').classList.remove('active');
-            stage.innerHTML = ''; 
         }
 
-        // 导航栏平滑过渡绑定
-        const navLinks = document.querySelectorAll('.nav-links a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+        function dismissModal() {
+            const screen = document.getElementById('modalScreen');
+            const video = screen.querySelector('video');
+            if (video) video.pause();
+            document.getElementById('workModal').classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => { screen.innerHTML = ''; }, 300);
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', e => {
                 e.preventDefault();
-                navLinks.forEach(l => l.classList.remove('active'));
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
                 link.classList.add('active');
-                
-                const targetId = link.getAttribute('href');
-                document.querySelector(targetId).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     </script>
