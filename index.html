@@ -3,535 +3,1148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>朱晋 - 个人简历</title>
-    <!-- 引入国内高可用 FontAwesome 图标库 -->
-    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- 引入本地端纯纯前端 qrcode 库生成清晰矢量二维码 -->
-    <script src="https://cdn.bootcdn.net/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>朱晋 | 个人主页与多媒体交互展台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary: #0284c7;
+            --primary-light: #38bdf8;
+            --primary-dark: #0369a1;
+            --accent: #0d9488;
+            --dark: #0f172a;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --text-light: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.78);
+            --glass-border: rgba(255, 255, 255, 0.9);
+            --glass-shadow: 0 20px 45px -10px rgba(14, 165, 233, 0.12), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+            font-family: 'Plus Jakarta Sans', 'Noto Sans SC', sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        @page {
-            size: A4 portrait;
-            margin: 0;
-        }
-
         body {
-            background-color: #e2e8f0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 24px 0;
-            color: #1e293b;
-            line-height: 1.5;
+            background-color: #f0f9ff;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(186, 230, 253, 0.45) 0%, transparent 40%),
+                radial-gradient(circle at 90% 10%, rgba(224, 242, 254, 0.6) 0%, transparent 35%),
+                linear-gradient(180deg, #bae6fd 0%, #e0f2fe 30%, #f8fafc 85%, #ffffff 100%);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* 顶部悬浮打印工具条 */
-        .print-floating-bar {
+        a { text-decoration: none; color: inherit; }
+
+        header {
             position: fixed;
-            top: 16px;
-            right: 24px;
-            z-index: 9999;
-            display: flex;
-            gap: 12px;
+            top: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 540px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 12px 36px rgba(14, 165, 233, 0.12);
+            border-radius: 9999px;
+            z-index: 1000;
         }
 
-        .print-btn {
-            background: linear-gradient(135deg, #0284c7, #0369a1);
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 9999px;
-            cursor: pointer;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.6rem 1.75rem;
+        }
+
+        .nav-brand {
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
+            gap: 0.5rem;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--primary-dark);
         }
 
-        .print-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
-            background: #0369a1;
+        .nav-brand .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
         }
 
-        /* A4 画布容器（锁定 210mm x 297mm） */
-        .resume-sheet {
-            width: 210mm;
-            height: 297mm;
-            background: #ffffff;
-            padding: 14mm 16mm 14mm 16mm;
+        .nav-links {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            gap: 0.5rem;
+            background: rgba(241, 245, 249, 0.6);
+            padding: 0.25rem;
+            border-radius: 9999px;
+        }
+
+        .nav-links a {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            padding: 0.4rem 1.1rem;
+            border-radius: 9999px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--dark);
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        section {
+            padding: 7rem 1.5rem 4rem 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            background: rgba(224, 242, 254, 0.7);
+            padding: 0.35rem 0.9rem;
+            border-radius: 9999px;
+            margin-bottom: 0.75rem;
+            border: 1px solid rgba(186, 230, 253, 0.6);
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        @media (min-width: 992px) {
+            .intro-grid {
+                grid-template-columns: 380px 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .profile-card {
+            padding: 2.5rem 2rem;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        /* 1. 顶部身份与联系方式栏 */
-        .header-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 2mm;
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(13, 148, 136, 0.25));
+            z-index: 0;
         }
 
-        .name-wrapper {
-            display: flex;
-            align-items: baseline;
-            gap: 12px;
+        .profile-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1.25rem;
         }
 
-        .name-text {
-            font-size: 28px;
+        .avatar-box {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 1rem auto;
+            border-radius: 50%;
+            background: #ffffff;
+            padding: 4px;
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.2);
+        }
+
+        .avatar-box .avatar-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: var(--primary);
+        }
+
+        .user-name {
+            font-size: 1.6rem;
             font-weight: 800;
-            letter-spacing: 2px;
-            color: #0f172a;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
         }
 
-        .name-subtitle {
-            font-size: 13px;
-            font-weight: 600;
-            color: #0284c7;
-            background: #f0f9ff;
-            padding: 2px 8px;
-            border-radius: 4px;
-            border: 1px solid #bae6fd;
+        .user-tagline {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: rgba(13, 148, 136, 0.1);
+            padding: 0.25rem 0.85rem;
+            border-radius: 9999px;
         }
 
-        .contact-grid {
-            text-align: right;
-            font-size: 11.5px;
-            color: #475569;
+        .bio-text {
+            font-size: 0.84rem;
+            color: var(--text-muted);
+            text-align: justify;
+            line-height: 1.65;
+            margin: 1.25rem 0;
+            padding: 1.25rem 0;
+            border-top: 1px dashed rgba(14, 165, 233, 0.2);
+            border-bottom: 1px dashed rgba(14, 165, 233, 0.2);
+        }
+
+        .contact-stack {
             display: flex;
             flex-direction: column;
-            gap: 2.5px;
+            gap: 0.65rem;
+            text-align: left;
+            margin-bottom: 1.5rem;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            gap: 6px;
+            gap: 0.75rem;
+            font-size: 0.82rem;
+            color: #475569;
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            background: #ffffff;
+            border-color: var(--primary-light);
+            transform: translateX(4px);
         }
 
         .contact-item i {
-            color: #0284c7;
-            width: 14px;
+            width: 18px;
+            color: var(--primary);
             text-align: center;
         }
 
-        /* 2. 作品集与扫码专区 */
-        .portfolio-banner {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 7px 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 3.5mm;
-        }
-
-        .portfolio-info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .portfolio-label {
-            font-size: 11.5px;
-            font-weight: 700;
-            color: #1e293b;
-        }
-
-        .portfolio-link {
-            font-size: 11.5px;
-            font-weight: 600;
-            color: #0284c7;
-            text-decoration: underline;
-            word-break: break-all;
-        }
-
-        .qr-area {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .qr-canvas-box {
-            width: 44px;
-            height: 44px;
-            background: #ffffff;
-            padding: 2px;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
+        .action-cta-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .qr-text {
-            font-size: 10px;
+            gap: 0.6rem;
+            width: 100%;
+            background: linear-gradient(135deg, var(--dark), #1e293b);
+            color: white;
+            padding: 0.85rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.88rem;
             font-weight: 700;
-            color: #475569;
-            line-height: 1.3;
-            text-align: right;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+            transition: var(--transition);
         }
 
-        /* 3. 经典清晰标题栏 */
-        .section-bar {
-            background: linear-gradient(90deg, #f0f9ff 0%, #f8fafc 100%);
-            border-left: 3.5px solid #0284c7;
-            padding: 3px 10px;
-            border-radius: 0 4px 4px 0;
-            font-size: 12px;
-            font-weight: 800;
-            color: #0f172a;
-            letter-spacing: 0.5px;
-            margin-bottom: 2mm;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .action-cta-btn:hover {
+            transform: translateY(-2px);
+            background: #000000;
         }
 
-        /* 4. 教育与经历网格 */
-        .edu-timeline {
+        .experience-flow {
+            padding: 2.5rem;
             display: flex;
             flex-direction: column;
-            gap: 3px;
+            gap: 2rem;
         }
 
-        .row-between {
+        .flow-block-title {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .flow-block-title i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .edu-card-body {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(224, 242, 254, 0.8);
+            padding: 1.25rem;
+            border-radius: var(--radius-lg);
+        }
+
+        .edu-headline {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
             font-weight: 700;
-            color: #0f172a;
+            font-size: 0.92rem;
+            color: var(--dark);
+            margin-bottom: 0.4rem;
         }
 
-        .date-pill {
-            font-size: 11px;
+        .time-badge {
+            font-size: 0.75rem;
             font-weight: 600;
-            color: #0284c7;
-            background: #f0f9ff;
-            padding: 1px 6px;
-            border-radius: 4px;
+            color: var(--primary-dark);
+            background: rgba(186, 230, 253, 0.5);
+            padding: 0.15rem 0.6rem;
+            border-radius: 9999px;
         }
 
-        .edu-details {
-            font-size: 11px;
-            color: #475569;
-            line-height: 1.45;
-        }
-
-        /* 5. 经历与项目模块 */
-        .experience-item, .project-item {
-            margin-bottom: 2.2mm;
-        }
-
-        .experience-item:last-child, .project-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .item-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 2px;
-        }
-
-        .item-title {
-            font-size: 12px;
-            font-weight: 800;
-            color: #0f172a;
-        }
-
-        .item-desc {
-            font-size: 11px;
-            color: #334155;
-            line-height: 1.45;
-            text-align: justify;
-        }
-
-        .item-desc strong {
-            color: #0f172a;
-        }
-
-        /* 6. 专业技能三列排布 */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-        }
-
-        .skill-col {
-            background: #f8fafc;
-            border: 1px solid #f1f5f9;
-            border-radius: 6px;
-            padding: 6px 8px;
-        }
-
-        .skill-head {
-            font-size: 11px;
-            font-weight: 800;
-            color: #0284c7;
-            margin-bottom: 3px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .skill-text {
-            font-size: 10px;
-            color: #475569;
-            line-height: 1.4;
-            text-align: justify;
-        }
-
-        /* 7. 自我评价 */
-        .eval-stack {
+        .highlight-bullets {
             display: flex;
             flex-direction: column;
-            gap: 2.5px;
-            font-size: 11px;
-            color: #334155;
-            line-height: 1.45;
+            gap: 0.75rem;
         }
 
-        /* 打印样式控制 */
-        @media print {
-            body {
-                background: none;
-                padding: 0;
-            }
-            .print-floating-bar {
-                display: none !important;
-            }
-            .resume-sheet {
-                box-shadow: none;
-                padding: 13mm 15mm;
-                width: 210mm;
-                height: 297mm;
-            }
+        .highlight-item {
+            display: flex;
+            gap: 0.75rem;
+            font-size: 0.84rem;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .highlight-item .bullet-icon {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+            border-radius: 6px;
+            background: rgba(14, 165, 233, 0.12);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            margin-top: 0.15rem;
+        }
+
+        .tech-pill-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-pill {
+            background: #ffffff;
+            border: 1px solid #e0f2fe;
+            color: var(--primary-dark);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 0.35rem 0.85rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .tech-pill:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(14, 165, 233, 0.1);
+        }
+
+        #portfolio {
+            position: relative;
+            padding-bottom: 8rem;
+        }
+
+        .stage-carousel-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .stage-scroll-container {
+            display: flex;
+            gap: 1.75rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 1.5rem 0.5rem 2.5rem 0.5rem;
+            snap-type: x mandatory;
+        }
+
+        .stage-scroll-container::-webkit-scrollbar { display: none; }
+
+        .work-card {
+            flex: 0 0 350px;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+            cursor: pointer;
+            snap-align: start;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .work-card { flex: 0 0 360px; }
+        }
+
+        .work-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-light);
+            box-shadow: 0 22px 45px -10px rgba(14, 165, 233, 0.18);
+        }
+
+        .work-media-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9.5;
+            background: #090d16;
+            overflow: hidden;
+        }
+
+        .work-media-box video, .work-media-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .work-card:hover .work-media-box video, 
+        .work-card:hover .work-media-box img {
+            transform: scale(1.05);
+        }
+
+        .badge-type {
+            position: absolute;
+            top: 0.85rem;
+            left: 0.85rem;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            z-index: 2;
+        }
+
+        .play-hint-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .play-hint-overlay i {
+            width: 46px;
+            height: 46px;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(0.85);
+            transition: var(--transition);
+        }
+
+        .work-card:hover .play-hint-overlay { opacity: 1; }
+        .work-card:hover .play-hint-overlay i { transform: scale(1); }
+
+        .work-details {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .work-details h3 {
+            font-size: 1.08rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .work-details p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+        }
+
+        .work-meta-row {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--primary);
+            padding-top: 0.85rem;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .stage-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .stage-nav-btn:hover {
+            background: var(--dark);
+            color: #ffffff;
+            border-color: var(--dark);
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .stage-nav-btn.prev-btn { left: -1.25rem; }
+        .stage-nav-btn.next-btn { right: -1.25rem; }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-window {
+            background: #ffffff;
+            width: 100%;
+            max-width: 820px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
+            transform: scale(0.96) translateY(20px);
+            transition: var(--transition);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-window {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-dismiss-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.2rem;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 50;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: var(--transition);
+        }
+
+        .modal-dismiss-btn:hover {
+            background: #000000;
+            transform: rotate(90deg);
+        }
+
+        .modal-theater-screen {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000000;
+            overflow: hidden;
+        }
+
+        .modal-theater-screen video, .modal-theater-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .gallery-rail {
+            display: flex;
+            height: 100%;
+            width: 100%;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .gallery-item {
+            flex: 0 0 100%;
+            height: 100%;
+            background: #000000;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .gallery-control-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: var(--transition);
+        }
+
+        .gallery-control-btn:hover { background: #ffffff; transform: translateY(-50%) scale(1.1); }
+        .gallery-prev { left: 1rem; }
+        .gallery-next { right: 1rem; }
+
+        .modal-article-body {
+            padding: 2rem 2.25rem;
+            overflow-y: auto;
+        }
+
+        .modal-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .modal-tag-chip {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            background: rgba(224, 242, 254, 0.6);
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+        }
+
+        .modal-heading {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+
+        .modal-narrative {
+            font-size: 0.9rem;
+            line-height: 1.75;
+            color: #475569;
+            text-align: justify;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-box-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 1.1rem;
+            font-size: 0.84rem;
+        }
+
+        .tech-box-card span {
+            font-weight: 700;
+            color: var(--dark);
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        footer {
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- 顶部打印操作悬浮按钮 -->
-    <div class="print-floating-bar">
-        <button class="print-btn" onclick="window.print()">
-            <i class="fa-solid fa-file-pdf"></i>
-            导出为单页 PDF / 打印
-        </button>
-    </div>
-
-    <div class="resume-sheet">
-
-        <!-- 头部身份与联系方式 -->
-        <header class="header-section">
-            <div>
-                <div class="name-wrapper">
-                    <h1 class="name-text">朱 晋</h1>
-                    <span class="name-subtitle">数字媒体技术 · 本科在读</span>
-                </div>
+    <header>
+        <nav class="nav-container">
+            <div class="nav-brand">
+                <span class="pulse-dot"></span>
+                <span>ZHU JIN</span>
             </div>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <span>150-6762-0415</span>
-                    <i class="fa-solid fa-phone"></i>
-                </div>
-                <div class="contact-item">
-                    <span>sickoez@outlook.com</span>
-                    <i class="fa-solid fa-envelope"></i>
-                </div>
-                <div class="contact-item">
-                    <span>github.com/SickoEz</span>
-                    <i class="fa-brands fa-github"></i>
-                </div>
-                <div class="contact-item">
-                    <span>浙江省杭州市（可随时到岗）</span>
-                    <i class="fa-solid fa-location-dot"></i>
-                </div>
+            <div class="nav-links">
+                <a href="#hero" class="active">个人概况</a>
+                <a href="#portfolio">核心作品</a>
             </div>
-        </header>
+        </nav>
+    </header>
 
-        <!-- 国内直连加速作品集展示与对应二维码 -->
-        <div class="portfolio-banner">
-            <div class="portfolio-info">
-                <span class="portfolio-label">个人在线作品集（含实机录屏与全景交互演示）：</span>
-                <a href="https://portfolio-ueesmzhe.edgeone.cool/" target="_blank" class="portfolio-link">
-                    https://portfolio-ueesmzhe.edgeone.cool/
+    <section id="hero">
+        <div class="intro-grid">
+            
+            <div class="glass-panel profile-card">
+                <div class="profile-header">
+                    <div class="avatar-box">
+                        <div class="avatar-inner">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                    </div>
+                    <h1 class="user-name">朱晋</h1>
+                    <span class="user-tagline">数字媒体技术 · 本科在读</span>
+                </div>
+
+                <p class="bio-text">
+                    我是数媒技术专业大四在读的学生。平时热衷于钻研虚幻引擎交互机制、AIGC 视觉叙事与界面落地。在创作与工程实现中，我注重探究底层原理，兼顾视觉质感与工程落地性。对待细节有极高的耐性与自驱力，乐于尝试新技术工具，希望能不断创作出兼具观赏性与实用价值的高品质数字化作品。
+                </p>
+
+                <div class="contact-stack">
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>150-6762-0415</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>sickoez@outlook.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-brands fa-github"></i>
+                        <span>github.com/SickoEz</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>浙江省杭州市（可随时到岗）</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-certificate"></i>
+                        <span>英语四级 · 普通话二乙</span>
+                    </div>
+                </div>
+
+                <a href="#portfolio" class="action-cta-btn">
+                    <span>浏览核心作品展台</span>
+                    <i class="fa-solid fa-arrow-down"></i>
                 </a>
             </div>
-            <div class="qr-area">
-                <div class="qr-text">手机扫码<br>极速演示</div>
-                <div class="qr-canvas-box" id="qrcodeBox"></div>
+
+            <div class="glass-panel experience-flow">
+                
+                <div>
+                    <div class="flow-block-title">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>教育背景</span>
+                    </div>
+                    <div class="edu-card-body">
+                        <div class="edu-headline">
+                            <span>浙江水利水电学院 · 数字媒体技术 (本科在读)</span>
+                            <span class="time-badge">2023 - 2027</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #64748b; line-height: 1.6; margin-top: 0.35rem;">
+                            <strong>核心课业：</strong>虚幻引擎三维关卡设计、用户体验与交互设计、次世代 PBR 材质贴图流、数字媒体技术导论、前端开发技术基础。
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flow-block-title">
+                        <i class="fa-solid fa-users-gear"></i>
+                        <span>校园骨干经历与组织协同</span>
+                    </div>
+                    <div class="highlight-bullets">
+                        <div class="highlight-item">
+                            <span class="bullet-icon"><i class="fa-solid fa-check"></i></span>
+                            <div>
+                                <strong>班级学习委员：</strong>担任任课教师与全班同学的核心沟通纽带，高效同步课业任务与考务规范，自驱组织课后技术互助与资料共享，强化班级学风建设。
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="bullet-icon"><i class="fa-solid fa-check"></i></span>
+                            <div>
+                                <strong>学院学生会 · 学习部骨干：</strong>深度参与筹办学院“学风建设月”、学术经验交流沙龙与专业技能宣讲，细致把控物料调度、考勤考务与数据归档，具备敏捷的跨角色协作能力。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flow-block-title">
+                        <i class="fa-solid fa-compass-drafting"></i>
+                        <span>专业态度与工程自驱</span>
+                    </div>
+                    <div class="highlight-bullets">
+                        <div class="highlight-item">
+                            <span class="bullet-icon"><i class="fa-solid fa-layer-group"></i></span>
+                            <div>
+                                <strong>务实自驱与落地思维：</strong>在设计与蓝图开发阶段注重代码实现成本与渲染性能调优，拒绝脱离实装的“飞机稿”，输出对开发友好的规范化工程方案。
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="bullet-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                            <div>
+                                <strong>AI 工具链赋能增效：</strong>积极探索 AIGC 工具在分层原画生成、角色动作序列打磨与脚本编写中的赋能价值，具有较强的新技术检索与自主攻坚能力。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flow-block-title">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <span>熟练工具栈</span>
+                    </div>
+                    <div class="tech-pill-grid">
+                        <span class="tech-pill">Unreal Engine 5</span>
+                        <span class="tech-pill">AIGC 视效生成</span>
+                        <span class="tech-pill">Blender / 3ds Max</span>
+                        <span class="tech-pill">Substance 3D Painter</span>
+                        <span class="tech-pill">Figma / Photoshop</span>
+                        <span class="tech-pill">HTML5 / CSS3 / JavaScript</span>
+                    </div>
+                </div>
+
             </div>
+
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="section-header">
+            <span class="section-badge"><i class="fa-solid fa-shapes"></i> Selected Portfolio</span>
+            <h2 class="section-title">核心作品展台</h2>
         </div>
 
-        <!-- 1. 教育背景 -->
-        <section>
-            <div class="section-bar">
-                <span>教育背景</span>
-            </div>
-            <div class="edu-timeline">
-                <div class="row-between">
-                    <span>浙江水利水电学院 · 数字媒体技术 (本科大四在读 · 2027届)</span>
-                    <span class="date-pill">2023.09 - 2027.06</span>
-                </div>
-                <p class="edu-details">
-                    <strong>核心课业：</strong>虚幻引擎三维关卡设计、用户体验与交互界面流程、次世代PBR材质贴图流、前端开发技术基础、计算机图形导论。<br>
-                    <strong>能力资质：</strong>大学英语四级 (CET-4) | 普通话二级乙等 | 具备扎实的专业自驱钻研能力。
-                </p>
-            </div>
-        </section>
+        <div class="stage-carousel-wrapper">
+            <button class="stage-nav-btn prev-btn" onclick="slideCarousel('left')">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="stage-nav-btn next-btn" onclick="slideCarousel('right')">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
 
-        <!-- 2. 专业技能 -->
-        <section>
-            <div class="section-bar">
-                <span>专业技能体系</span>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-col">
-                    <div class="skill-head"><i class="fa-solid fa-cubes"></i> 三维关卡与交互逻辑</div>
-                    <div class="skill-text">
-                        熟练掌握 UE5 蓝图逻辑，掌握角色控制、相机轨道绑定及气象系统通信；熟悉三维场景与数据层联动，兼顾渲染性能优化。
+            <div class="stage-scroll-container" id="stageTrack">
+                
+                <div class="work-card" onclick="openWorkModal('ai_corruption_film')">
+                    <div class="work-media-box">
+                        <span class="badge-type">AIGC 视效动画</span>
+                        <video src="corruption.mp4" poster="corruption.png" muted loop playsinline></video>
+                        <div class="play-hint-overlay"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="work-details">
+                        <h3>《一念越界，终须担责》廉洁警示动画短片</h3>
+                        <p>“玉琮杯”征集作品· 动画短片制作。融合复古档案拼贴与手绘剪纸风，依托 AI 辅助分层绘图与微动效，打造光影隐喻叙事。</p>
+                        <div class="work-meta-row">
+                            <span>全国大赛参评</span>
+                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
                     </div>
                 </div>
-                <div class="skill-col">
-                    <div class="skill-head"><i class="fa-solid fa-palette"></i> 三维视效与AI生成协同</div>
-                    <div class="skill-text">
-                        熟练利用 Blender、3ds Max 进行模型减面与规范导入；了解 PBR 贴图工作流；积极运用 AIGC 工具开展分层美术与动作视效预研。
+
+                <div class="work-card" onclick="openWorkModal('smart_campus')">
+                    <div class="work-media-box">
+                        <span class="badge-type">三维可视化能耗大屏</span>
+                        <video src="campus.mp4" muted loop playsinline></video>
+                        <div class="play-hint-overlay"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="work-details">
+                        <h3>《校园数字孪生智能平台》三维可视化</h3>
+                        <p>在 UE5 中集成天气与光影环境蓝图，打通 UI 与控制器通信，实现晴雨昼夜平滑过渡与镜头轨道跟随。</p>
+                        <div class="work-meta-row">
+                            <span>数字孪生 / 交互蓝图</span>
+                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
                     </div>
                 </div>
-                <div class="skill-col">
-                    <div class="skill-head"><i class="fa-solid fa-code"></i> 前端工程与落地思维</div>
-                    <div class="skill-text">
-                        理解 HTML5/CSS3/JS 及界面渲染流，具备研发落地导向的设计思维；在界面及交互方案输出时提前考量实现成本，拒绝无法实装的设计。
+
+                <div class="work-card" onclick="openWorkModal('sugar_dock')">
+                    <div class="work-media-box">
+                        <span class="badge-type">轻互动探索小游戏</span>
+                        <img src="sugar_dock.png" alt="Sugar Dock" onerror="this.src='https://placehold.co/800x486/fbcfe8/be185d?text=Sugar+Dock'">
+                        <div class="play-hint-overlay"><i class="fa-solid fa-images"></i></div>
+                    </div>
+                    <div class="work-details">
+                        <h3>《Sugar Dock》二次元唯美探索小游戏</h3>
+                        <p>基于虚幻 5 搭建唯美马卡龙海湾场景，重构探索移动控制与触控交互热区，营造治愈系粒子微动效反馈。</p>
+                        <div class="work-meta-row">
+                            <span>UE5 场景 / 交互微动效</span>
+                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <!-- 3. 核心作品项目 -->
-        <section>
-            <div class="section-bar">
-                <span>核心项目经历</span>
-            </div>
-
-            <!-- 项目 1：玉琮杯短片 -->
-            <div class="project-item">
-                <div class="item-head">
-                    <span class="item-title">《一念越界，终须担责》廉洁警示教育动画短片（“玉琮杯”征集作品）</span>
-                    <span class="date-pill">2026.08</span>
+                <div class="work-card" onclick="openWorkModal('finance_app')">
+                    <div class="work-media-box">
+                        <span class="badge-type">移动端 UI/UX 全案</span>
+                        <img src="finance.jpg" alt="海外金融App" onerror="this.src='https://placehold.co/800x486/bae6fd/0369a1?text=Finance+App'">
+                        <div class="play-hint-overlay"><i class="fa-solid fa-images"></i></div>
+                    </div>
+                    <div class="work-details">
+                        <h3>全球化海外移动端钱包金融全案</h3>
+                        <p>规范化推演多币种实时折算、账户安全校验与核心转账流程闭环，打造呼吸感高对比度金融交互规范。</p>
+                        <div class="work-meta-row">
+                            <span>UI/UX 规范 / 交互原型</span>
+                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
+                        </div>
+                    </div>
                 </div>
-                <p class="item-desc">
-                    <strong>项目概述：</strong>以职场青年小王步步失守的抉择为叙事主线，采用复古牛皮档案拼贴与手绘剪纸画风制作的微动画短片。<br>
-                    <strong>核心职责：</strong>运用 AI 工具辅助生成角色多视角分层与道具资产，完成抠像、骨骼绑定及微动效合成；设计三段式情绪光影隐喻体系（暖黄平光→局促深褐暗调→审讯冷硬强光），实现叙事节奏、镜头语言与视觉风格的一体化表达。
-                </p>
-            </div>
 
-            <!-- 项目 2：数字孪生大屏 -->
-            <div class="project-item">
-                <div class="item-head">
-                    <span class="item-title">《校园数字孪生智能平台》三维可视化能耗大屏</span>
-                    <span class="date-pill">2026.07</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal-overlay" id="workModal" onclick="dismissModal()">
+        <div class="modal-window" onclick="event.stopPropagation()">
+            <button class="modal-dismiss-btn" onclick="dismissModal()">&times;</button>
+            
+            <div class="modal-theater-screen" id="modalScreen"></div>
+            
+            <div class="modal-article-body">
+                <div class="modal-badge-row">
+                    <span class="modal-tag-chip" id="modalTag">分类</span>
                 </div>
-                <p class="item-desc">
-                    <strong>项目概述：</strong>针对传统后勤监控数据繁杂堆叠的痛点，设计并实现的对称双翼、半透明高透光感三维可视化综合大屏。<br>
-                    <strong>核心职责：</strong>在 UE5 中打通天气与光影环境蓝图，完成 UI 控件与气象控制器的双向数据通信，实现晴雨昼夜平滑渐变过渡与全景相机轨道跟随。
-                </p>
-            </div>
-
-            <!-- 项目 3：Sugar Dock -->
-            <div class="project-item">
-                <div class="item-head">
-                    <span class="item-title">《Sugar Dock》二次元唯美轻互动探索小游戏</span>
-                    <span class="date-pill">2026.06</span>
+                <h2 class="modal-heading" id="modalTitle">作品名称</h2>
+                <p class="modal-narrative" id="modalDesc">作品详细描述...</p>
+                
+                <div class="tech-box-card">
+                    <span>涉及软件与核心技术方法：</span>
+                    <p id="modalTech" style="color: #64748b; font-family: monospace;"></p>
                 </div>
-                <p class="item-desc">
-                    <strong>项目概述：</strong>在虚幻 5 中搭建的马卡龙粉紫配色唯美海湾场景轻度探索游戏，涵盖主菜单重构与触控热区动效反馈。<br>
-                    <strong>核心职责：</strong>完成角色漫游控制与探索拾取触发蓝图；调校带高亮描边的磨砂半透明圆角面板，解决次世代复杂场景中的文字易读性与沉浸反馈。
-                </p>
             </div>
-
-            <!-- 项目 4：海外金融 App -->
-            <div class="project-item">
-                <div class="item-head">
-                    <span class="item-title">全球化海外移动端钱包金融 App 体验全案</span>
-                    <span class="date-pill">2026.05</span>
-                </div>
-                <p class="item-desc">
-                    <strong>项目概述：</strong>面向海外金融场景规范化推演的电子钱包全案，涵盖身份校验、多币种实时换算与转账流程闭环。<br>
-                    <strong>核心职责：</strong>合理规划转账与汇率折算的信息展示层级与交互动效，采用高对比度蓝白配色构建严谨、安全且具呼吸感的体验规范。
-                </p>
-            </div>
-        </section>
-
-        <!-- 4. 校园骨干与综合实践经历 -->
-        <section>
-            <div class="section-bar">
-                <span>校园骨干与综合实践</span>
-            </div>
-
-            <div class="experience-item">
-                <div class="item-head">
-                    <span class="item-title">数字媒体技术专业 · 班级学习委员</span>
-                    <span class="date-pill">2023.09 - 至今</span>
-                </div>
-                <p class="item-desc">
-                    担任任课教师与全班同学的核心沟通桥梁，精准传达专业课业任务与考务规范，收集反馈学习难点；定期组织专业软件技术交流与学习资料归档共享，带动班级整体优良学风建设。
-                </p>
-            </div>
-
-            <div class="experience-item">
-                <div class="item-head">
-                    <span class="item-title">学院学生会 · 学习部骨干</span>
-                    <span class="date-pill">2023.09 - 2025.06</span>
-                </div>
-                <p class="item-desc">
-                    统筹落地学院“学风建设月”、学术沙龙与专业技能宣讲等多项品牌活动，把控方案推进与现场流程；负责考勤抽查、学业数据统计与档案归纳，具备敏捷的跨部门协同与抗压执行力。
-                </p>
-            </div>
-        </section>
-
-        <!-- 5. 自我评价与工作态度 -->
-        <section>
-            <div class="section-bar">
-                <span>自我评价与工作态度</span>
-            </div>
-            <div class="eval-stack">
-                <div>• <strong>务实自驱 · 工程导向：</strong>注重设计方案的可落地性与代码实现成本，从开发协同视角输出规范化方案，兼具审美直觉与扎实工程思维。</div>
-                <div>• <strong>开放求新 · 敏捷攻坚：</strong>乐于探索前沿图形与 AIGC 效率工具，具备较强的问题检索与自学能力，善于把新技术转化为实际创作生产力。</div>
-                <div>• <strong>组织协同 · 善于倾听：</strong>具备多年班委与学生会骨干协作沉淀，擅长跨角色沟通与多任务推进，能快速融入多元团队并高效推动结果交付。</div>
-            </div>
-        </section>
-
+        </div>
     </div>
 
-    <!-- 动态精准渲染矢量二维码 -->
+    <footer>
+        <p>&copy; 2026 朱晋. 个人多媒体作品展台与工程实践档案.</p>
+    </footer>
+
     <script>
-        const targetUrl = "https://portfolio-ueesmzhe.edgeone.cool/";
-        new QRCode(document.getElementById("qrcodeBox"), {
-            text: targetUrl,
-            width: 40,
-            height: 40,
-            colorDark: "#0284c7",
-            colorLight: "#ffffff",
-            correctLevel: QRCode.CorrectLevel.M
+        const worksDatabase = {
+            ai_corruption_film: {
+                title: "《一念越界，终须担责》廉洁警示教育动画短片",
+                tag: "“玉琮杯”征集作品· 动画短片制作 / AIGC 视觉叙事",
+                type: "video",
+                mediaUrl: "corruption.mp4",
+                poster: "corruption.png",
+                desc: "以职场青年小王步步失守的抉择为叙事核心，采用复古档案拼贴与手绘剪纸画风。创作中综合运用 AI 工具辅助生成角色多视角、分层姿态与道具资产，完成抠像、分级骨骼绑定与动态视效合成。影片核心设计了光影递进隐喻：从开篇平淡安稳的暖黄平光，到利欲滋生时的局促深褐暗调，再到结局违纪暴露时冰冷刺目的强光，让环境光影、道具状态与心理防线崩解同频共振。",
+                tech: "corruption.mp4 / AI 分层绘图 / 复古档案剪纸风 / 镜头动效合成 / 光影隐喻体系"
+            },
+            smart_campus: {
+                title: "《校园数字孪生智能平台》三维大屏可视化",
+                tag: "数字孪生系统 / B端大屏交互",
+                type: "video",
+                mediaUrl: "campus.mp4",
+                desc: "针对传统智慧校园监控大屏数据繁杂堆叠的痛点，创新设计半透明双翼卡片化界面，将底层安防、能耗及车辆监控信息归集展示。深度打通虚幻引擎 5 关卡气象与光影系统通信蓝图，通过界面控件触发昼夜平滑过渡、晴雨切换及全景相机轨道跟随轨迹，兼具工业级落地性与视觉科技感。",
+                tech: "campus.mp4 / Unreal Engine 5 蓝图交互 / 气象控制器数据通信 / 镜头轨道动画绑定 / B端卡片布局规范"
+            },
+            sugar_dock: {
+                title: "《Sugar Dock》二次元唯美探索小游戏",
+                tag: "UE5 独立小游戏 / 轻度探索",
+                type: "gallery",
+                images: ["sugar_dock.png", "sugar_dock_2.png", "sugar_dock_3.png"],
+                desc: "在虚幻引擎 5 中搭建马卡龙粉紫配色的治愈系海湾关卡。设计了第三人称轻盈跳跃移动操控、探索收集物触发及治愈系环境音画粒子反馈。针对 3D 复杂背景，专门调校了带高亮白色描边、半透明磨砂质感的触控界面与微动效热区，保障了高易读性与沉浸感。",
+                tech: "Unreal Engine 5 关卡场景搭建 / 角色移动与交互蓝图 / 唯美粉色系调色 / 动效粒子反馈"
+            },
+            finance_app: {
+                title: "全球化海外移动端钱包金融 App 体验全案",
+                tag: "移动端体验设计 / UI/UX 全案",
+                type: "gallery",
+                images: ["finance.jpg", "finance_2.jpg", "finance_3.jpg"],
+                desc: "立足跨国金融场景设计的电子钱包交互全流程方案。合理规划账户登录验证、多币种实时折算及快速转账页面的视觉层级与操作链路。采用呼吸感极强的清透深蓝与大面积留白，有效降低金融交易中的操作焦虑，全链路动效验证了转账业务闭环。",
+                tech: "Figma 高保真组件库 / 多语言界面适配 / 金融业务状态流全链路推演"
+            }
+        };
+
+        let currentGalleryIndex = 0;
+        let activeGalleryList = [];
+
+        function slideCarousel(direction) {
+            const track = document.getElementById('stageTrack');
+            const step = 380;
+            if (direction === 'left') {
+                track.scrollLeft -= step;
+            } else {
+                track.scrollLeft += step;
+            }
+        }
+
+        document.querySelectorAll('.work-card').forEach(card => {
+            const video = card.querySelector('video');
+            if (video) {
+                card.addEventListener('mouseenter', () => {
+                    video.play().catch(() => {});
+                });
+                card.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            }
+        });
+
+        function openWorkModal(id) {
+            const data = worksDatabase[id];
+            if (!data) return;
+
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalTag').innerText = data.tag;
+            document.getElementById('modalDesc').innerText = data.desc;
+            document.getElementById('modalTech').innerText = data.tech;
+
+            const screen = document.getElementById('modalScreen');
+            screen.innerHTML = '';
+
+            if (data.type === 'video') {
+                screen.innerHTML = `
+                    <video src="${data.mediaUrl}" 
+                           ${data.poster ? `poster="${data.poster}"` : ''} 
+                           autoplay controls playsinline 
+                           style="width: 100%; height: 100%; object-fit: contain; background: #000;">
+                    </video>
+                `;
+            } else if (data.type === 'gallery') {
+                activeGalleryList = data.images;
+                currentGalleryIndex = 0;
+
+                let slidesHtml = '';
+                activeGalleryList.forEach(src => {
+                    slidesHtml += `
+                        <div class="gallery-item">
+                            <img src="${src}" onerror="this.src='https://placehold.co/800x450/e2e8f0/64748b?text=Image+Load+Failed'">
+                        </div>
+                    `;
+                });
+
+                screen.innerHTML = `
+                    <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+                        <div class="gallery-rail" id="galleryRail">${slidesHtml}</div>
+                        <button class="gallery-control-btn gallery-prev" onclick="shiftGallery(event, -1)">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button class="gallery-control-btn gallery-next" onclick="shiftGallery(event, 1)">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                `;
+            }
+
+            document.getElementById('workModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function shiftGallery(e, step) {
+            if (e) e.stopPropagation();
+            currentGalleryIndex = (currentGalleryIndex + step + activeGalleryList.length) % activeGalleryList.length;
+            const rail = document.getElementById('galleryRail');
+            if (rail) {
+                rail.style.transform = `translateX(-${currentGalleryIndex * 100}%)`;
+            }
+        }
+
+        function dismissModal() {
+            const screen = document.getElementById('modalScreen');
+            const video = screen.querySelector('video');
+            if (video) video.pause();
+            document.getElementById('workModal').classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => { screen.innerHTML = ''; }, 300);
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+                link.classList.add('active');
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         });
     </script>
 </body>
