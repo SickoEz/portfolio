@@ -3,1061 +3,2028 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>朱晋 | 个人主页与多媒体交互展台</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>朱晋 | 数字媒体与交互体验展台</title>
+    <!-- 国内极速 CDN 图标库 -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
     <style>
+        /* ========================================================
+           Apple Liquid Glass (液态玻璃) 设计系统与色彩变量
+           默认采用深色模式，自动监听系统 prefers-color-scheme
+           ======================================================== */
         :root {
-            --primary: #0284c7;
-            --primary-light: #38bdf8;
-            --primary-dark: #0369a1;
-            --accent: #0d9488;
-            --dark: #0f172a;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --text-light: #94a3b8;
-            --glass-bg: rgba(255, 255, 255, 0.78);
-            --glass-border: rgba(255, 255, 255, 0.9);
-            --glass-shadow: 0 20px 45px -10px rgba(14, 165, 233, 0.12), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
-            --radius-xl: 28px;
-            --radius-lg: 20px;
-            --radius-md: 12px;
-            --transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+            /* 默认深色液态玻璃参数 */
+            --bg-canvas: #050507;
+            --orb-1: rgba(56, 189, 248, 0.32);
+            --orb-2: rgba(168, 85, 247, 0.28);
+            --orb-3: rgba(16, 185, 129, 0.22);
+            --orb-4: rgba(59, 130, 246, 0.26);
+
+            /* 液态玻璃表面材质 */
+            --glass-fill: rgba(28, 28, 32, 0.46);
+            --glass-fill-elevated: rgba(44, 44, 50, 0.56);
+            --glass-fill-hover: rgba(255, 255, 255, 0.16);
+            --glass-pill-fill: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --glass-border-strong: rgba(255, 255, 255, 0.34);
+
+            /* 光学高光折边与阴影 */
+            --specular-highlight: inset 0 1px 1px rgba(255, 255, 255, 0.36),
+                                  inset 0 -1px 1px rgba(255, 255, 255, 0.06);
+            --glass-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.65),
+                            0 4px 16px -2px rgba(0, 0, 0, 0.4);
+
+            /* 苹果文本层级 */
+            --label-primary: rgba(255, 255, 255, 0.95);
+            --label-secondary: rgba(235, 235, 245, 0.65);
+            --label-tertiary: rgba(235, 235, 245, 0.42);
+            --accent-blue: #0a84ff;
+            --accent-cyan: #64d2ff;
+
+            /* 滑块高亮底色（深色模式下为透亮白晶玻璃） */
+            --glider-bg: rgba(255, 255, 255, 0.22);
+            --glider-shadow: 0 4px 14px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+
+            /* Apple 同心圆角规范 (Outer = Inner + Padding) */
+            --radius-island: 9999px;
+            --radius-card-outer: 32px;
+            --radius-card-inner: 18px;
+            --radius-subcard: 22px;
+            --radius-chip: 12px;
+
+            --spring-ease: cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* 手动切换浅色模式覆盖（页面默认锁定深色液态玻璃） */
+        :root[data-theme="light"] {
+            --bg-canvas: #eef2f9;
+            --orb-1: rgba(56, 189, 248, 0.42);
+            --orb-2: rgba(192, 132, 252, 0.35);
+            --orb-3: rgba(52, 211, 153, 0.30);
+            --orb-4: rgba(96, 165, 250, 0.38);
+
+            --glass-fill: rgba(255, 255, 255, 0.52);
+            --glass-fill-elevated: rgba(255, 255, 255, 0.72);
+            --glass-fill-hover: rgba(255, 255, 255, 0.88);
+            --glass-pill-fill: rgba(120, 120, 128, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.78);
+            --glass-border-strong: rgba(255, 255, 255, 0.98);
+
+            --specular-highlight: inset 0 1.5px 1.5px rgba(255, 255, 255, 0.95),
+                                  inset 0 -1px 1px rgba(15, 23, 42, 0.05);
+            --glass-shadow: 0 20px 44px -12px rgba(31, 38, 135, 0.12),
+                            0 4px 14px -2px rgba(15, 23, 42, 0.05);
+
+            --label-primary: rgba(15, 23, 42, 0.94);
+            --label-secondary: rgba(51, 65, 85, 0.76);
+            --label-tertiary: rgba(100, 116, 139, 0.65);
+            --accent-blue: #007aff;
+            --accent-cyan: #0284c7;
+
+            --glider-bg: #ffffff;
+            --glider-shadow: 0 3px 10px rgba(15, 23, 42, 0.10), inset 0 1px 1px rgba(255, 255, 255, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Plus Jakarta Sans', 'Noto Sans SC', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background-color: #f0f9ff;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(186, 230, 253, 0.45) 0%, transparent 40%),
-                radial-gradient(circle at 90% 10%, rgba(224, 242, 254, 0.6) 0%, transparent 35%),
-                linear-gradient(180deg, #bae6fd 0%, #e0f2fe 30%, #f8fafc 85%, #ffffff 100%);
-            color: var(--text-main);
+            background-color: var(--bg-canvas);
+            color: var(--label-primary);
             line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
+            transition: background-color 0.5s var(--spring-ease), color 0.4s var(--spring-ease);
         }
 
-        a { text-decoration: none; color: inherit; }
-
-        header {
+        /* ========================================================
+           背景流动性弥散光球 (为毛玻璃提供丰富折射色彩)
+           ======================================================== */
+        .ambient-canvas {
             position: fixed;
-            top: 1.25rem;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .liquid-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(95px);
+            opacity: 0.9;
+            animation: floatOrb 22s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            width: 540px;
+            height: 540px;
+            background: var(--orb-1);
+            top: -120px;
+            left: -80px;
+        }
+
+        .orb-2 {
+            width: 480px;
+            height: 480px;
+            background: var(--orb-2);
+            top: 22%;
+            right: -100px;
+            animation-delay: -6s;
+        }
+
+        .orb-3 {
+            width: 520px;
+            height: 520px;
+            background: var(--orb-3);
+            bottom: -140px;
+            left: 18%;
+            animation-delay: -12s;
+        }
+
+        .orb-4 {
+            width: 400px;
+            height: 400px;
+            background: var(--orb-4);
+            top: 55%;
+            left: 52%;
+            animation-delay: -16s;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(45px, -35px) scale(1.08); }
+            100% { transform: translate(-35px, 40px) scale(0.95); }
+        }
+
+        /* ========================================================
+           核心液态玻璃材质类 (Liquid Glass Surface)
+           ======================================================== */
+        .liquid-glass {
+            background: var(--glass-fill);
+            backdrop-filter: blur(36px) saturate(185%);
+            -webkit-backdrop-filter: blur(36px) saturate(185%);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--specular-highlight), var(--glass-shadow);
+            transition: transform 0.45s var(--spring-ease),
+                        background-color 0.35s var(--spring-ease),
+                        border-color 0.35s var(--spring-ease),
+                        box-shadow 0.45s var(--spring-ease);
+        }
+
+        /* ========================================================
+           顶部灵动岛悬浮导航 (Dynamic Island Nav)
+           ======================================================== */
+        .island-wrapper {
+            position: fixed;
+            top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 90%;
-            max-width: 540px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 12px 36px rgba(14, 165, 233, 0.12);
-            border-radius: 9999px;
             z-index: 1000;
+            width: max-content;
+            max-width: 94vw;
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.6rem 1.75rem;
-        }
-
-        .nav-brand {
+        .dynamic-island {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 1rem;
-            font-weight: 800;
-            color: var(--primary-dark);
+            gap: 10px;
+            padding: 6px 8px 6px 16px;
+            border-radius: var(--radius-island);
+            background: var(--glass-fill-elevated);
+            backdrop-filter: blur(40px) saturate(200%);
+            -webkit-backdrop-filter: blur(40px) saturate(200%);
+            border: 1px solid var(--glass-border-strong);
+            box-shadow: var(--specular-highlight), var(--glass-shadow);
         }
 
-        .nav-brand .pulse-dot {
+        .island-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13.5px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: var(--label-primary);
+            padding-right: 6px;
+        }
+
+        .status-dot {
             width: 8px;
             height: 8px;
-            background: #10b981;
             border-radius: 50%;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+            background: #30d158;
+            box-shadow: 0 0 10px rgba(48, 209, 88, 0.7);
         }
 
-        .nav-links {
-            display: flex;
-            gap: 0.5rem;
-            background: rgba(241, 245, 249, 0.6);
-            padding: 0.25rem;
-            border-radius: 9999px;
-        }
-
-        .nav-links a {
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            padding: 0.4rem 1.1rem;
-            border-radius: 9999px;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--dark);
-            background: #ffffff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        section {
-            padding: 7rem 1.5rem 4rem 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3.5rem;
-        }
-
-        .section-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            color: var(--primary);
-            background: rgba(224, 242, 254, 0.7);
-            padding: 0.35rem 0.9rem;
-            border-radius: 9999px;
-            margin-bottom: 0.75rem;
-            border: 1px solid rgba(186, 230, 253, 0.6);
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--dark);
-        }
-
-        .intro-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        @media (min-width: 992px) {
-            .intro-grid {
-                grid-template-columns: 380px 1fr;
-                gap: 2.5rem;
-            }
-        }
-
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-xl);
-            box-shadow: var(--glass-shadow);
-        }
-
-        .profile-card {
-            padding: 2.5rem 2rem;
-            text-align: center;
+        .island-tabs {
             position: relative;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: var(--glass-pill-fill);
+            padding: 3px;
+            border-radius: var(--radius-island);
         }
 
-        .profile-card::before {
-            content: '';
+        /* 灵动岛白色液态滑块 */
+        .island-glider {
             position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(13, 148, 136, 0.25));
+            border-radius: var(--radius-island);
+            background: var(--glider-bg);
+            box-shadow: var(--glider-shadow);
+            transition: transform 0.45s cubic-bezier(0.32, 1.18, 0.38, 1),
+                        width 0.45s cubic-bezier(0.32, 1.18, 0.38, 1),
+                        height 0.45s cubic-bezier(0.32, 1.18, 0.38, 1);
+            pointer-events: none;
             z-index: 0;
         }
 
-        .profile-header {
+        .island-link {
             position: relative;
             z-index: 1;
-            margin-bottom: 1.25rem;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--label-secondary);
+            text-decoration: none;
+            padding: 6px 15px;
+            border-radius: var(--radius-island);
+            transition: color 0.3s var(--spring-ease);
+            white-space: nowrap;
         }
 
-        .avatar-box {
-            width: 90px;
-            height: 90px;
-            margin: 0 auto 1rem auto;
-            border-radius: 50%;
-            background: #ffffff;
-            padding: 4px;
-            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.2);
+        .island-link:hover,
+        .island-link.active {
+            color: var(--label-primary);
         }
 
-        .avatar-box .avatar-inner {
-            width: 100%;
-            height: 100%;
+        .theme-toggle {
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+            border: 1px solid var(--glass-border);
+            background: var(--glass-pill-fill);
+            color: var(--label-primary);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            color: var(--primary);
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.35s var(--spring-ease);
         }
 
-        .user-name {
-            font-size: 1.6rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 0.25rem;
+        .theme-toggle:hover {
+            background: var(--glass-fill-hover);
+            transform: scale(1.06);
         }
 
-        .user-tagline {
-            display: inline-block;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            background: rgba(13, 148, 136, 0.1);
-            padding: 0.25rem 0.85rem;
-            border-radius: 9999px;
+        /* ========================================================
+           主容器与布局
+           ======================================================== */
+        .container {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 108px 24px 80px;
         }
 
-        .bio-text {
-            font-size: 0.84rem;
-            color: var(--text-muted);
-            text-align: justify;
-            line-height: 1.65;
-            margin: 1.25rem 0;
-            padding: 1.25rem 0;
-            border-top: 1px dashed rgba(14, 165, 233, 0.2);
-            border-bottom: 1px dashed rgba(14, 165, 233, 0.2);
+        /* 顶部 Hero 与 Bento 档案区 */
+        .bento-hero {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 20px;
+            align-items: stretch;
         }
 
-        .contact-stack {
+        @media (max-width: 960px) {
+            .bento-hero {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 左侧个人名片 (外圆角 32px, 内边距 24px -> 内部元素圆角 16~20px) */
+        .profile-glass {
+            border-radius: var(--radius-card-outer);
+            padding: 28px 24px 24px;
             display: flex;
             flex-direction: column;
-            gap: 0.65rem;
-            text-align: left;
-            margin-bottom: 1.5rem;
+            justify-content: space-between;
         }
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 0.82rem;
-            color: #475569;
-            padding: 0.5rem 0.75rem;
-            border-radius: var(--radius-md);
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            transition: var(--transition);
-        }
-
-        .contact-item:hover {
-            background: #ffffff;
-            border-color: var(--primary-light);
-            transform: translateX(4px);
-        }
-
-        .contact-item i {
-            width: 18px;
-            color: var(--primary);
+        .profile-top {
             text-align: center;
         }
 
-        .action-cta-btn {
+        /* 定制极简几何字母头像徽标 */
+        .avatar-monogram {
+            width: 84px;
+            height: 84px;
+            margin: 0 auto 16px;
+            border-radius: 26px;
+            background: linear-gradient(145deg, rgba(10, 132, 255, 0.22) 0%, rgba(94, 92, 230, 0.16) 50%, rgba(100, 210, 255, 0.12) 100%);
+            border: 1px solid var(--glass-border-strong);
+            box-shadow: var(--specular-highlight), 0 14px 30px rgba(0, 0, 0, 0.28);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.6rem;
-            width: 100%;
-            background: linear-gradient(135deg, var(--dark), #1e293b);
-            color: white;
-            padding: 0.85rem 1.5rem;
-            border-radius: 9999px;
-            font-size: 0.88rem;
-            font-weight: 700;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
-            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
-        .action-cta-btn:hover {
-            transform: translateY(-2px);
-            background: #000000;
+        .avatar-monogram::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.35), transparent 60%);
+            pointer-events: none;
         }
 
-        .experience-flow {
-            padding: 2.5rem;
+        .monogram-text {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            background: linear-gradient(135deg, #ffffff 20%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: "SF Pro Display", -apple-system, sans-serif;
+        }
+
+        :root[data-theme="light"] .monogram-text {
+            background: linear-gradient(135deg, #0f172a 20%, #007aff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-name {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--label-primary);
+            margin-bottom: 6px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            background: rgba(10, 132, 255, 0.14);
+            border: 1px solid rgba(10, 132, 255, 0.25);
+            padding: 4px 12px;
+            border-radius: var(--radius-island);
+        }
+
+        .hero-bio {
+            font-size: 13.5px;
+            color: var(--label-secondary);
+            line-height: 1.7;
+            text-align: justify;
+            margin: 20px 0;
+            padding: 16px 0;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        /* 联系方式胶囊列表 (同心圆角 16px) */
+        .contact-pills {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
-        .flow-block-title {
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: var(--dark);
+        .contact-pill {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.85rem;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 16px;
+            background: var(--glass-pill-fill);
+            border: 1px solid transparent;
+            font-size: 13px;
+            color: var(--label-primary);
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s var(--spring-ease);
         }
 
-        .flow-block-title i {
-            color: var(--primary);
-            font-size: 1rem;
+        .contact-pill:hover {
+            background: var(--glass-fill-hover);
+            border-color: var(--glass-border);
+            transform: scale(1.015);
         }
 
-        .edu-card-body {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(224, 242, 254, 0.8);
-            padding: 1.25rem;
-            border-radius: var(--radius-lg);
+        .contact-pill-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .edu-headline {
+        .contact-pill i {
+            width: 16px;
+            text-align: center;
+            color: var(--accent-cyan);
+        }
+
+        .copy-tag {
+            font-size: 11px;
+            color: var(--label-tertiary);
+            font-weight: 600;
+        }
+
+        /* 苹果主操作按钮 */
+        .apple-cta-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 18px;
+            background: var(--accent-blue);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 10px 24px rgba(10, 132, 255, 0.35);
+            transition: all 0.35s var(--spring-ease);
+        }
+
+        .apple-cta-btn:hover {
+            transform: translateY(-2px) scale(1.01);
+            filter: brightness(1.08);
+        }
+
+        /* 右侧经历与能力 Bento 矩阵 */
+        .right-bento-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .bento-module {
+            border-radius: var(--radius-card-outer);
+            padding: 22px 24px;
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .module-title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--label-primary);
+        }
+
+        .module-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 9px;
+            background: rgba(10, 132, 255, 0.16);
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12.5px;
+        }
+
+        /* 1. 教育背景：横向宽幅条带样式（无嵌套框，直接展示层次） */
+        .edu-banner-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .edu-main-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 700;
-            font-size: 0.92rem;
-            color: var(--dark);
-            margin-bottom: 0.4rem;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
-        .time-badge {
-            font-size: 0.75rem;
+        .edu-school-wrap {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .edu-school {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--label-primary);
+        }
+
+        .edu-major {
+            font-size: 13px;
             font-weight: 600;
-            color: var(--primary-dark);
-            background: rgba(186, 230, 253, 0.5);
-            padding: 0.15rem 0.6rem;
-            border-radius: 9999px;
+            color: var(--label-secondary);
         }
 
-        .highlight-bullets {
+        .edu-badges-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding-top: 4px;
+        }
+
+        .edu-mini-pill {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--label-primary);
+            background: var(--glass-pill-fill);
+            border: 1px solid var(--glass-border);
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        /* 2. 实习经历：纵向时间轴样式（打破双框重复感） */
+        .timeline-stack {
+            position: relative;
+            padding-left: 20px;
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
+            gap: 16px;
         }
 
-        .highlight-item {
+        .timeline-stack::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 8px;
+            bottom: 8px;
+            width: 1.5px;
+            background: linear-gradient(180deg, var(--accent-cyan) 0%, var(--glass-border) 100%);
+        }
+
+        .timeline-node {
+            position: relative;
+        }
+
+        .timeline-node::before {
+            content: '';
+            position: absolute;
+            left: -19px;
+            top: 6px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(100, 210, 255, 0.6);
+            border: 2px solid var(--bg-canvas);
+        }
+
+        .timeline-head {
             display: flex;
-            gap: 0.75rem;
-            font-size: 0.84rem;
-            line-height: 1.6;
-            color: #475569;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 6px;
         }
 
-        .highlight-item .bullet-icon {
-            width: 22px;
-            height: 22px;
-            flex-shrink: 0;
-            border-radius: 6px;
-            background: rgba(14, 165, 233, 0.12);
-            color: var(--primary);
+        .timeline-role {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--label-primary);
+        }
+
+        .timeline-role span {
+            font-weight: 500;
+            color: var(--label-secondary);
+            margin-left: 6px;
+            font-size: 13px;
+        }
+
+        .time-capsule {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            background: rgba(10, 132, 255, 0.14);
+            padding: 3px 10px;
+            border-radius: var(--radius-island);
+        }
+
+        .detail-text {
+            font-size: 13px;
+            color: var(--label-secondary);
+            line-height: 1.65;
+            text-align: justify;
+        }
+
+        .detail-text strong {
+            color: var(--label-primary);
+            font-weight: 600;
+        }
+
+        /* 3. 底部非对称双栏（45% 校园列表 + 55% 分组技能矩阵） */
+        .asymmetric-bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.18fr;
+            gap: 18px;
+        }
+
+        @media (max-width: 720px) {
+            .asymmetric-bottom-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 极简分隔线列表（无卡片嵌套，清爽轻量） */
+        .clean-divider-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .clean-list-item {
+            padding: 10px 0;
+        }
+
+        .clean-list-item:first-child {
+            padding-top: 0;
+        }
+
+        .clean-list-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .clean-list-item + .clean-list-item {
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .sub-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .sub-title-row h4 {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--label-primary);
+        }
+
+        .sub-date {
+            font-size: 11.5px;
+            color: var(--label-tertiary);
+            white-space: nowrap;
+        }
+
+        /* 分组技能微标签 */
+        .skill-group-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skill-group-label {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--label-tertiary);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .skill-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-chip {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--label-primary);
+            background: var(--glass-pill-fill);
+            border: 1px solid var(--glass-border);
+            padding: 5px 11px;
+            border-radius: 10px;
+            transition: all 0.25s var(--spring-ease);
+        }
+
+        .skill-chip:hover {
+            background: var(--glass-fill-hover);
+            transform: translateY(-1.5px);
+        }
+
+        .bento-module {
+            border-radius: var(--radius-card-outer);
+            padding: 24px 26px;
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--label-primary);
+            margin-bottom: 16px;
+        }
+
+        .module-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 10px;
+            background: rgba(10, 132, 255, 0.16);
+            color: var(--accent-cyan);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
-            margin-top: 0.15rem;
+            font-size: 13px;
         }
 
-        .tech-pill-grid {
+        /* 内部嵌入子卡片 (外 32px - 内边距 24px -> 内部子块圆角 18px) */
+        .inner-glass-box {
+            background: var(--glass-pill-fill);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-card-inner);
+            padding: 16px 18px;
+        }
+
+        .edu-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .edu-school {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--label-primary);
+        }
+
+        .time-capsule {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            background: rgba(10, 132, 255, 0.14);
+            padding: 3px 10px;
+            border-radius: var(--radius-island);
+        }
+
+        .detail-text {
+            font-size: 13px;
+            color: var(--label-secondary);
+            line-height: 1.65;
+            text-align: justify;
+        }
+
+        .detail-text strong {
+            color: var(--label-primary);
+            font-weight: 600;
+        }
+
+        .bento-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 680px) {
+            .bento-two-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sub-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .sub-title-row h4 {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--label-primary);
+        }
+
+        .sub-date {
+            font-size: 11.5px;
+            color: var(--label-tertiary);
+            white-space: nowrap;
+        }
+
+        /* 工具技能胶囊 */
+        .skill-cloud {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 8px;
         }
 
-        .tech-pill {
-            background: #ffffff;
-            border: 1px solid #e0f2fe;
-            color: var(--primary-dark);
-            font-size: 0.78rem;
+        .skill-chip {
+            font-size: 12.5px;
             font-weight: 600;
-            padding: 0.35rem 0.85rem;
-            border-radius: 8px;
-            transition: var(--transition);
+            color: var(--label-primary);
+            background: var(--glass-pill-fill);
+            border: 1px solid var(--glass-border);
+            padding: 7px 14px;
+            border-radius: var(--radius-chip);
+            transition: all 0.25s var(--spring-ease);
         }
 
-        .tech-pill:hover {
-            border-color: var(--primary-light);
+        .skill-chip:hover {
+            background: var(--glass-fill-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(14, 165, 233, 0.1);
         }
 
-        #portfolio {
-            position: relative;
-            padding-bottom: 8rem;
+        /* ========================================================
+           横向经历时间轴 (实习 + 项目由近到远全量时间线)
+           ======================================================== */
+        .h-timeline-section {
+            margin-top: 56px;
         }
 
-        .stage-carousel-wrapper {
-            position: relative;
-            width: 100%;
-        }
-
-        .stage-scroll-container {
+        .h-timeline-controls {
             display: flex;
-            gap: 1.75rem;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .h-scroll-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-fill);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            color: var(--label-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 13px;
+            box-shadow: var(--specular-highlight);
+            transition: all 0.3s var(--spring-ease);
+        }
+
+        .h-scroll-btn:hover {
+            background: var(--glass-fill-hover);
+            border-color: var(--glass-border-strong);
+            transform: scale(1.08);
+        }
+
+        .h-timeline-track-wrapper {
+            position: relative;
+            margin: 0 -24px;
+            padding: 8px 24px 20px;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding: 1.5rem 0.5rem 2.5rem 0.5rem;
-            snap-type: x mandatory;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
-        .stage-scroll-container::-webkit-scrollbar { display: none; }
+        .h-timeline-track-wrapper::-webkit-scrollbar {
+            display: none;
+        }
 
-        .work-card {
-            flex: 0 0 350px;
-            background: #ffffff;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
-            transition: var(--transition);
-            cursor: pointer;
-            snap-align: start;
+        .h-timeline-track {
+            position: relative;
+            display: inline-flex;
+            gap: 20px;
+            padding-top: 34px;
+            min-width: 100%;
+        }
+
+        /* 横向贯穿主轴线 */
+        .h-timeline-track::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 14px;
+            right: 14px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan) 0%, var(--accent-blue) 45%, var(--glass-border) 100%);
+            border-radius: 2px;
+        }
+
+        .h-timeline-card {
+            position: relative;
+            width: 310px;
+            flex-shrink: 0;
+            border-radius: 26px;
+            padding: 20px 22px;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
-        @media (min-width: 768px) {
-            .work-card { flex: 0 0 360px; }
+        .h-timeline-card.clickable {
+            cursor: pointer;
         }
 
-        .work-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary-light);
-            box-shadow: 0 22px 45px -10px rgba(14, 165, 233, 0.18);
+        .h-timeline-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--glass-border-strong);
         }
 
-        .work-media-box {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9.5;
-            background: #090d16;
-            overflow: hidden;
-        }
-
-        .work-media-box video, .work-media-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .work-card:hover .work-media-box video, 
-        .work-card:hover .work-media-box img {
-            transform: scale(1.05);
-        }
-
-        .badge-type {
+        /* 时间轴节点圆点 */
+        .h-timeline-dot {
             position: absolute;
-            top: 0.85rem;
-            left: 0.85rem;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(8px);
-            color: #ffffff;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.25rem 0.65rem;
-            border-radius: 6px;
+            top: -28px;
+            left: 24px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            border: 2.5px solid var(--bg-canvas);
+            box-shadow: 0 0 12px rgba(100, 210, 255, 0.75);
             z-index: 2;
         }
 
-        .play-hint-overlay {
+        .h-timeline-card.is-project .h-timeline-dot {
+            background: var(--accent-blue);
+            box-shadow: 0 0 12px rgba(10, 132, 255, 0.75);
+        }
+
+        .h-timeline-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .h-type-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: var(--radius-island);
+            background: rgba(100, 210, 255, 0.16);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(100, 210, 255, 0.28);
+        }
+
+        .h-timeline-card.is-project .h-type-badge {
+            background: rgba(10, 132, 255, 0.16);
+            color: #60a5fa;
+            border-color: rgba(10, 132, 255, 0.3);
+        }
+
+        .h-date-text {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--label-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .h-card-title {
+            font-size: 15.5px;
+            font-weight: 800;
+            color: var(--label-primary);
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+
+        .h-card-sub {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+        }
+
+        .h-card-desc {
+            font-size: 12.8px;
+            color: var(--label-secondary);
+            line-height: 1.65;
+            text-align: justify;
+        }
+
+        .h-card-foot {
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--label-tertiary);
+        }
+
+        .h-card-foot span:last-child {
+            color: var(--accent-cyan);
+        }
+
+        /* ========================================================
+           核心作品展台 (Apple 分段控制器 + 液态滑块 + 同心圆角卡片)
+           ======================================================== */
+        .showcase-section {
+            margin-top: 64px;
+        }
+
+        .showcase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+
+        .showcase-eyebrow {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            margin-bottom: 4px;
+        }
+
+        .showcase-title {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--label-primary);
+        }
+
+        /* 苹果分段控制器 (Segmented Control) */
+        .segmented-control {
+            position: relative;
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 5px;
+            border-radius: var(--radius-island);
+            background: var(--glass-fill);
+            backdrop-filter: blur(32px) saturate(180%);
+            -webkit-backdrop-filter: blur(32px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--specular-highlight);
+        }
+
+        /* 白色液态滑块 (Glider) */
+        .seg-glider {
             position: absolute;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: var(--transition);
+            top: 0;
+            left: 0;
+            border-radius: var(--radius-island);
+            background: var(--glider-bg);
+            box-shadow: var(--glider-shadow);
+            transition: transform 0.45s cubic-bezier(0.32, 1.18, 0.38, 1),
+                        width 0.45s cubic-bezier(0.32, 1.18, 0.38, 1),
+                        height 0.45s cubic-bezier(0.32, 1.18, 0.38, 1);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .seg-btn {
+            position: relative;
             z-index: 1;
+            border: none;
+            background: transparent;
+            color: var(--label-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 7px 16px;
+            border-radius: var(--radius-island);
+            cursor: pointer;
+            transition: color 0.3s var(--spring-ease);
         }
 
-        .play-hint-overlay i {
-            width: 46px;
-            height: 46px;
-            background: rgba(255, 255, 255, 0.95);
-            color: var(--dark);
+        .seg-btn:hover,
+        .seg-btn.active {
+            color: var(--label-primary);
+        }
+
+        /* 作品网格：外卡片圆角 32px，内部 padding 14px -> 内部媒体框同心圆角 18px */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+        }
+
+        @media (max-width: 820px) {
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .work-glass-card {
+            border-radius: var(--radius-card-outer);
+            padding: 14px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-glass-card.hidden {
+            display: none;
+        }
+
+        .work-glass-card:hover {
+            transform: translateY(-6px) scale(1.008);
+            border-color: var(--glass-border-strong);
+        }
+
+        /* 内部媒体容器同心圆角 = 32px - 14px = 18px */
+        .work-media-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9.5;
+            border-radius: var(--radius-card-inner);
+            overflow: hidden;
+            background: #0d1017;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .work-media-frame video,
+        .work-media-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.65s var(--spring-ease);
+        }
+
+        .work-glass-card:hover .work-media-frame video,
+        .work-glass-card:hover .work-media-frame img {
+            transform: scale(1.04);
+        }
+
+        .glass-tag-pill {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 5px 12px;
+            border-radius: var(--radius-island);
+            background: rgba(18, 18, 22, 0.58);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            font-size: 11.5px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .play-orb-btn {
+            position: absolute;
+            right: 14px;
+            bottom: 14px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            color: #0f172a;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            transform: scale(0.85);
-            transition: var(--transition);
+            font-size: 13px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.35s var(--spring-ease);
+            z-index: 2;
         }
 
-        .work-card:hover .play-hint-overlay { opacity: 1; }
-        .work-card:hover .play-hint-overlay i { transform: scale(1); }
+        .work-glass-card:hover .play-orb-btn {
+            transform: scale(1.12);
+        }
 
-        .work-details {
-            padding: 1.5rem;
+        .work-card-body {
+            padding: 16px 8px 6px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
-        .work-details h3 {
-            font-size: 1.08rem;
-            font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
+        .work-card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--label-primary);
+            margin-bottom: 6px;
             line-height: 1.4;
         }
 
-        .work-details p {
-            font-size: 0.82rem;
-            color: var(--text-muted);
+        .work-card-desc {
+            font-size: 13px;
+            color: var(--label-secondary);
             line-height: 1.6;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            margin-bottom: 1.25rem;
+            margin-bottom: 14px;
         }
 
-        .work-meta-row {
+        .work-card-footer {
             margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px solid var(--glass-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.78rem;
+            font-size: 12.5px;
             font-weight: 600;
-            color: var(--primary);
-            padding-top: 0.85rem;
-            border-top: 1px solid #f1f5f9;
         }
 
-        .stage-nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 46px;
-            height: 46px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 50%;
-            display: flex;
+        .work-sub-tag {
+            color: var(--label-tertiary);
+        }
+
+        .work-action-link {
+            color: var(--accent-cyan);
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            color: var(--dark);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            cursor: pointer;
-            z-index: 10;
-            transition: var(--transition);
+            gap: 5px;
         }
 
-        .stage-nav-btn:hover {
-            background: var(--dark);
-            color: #ffffff;
-            border-color: var(--dark);
-            transform: translateY(-50%) scale(1.08);
-        }
-
-        .stage-nav-btn.prev-btn { left: -1.25rem; }
-        .stage-nav-btn.next-btn { right: -1.25rem; }
-
-        .modal-overlay {
+        /* ========================================================
+           visionOS 悬浮详情弹窗 (外圆角 34px, 内边距 14px -> 内屏 20px)
+           ======================================================== */
+        .modal-backdrop {
             position: fixed;
             inset: 0;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 2000;
+            padding: 20px;
             opacity: 0;
             pointer-events: none;
-            transition: var(--transition);
-            padding: 1.5rem;
+            transition: opacity 0.35s var(--spring-ease);
         }
 
-        .modal-overlay.active {
+        .modal-backdrop.active {
             opacity: 1;
             pointer-events: auto;
         }
 
-        .modal-window {
-            background: #ffffff;
+        .vision-modal {
             width: 100%;
-            max-width: 820px;
-            border-radius: var(--radius-xl);
-            overflow: hidden;
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.3);
-            transform: scale(0.96) translateY(20px);
-            transition: var(--transition);
+            max-width: 840px;
             max-height: 90vh;
+            border-radius: 34px;
+            padding: 14px;
+            background: var(--glass-fill-elevated);
+            backdrop-filter: blur(48px) saturate(200%);
+            -webkit-backdrop-filter: blur(48px) saturate(200%);
+            border: 1px solid var(--glass-border-strong);
+            box-shadow: var(--specular-highlight), 0 32px 72px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: column;
             position: relative;
-        }
-
-        .modal-overlay.active .modal-window {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-dismiss-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1.2rem;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(8px);
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            cursor: pointer;
-            z-index: 50;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            transition: var(--transition);
-        }
-
-        .modal-dismiss-btn:hover {
-            background: #000000;
-            transform: rotate(90deg);
-        }
-
-        .modal-theater-screen {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #000000;
+            transform: scale(0.94) translateY(16px);
+            transition: transform 0.45s var(--spring-ease);
             overflow: hidden;
         }
 
-        .modal-theater-screen video, .modal-theater-screen img {
+        .modal-backdrop.active .vision-modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close-orb {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(20, 20, 24, 0.65);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 30;
+            transition: all 0.25s var(--spring-ease);
+        }
+
+        .modal-close-orb:hover {
+            transform: scale(1.1);
+            background: rgba(0, 0, 0, 0.85);
+        }
+
+        /* 弹窗内屏幕同心圆角 = 34px - 14px = 20px */
+        .modal-screen {
             width: 100%;
-            height: 100%;
-            object-fit: contain;
+            aspect-ratio: 16 / 9;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #000000;
+            position: relative;
+            flex-shrink: 0;
         }
 
         .gallery-rail {
             display: flex;
-            height: 100%;
             width: 100%;
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            height: 100%;
+            transition: transform 0.45s var(--spring-ease);
         }
 
-        .gallery-item {
+        .gallery-slide {
             flex: 0 0 100%;
             height: 100%;
-            background: #000000;
         }
 
-        .gallery-item img {
+        .gallery-slide img {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
 
-        .gallery-control-btn {
+        .gallery-arrow {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(12px);
             border: none;
-            color: var(--dark);
+            color: #0f172a;
+            cursor: pointer;
+            z-index: 15;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            z-index: 20;
-            transition: var(--transition);
+            transition: transform 0.25s var(--spring-ease);
         }
 
-        .gallery-control-btn:hover { background: #ffffff; transform: translateY(-50%) scale(1.1); }
-        .gallery-prev { left: 1rem; }
-        .gallery-next { right: 1rem; }
+        .gallery-arrow:hover {
+            transform: translateY(-50%) scale(1.1);
+        }
 
-        .modal-article-body {
-            padding: 2rem 2.25rem;
+        .gallery-arrow.prev { left: 14px; }
+        .gallery-arrow.next { right: 14px; }
+
+        .modal-content-scroll {
+            padding: 20px 12px 10px;
             overflow-y: auto;
         }
 
-        .modal-badge-row {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 0.75rem;
+        .modal-pill {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            background: rgba(10, 132, 255, 0.14);
+            padding: 4px 12px;
+            border-radius: var(--radius-island);
+            margin-bottom: 10px;
         }
 
-        .modal-tag-chip {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--primary);
-            background: rgba(224, 242, 254, 0.6);
-            padding: 0.25rem 0.75rem;
-            border-radius: 6px;
-        }
-
-        .modal-heading {
-            font-size: 1.5rem;
+        .modal-title {
+            font-size: 21px;
             font-weight: 800;
-            color: var(--dark);
-            margin-bottom: 1rem;
+            color: var(--label-primary);
+            margin-bottom: 10px;
         }
 
-        .modal-narrative {
-            font-size: 0.9rem;
+        .modal-desc {
+            font-size: 14px;
+            color: var(--label-secondary);
             line-height: 1.75;
-            color: #475569;
             text-align: justify;
-            margin-bottom: 1.5rem;
+            margin-bottom: 16px;
         }
 
-        .tech-box-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-left: 4px solid var(--primary);
-            border-radius: var(--radius-md);
-            padding: 1.1rem;
-            font-size: 0.84rem;
+        .modal-tech-panel {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: var(--glass-pill-fill);
+            border: 1px solid var(--glass-border);
+            font-size: 13px;
         }
 
-        .tech-box-card span {
-            font-weight: 700;
-            color: var(--dark);
+        .modal-tech-panel strong {
             display: block;
-            margin-bottom: 0.35rem;
+            color: var(--label-primary);
+            margin-bottom: 4px;
+        }
+
+        .modal-tech-panel p {
+            color: var(--label-secondary);
+            font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        }
+
+        /* 底部提示 Toast */
+        .glass-toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            padding: 10px 20px;
+            border-radius: var(--radius-island);
+            background: var(--glass-fill-elevated);
+            backdrop-filter: blur(32px) saturate(180%);
+            -webkit-backdrop-filter: blur(32px) saturate(180%);
+            border: 1px solid var(--glass-border-strong);
+            box-shadow: var(--specular-highlight), var(--glass-shadow);
+            color: var(--label-primary);
+            font-size: 13px;
+            font-weight: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.35s var(--spring-ease);
+            z-index: 3000;
+        }
+
+        .glass-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
         }
 
         footer {
-            background: #ffffff;
-            border-top: 1px solid #e2e8f0;
-            padding: 3rem 1.5rem;
             text-align: center;
-            color: var(--text-light);
-            font-size: 0.85rem;
+            padding: 40px 20px 20px;
+            font-size: 12.5px;
+            color: var(--label-tertiary);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <nav class="nav-container">
-            <div class="nav-brand">
-                <span class="pulse-dot"></span>
+    <!-- 动态弥散极光背景层 -->
+    <div class="ambient-canvas">
+        <div class="liquid-orb orb-1"></div>
+        <div class="liquid-orb orb-2"></div>
+        <div class="liquid-orb orb-3"></div>
+        <div class="liquid-orb orb-4"></div>
+    </div>
+
+    <!-- 顶部灵动岛导航栏 -->
+    <div class="island-wrapper">
+        <nav class="dynamic-island">
+            <div class="island-brand">
+                <span class="status-dot"></span>
                 <span>ZHU JIN</span>
             </div>
-            <div class="nav-links">
-                <a href="#hero" class="active">个人概况</a>
-                <a href="#portfolio">核心作品</a>
+            <div class="island-tabs" id="islandTabs">
+                <div class="island-glider" id="islandGlider"></div>
+                <a href="#overview" class="island-link active">个人档案</a>
+                <a href="#timeline" class="island-link">经历轴</a>
+                <a href="#showcase" class="island-link">作品展台</a>
             </div>
+            <button class="theme-toggle" id="themeToggleBtn" onclick="toggleColorTheme()" title="切换深色 / 浅色模式">
+                <i class="fa-solid fa-sun" id="themeIcon"></i>
+            </button>
         </nav>
-    </header>
+    </div>
 
-    <section id="hero">
-        <div class="intro-grid">
+    <main class="container">
+
+        <!-- 个人档案 Bento 网格区 -->
+        <section id="overview" class="bento-hero">
             
-            <div class="glass-panel profile-card">
-                <div class="profile-header">
-                    <div class="avatar-box">
-                        <div class="avatar-inner">
-                            <i class="fa-solid fa-code"></i>
-                        </div>
+            <!-- 左侧身份卡片 -->
+            <aside class="liquid-glass profile-glass">
+                <div class="profile-top">
+                    <div class="avatar-monogram">
+                        <span class="monogram-text">ZJ</span>
                     </div>
-                    <h1 class="user-name">朱晋</h1>
-                    <span class="user-tagline">数字媒体技术 · 本科在读</span>
+                    <h1 class="hero-name">朱晋</h1>
+                    <span class="hero-badge">数字媒体技术 · 本科</span>
+
+                    <p class="hero-bio">
+                        数媒技术专业大四在读，专注虚幻引擎交互机制、AIGC 影视动态分镜及多媒体界面工程落地。注重视觉质感与实际可还原性，具备海外 AI 短剧实习与跨职能协作经验，持续探索前沿视听工具与交互表达。
+                    </p>
                 </div>
 
-                <p class="bio-text">
-                    我是数媒技术专业大四在读的学生。平时热衷于钻研虚幻引擎交互机制、AIGC 视觉叙事与界面落地。在创作与工程实现中，我注重探究底层原理，兼顾视觉质感与工程落地性。对待细节有极高的耐性与自驱力，乐于尝试新技术工具，希望能不断创作出兼具观赏性与实用价值的高品质数字化作品。
-                </p>
-
-                <div class="contact-stack">
-                    <div class="contact-item">
-                        <i class="fa-solid fa-phone"></i>
-                        <span>150-6762-0415</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fa-solid fa-envelope"></i>
-                        <span>sickoez@outlook.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fa-brands fa-github"></i>
-                        <span>github.com/SickoEz</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <span>浙江省杭州市（可随时到岗）</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fa-solid fa-certificate"></i>
-                        <span>英语四级 · 普通话二乙</span>
-                    </div>
-                </div>
-
-                <a href="#portfolio" class="action-cta-btn">
-                    <span>浏览核心作品展台</span>
-                    <i class="fa-solid fa-arrow-down"></i>
-                </a>
-            </div>
-
-            <div class="glass-panel experience-flow">
-                
                 <div>
-                    <div class="flow-block-title">
-                        <i class="fa-solid fa-graduation-cap"></i>
-                        <span>教育背景</span>
-                    </div>
-                    <div class="edu-card-body">
-                        <div class="edu-headline">
-                            <span>浙江水利水电学院 · 数字媒体技术 (本科在读)</span>
-                            <span class="time-badge">2023 - 2027</span>
+                    <div class="contact-pills">
+                        <div class="contact-pill" onclick="copyInfo('150-6762-0415', '电话号码已复制')">
+                            <div class="contact-pill-left">
+                                <i class="fa-solid fa-phone"></i>
+                                <span>150-6762-0415</span>
+                            </div>
+                            <span class="copy-tag">复制</span>
                         </div>
-                        <p style="font-size: 0.8rem; color: #64748b; line-height: 1.6; margin-top: 0.35rem;">
-                            <strong>核心课业：</strong>虚幻引擎三维关卡设计、用户体验与交互设计、次世代 PBR 材质贴图流、数字媒体技术导论、前端开发技术基础。
+                        <div class="contact-pill" onclick="copyInfo('sickoez@outlook.com', '邮箱地址已复制')">
+                            <div class="contact-pill-left">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>sickoez@outlook.com</span>
+                            </div>
+                            <span class="copy-tag">复制</span>
+                        </div>
+                        <a href="https://github.com/SickoEz" target="_blank" class="contact-pill">
+                            <div class="contact-pill-left">
+                                <i class="fa-brands fa-github"></i>
+                                <span>github.com/SickoEz</span>
+                            </div>
+                            <span class="copy-tag">访问 ↗</span>
+                        </a>
+                        <div class="contact-pill" style="cursor: default;">
+                            <div class="contact-pill-left">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>浙江省杭州市</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#showcase" class="apple-cta-btn">
+                        <span>浏览核心作品展台</span>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- 右侧教育、实习、校园与技能矩阵 -->
+            <div class="right-bento-stack">
+
+                <!-- 1. 教育背景（通栏简约结构） -->
+                <div class="liquid-glass bento-module">
+                    <div class="module-header">
+                        <div class="module-title-group">
+                            <div class="module-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                            <span>教育背景</span>
+                        </div>
+                        <span class="time-capsule">2023.09 - 2027.06</span>
+                    </div>
+                    <div class="edu-banner-layout">
+                        <div class="edu-main-bar">
+                            <div class="edu-school-wrap">
+                                <span class="edu-school">浙江水利水电学院</span>
+                                <span class="edu-major">数字媒体技术 · 本科大四在读</span>
+                            </div>
+                        </div>
+                        <p class="detail-text">
+                            <strong>核心课程：</strong>虚幻引擎三维关卡设计、用户体验与交互界面设计流程、次世代 PBR 材质贴图流、数字媒体技术导论、前端开发技术基础。
                         </p>
+                        <div class="edu-badges-row">
+                            <span class="edu-mini-pill">校三等奖学金</span>
+                            <span class="edu-mini-pill">大学英语四级 (CET-4)</span>
+                            <span class="edu-mini-pill">普通话二级乙等</span>
+                        </div>
                     </div>
                 </div>
 
-                <div>
-                    <div class="flow-block-title">
-                        <i class="fa-solid fa-users-gear"></i>
-                        <span>校园骨干经历与组织协同</span>
+                <!-- 2. 实习工作经历（时间轴结构） -->
+                <div class="liquid-glass bento-module">
+                    <div class="module-header">
+                        <div class="module-title-group">
+                            <div class="module-icon"><i class="fa-solid fa-briefcase"></i></div>
+                            <span>实习工作经历</span>
+                        </div>
                     </div>
-                    <div class="highlight-bullets">
-                        <div class="highlight-item">
-                            <span class="bullet-icon"><i class="fa-solid fa-check"></i></span>
-                            <div>
-                                <strong>班级学习委员：</strong>担任任课教师与全班同学的核心沟通纽带，高效同步课业任务与考务规范，自驱组织课后技术互助与资料共享，强化班级学风建设。
+                    <div class="timeline-stack">
+                        <div class="timeline-node">
+                            <div class="timeline-head">
+                                <div class="timeline-role">网眼信息技术<span>· AIGC视频导演</span></div>
+                                <span class="time-capsule">2026.10 - 2026.12</span>
+                            </div>
+                            <p class="detail-text">
+                                参与 AIGC 短剧与短视频项目的剧本拆解及动态分镜制作，把控镜头景别、运镜衔接与视听节奏；运用前沿 AI 视效生成工具产出角色与场景镜头资产，配合后期剪辑调色与音效合成完成成片交付。
+                            </p>
+                        </div>
+
+                        <div class="timeline-node">
+                            <div class="timeline-head">
+                                <div class="timeline-role">爱看互动<span>· AI 短剧动态分镜与剪辑实习生</span></div>
+                                <span class="time-capsule">2026.08 - 2026.10</span>
+                            </div>
+                            <p class="detail-text">
+                                面向海外短视频平台受众画像拆解强反转短剧剧本，负责核心悬念钩子（Hooks）与情绪爆发点的动态分镜设计；运用 AI 视效工具产出多机位素材并维护角色一致性，结合 DaVinci Resolve 完成多轨剪辑、调色与双语字幕包装。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. 校园实践 & 专业技能（非对称双栏） -->
+                <div class="asymmetric-bottom-grid">
+                    <div class="liquid-glass bento-module">
+                        <div class="module-header">
+                            <div class="module-title-group">
+                                <div class="module-icon"><i class="fa-solid fa-users"></i></div>
+                                <span>校园实践</span>
                             </div>
                         </div>
-                        <div class="highlight-item">
-                            <span class="bullet-icon"><i class="fa-solid fa-check"></i></span>
-                            <div>
-                                <strong>学院学生会 · 学习部骨干：</strong>深度参与筹办学院“学风建设月”、学术经验交流沙龙与专业技能宣讲，细致把控物料调度、考勤考务与数据归档，具备敏捷的跨角色协作能力。
+                        <div class="clean-divider-list">
+                            <div class="clean-list-item">
+                                <div class="sub-title-row">
+                                    <h4>班级学习委员</h4>
+                                    <span class="sub-date">2023.09 - 至今</span>
+                                </div>
+                                <p class="detail-text">
+                                    担任任课教师与全班核心沟通桥梁，精准同步专业课业规范，主导共享技术资料库与课后互助。
+                                </p>
+                            </div>
+                            <div class="clean-list-item">
+                                <div class="sub-title-row">
+                                    <h4>院学生会 · 学习部骨干</h4>
+                                    <span class="sub-date">2023.09 - 2025.06</span>
+                                </div>
+                                <p class="detail-text">
+                                    参与筹办“学风建设月”、经验交流沙龙与技能讲座，负责物资调度、现场控场与考务归档。
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div>
-                    <div class="flow-block-title">
-                        <i class="fa-solid fa-compass-drafting"></i>
-                        <span>专业态度与工程自驱</span>
-                    </div>
-                    <div class="highlight-bullets">
-                        <div class="highlight-item">
-                            <span class="bullet-icon"><i class="fa-solid fa-layer-group"></i></span>
-                            <div>
-                                <strong>务实自驱与落地思维：</strong>在设计与蓝图开发阶段注重代码实现成本与渲染性能调优，拒绝脱离实装的“飞机稿”，输出对开发友好的规范化工程方案。
+                    <div class="liquid-glass bento-module">
+                        <div class="module-header">
+                            <div class="module-title-group">
+                                <div class="module-icon"><i class="fa-solid fa-layer-group"></i></div>
+                                <span>专业技能工具栈</span>
                             </div>
                         </div>
-                        <div class="highlight-item">
-                            <span class="bullet-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                        <div class="skill-group-list">
                             <div>
-                                <strong>AI 工具链赋能增效：</strong>积极探索 AIGC 工具在分层原画生成、角色动作序列打磨与脚本编写中的赋能价值，具有较强的新技术检索与自主攻坚能力。
+                                <div class="skill-group-label">AIGC 影视与后期剪辑</div>
+                                <div class="skill-cloud">
+                                    <span class="skill-chip">AIGC 视效生成</span>
+                                    <span class="skill-chip">DaVinci Resolve 达芬奇</span>
+                                    <span class="skill-chip">动态分镜设计</span>
+                                    <span class="skill-chip">剪映专业版</span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="flow-block-title">
-                        <i class="fa-solid fa-screwdriver-wrench"></i>
-                        <span>熟练工具栈</span>
-                    </div>
-                    <div class="tech-pill-grid">
-                        <span class="tech-pill">Unreal Engine 5</span>
-                        <span class="tech-pill">AIGC 视效生成</span>
-                        <span class="tech-pill">Blender / 3ds Max</span>
-                        <span class="tech-pill">Substance 3D Painter</span>
-                        <span class="tech-pill">Figma / Photoshop</span>
-                        <span class="tech-pill">HTML5 / CSS3 / JavaScript</span>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-    <section id="portfolio">
-        <div class="section-header">
-            <span class="section-badge"><i class="fa-solid fa-shapes"></i> Selected Portfolio</span>
-            <h2 class="section-title">核心作品展台</h2>
-        </div>
-
-        <div class="stage-carousel-wrapper">
-            <button class="stage-nav-btn prev-btn" onclick="slideCarousel('left')">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <button class="stage-nav-btn next-btn" onclick="slideCarousel('right')">
-                <i class="fa-solid fa-chevron-right"></i>
-            </button>
-
-            <div class="stage-scroll-container" id="stageTrack">
-                
-                <div class="work-card" onclick="openWorkModal('ai_corruption_film')">
-                    <div class="work-media-box">
-                        <span class="badge-type">AIGC 视效动画</span>
-                        <video src="corruption.mp4" poster="corruption.png" muted loop playsinline></video>
-                        <div class="play-hint-overlay"><i class="fa-solid fa-play"></i></div>
-                    </div>
-                    <div class="work-details">
-                        <h3>《一念越界，终须担责》廉洁警示动画短片</h3>
-                        <p>“玉琮杯”征集作品· 动画短片制作。融合复古档案拼贴与手绘剪纸风，依托 AI 辅助分层绘图与微动效，打造光影隐喻叙事。</p>
-                        <div class="work-meta-row">
-                            <span>全国大赛参评</span>
-                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="work-card" onclick="openWorkModal('smart_campus')">
-                    <div class="work-media-box">
-                        <span class="badge-type">三维可视化能耗大屏</span>
-                        <video src="campus.mp4" muted loop playsinline></video>
-                        <div class="play-hint-overlay"><i class="fa-solid fa-play"></i></div>
-                    </div>
-                    <div class="work-details">
-                        <h3>《校园数字孪生智能平台》三维可视化</h3>
-                        <p>在 UE5 中集成天气与光影环境蓝图，打通 UI 与控制器通信，实现晴雨昼夜平滑过渡与镜头轨道跟随。</p>
-                        <div class="work-meta-row">
-                            <span>数字孪生 / 交互蓝图</span>
-                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="work-card" onclick="openWorkModal('sugar_dock')">
-                    <div class="work-media-box">
-                        <span class="badge-type">轻互动探索小游戏</span>
-                        <img src="sugar_dock.png" alt="Sugar Dock" onerror="this.src='https://placehold.co/800x486/fbcfe8/be185d?text=Sugar+Dock'">
-                        <div class="play-hint-overlay"><i class="fa-solid fa-images"></i></div>
-                    </div>
-                    <div class="work-details">
-                        <h3>《Sugar Dock》二次元唯美探索小游戏</h3>
-                        <p>基于虚幻 5 搭建唯美马卡龙海湾场景，重构探索移动控制与触控交互热区，营造治愈系粒子微动效反馈。</p>
-                        <div class="work-meta-row">
-                            <span>UE5 场景 / 交互微动效</span>
-                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="work-card" onclick="openWorkModal('finance_app')">
-                    <div class="work-media-box">
-                        <span class="badge-type">移动端 UI/UX 全案</span>
-                        <img src="finance.jpg" alt="海外金融App" onerror="this.src='https://placehold.co/800x486/bae6fd/0369a1?text=Finance+App'">
-                        <div class="play-hint-overlay"><i class="fa-solid fa-images"></i></div>
-                    </div>
-                    <div class="work-details">
-                        <h3>全球化海外移动端钱包金融全案</h3>
-                        <p>规范化推演多币种实时折算、账户安全校验与核心转账流程闭环，打造呼吸感高对比度金融交互规范。</p>
-                        <div class="work-meta-row">
-                            <span>UI/UX 规范 / 交互原型</span>
-                            <span>查看全案 <i class="fa-solid fa-arrow-right"></i></span>
+                            <div>
+                                <div class="skill-group-label">三维引擎与交互落地</div>
+                                <div class="skill-cloud">
+                                    <span class="skill-chip">Unreal Engine 5</span>
+                                    <span class="skill-chip">Blender / 3ds Max</span>
+                                    <span class="skill-chip">Substance Painter</span>
+                                    <span class="skill-chip">Figma</span>
+                                    <span class="skill-chip">HTML5 / CSS3 / JS</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="modal-overlay" id="workModal" onclick="dismissModal()">
-        <div class="modal-window" onclick="event.stopPropagation()">
-            <button class="modal-dismiss-btn" onclick="dismissModal()">&times;</button>
-            
-            <div class="modal-theater-screen" id="modalScreen"></div>
-            
-            <div class="modal-article-body">
-                <div class="modal-badge-row">
-                    <span class="modal-tag-chip" id="modalTag">分类</span>
+        <!-- 经历横向时间轴（由近及远：整合实习经历与核心项目经历） -->
+        <section id="timeline" class="h-timeline-section">
+            <div class="showcase-header" style="margin-bottom: 18px;">
+                <div>
+                    <div class="showcase-eyebrow">Experience &amp; Projects Timeline</div>
+                    <h2 class="showcase-title">经历横向时间轴（由近及远）</h2>
                 </div>
-                <h2 class="modal-heading" id="modalTitle">作品名称</h2>
-                <p class="modal-narrative" id="modalDesc">作品详细描述...</p>
-                
-                <div class="tech-box-card">
-                    <span>涉及软件与核心技术方法：</span>
-                    <p id="modalTech" style="color: #64748b; font-family: monospace;"></p>
+                <div class="h-timeline-controls">
+                    <button class="h-scroll-btn" onclick="scrollTimeline(-340)" title="向左滑动">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button class="h-scroll-btn" onclick="scrollTimeline(340)" title="向右滑动">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="h-timeline-track-wrapper" id="hTimelineTrack">
+                <div class="h-timeline-track">
+
+                    <!-- 1. 最近：2026.10 - 2026.12 网眼信息技术 (实习经历) -->
+                    <article class="liquid-glass h-timeline-card">
+                        <div>
+                            <div class="h-timeline-dot"></div>
+                            <div class="h-timeline-top">
+                                <span class="h-type-badge">实习经历</span>
+                                <span class="h-date-text">2026.10 - 2026.12</span>
+                            </div>
+                            <h3 class="h-card-title">网眼信息技术</h3>
+                            <div class="h-card-sub">AIGC视频导演</div>
+                            <p class="h-card-desc">
+                                参与 AIGC 短剧与短视频项目的剧本拆解及动态分镜制作，把控镜头景别、运镜衔接与视听节奏；运用前沿 AI 视效生成工具产出角色与场景镜头资产，配合后期剪辑调色完成成片交付。
+                            </p>
+                        </div>
+                        <div class="h-card-foot">
+                            <span>动态分镜 · AIGC 视效</span>
+                            <span>最新经历</span>
+                        </div>
+                    </article>
+
+                    <!-- 2. 2026.08 - 2026.10 爱看互动 (实习经历) -->
+                    <article class="liquid-glass h-timeline-card">
+                        <div>
+                            <div class="h-timeline-dot"></div>
+                            <div class="h-timeline-top">
+                                <span class="h-type-badge">实习经历</span>
+                                <span class="h-date-text">2026.08 - 2026.10</span>
+                            </div>
+                            <h3 class="h-card-title">爱看互动 · 海外短剧项目组</h3>
+                            <div class="h-card-sub">AI 短剧动态分镜与剪辑实习生</div>
+                            <p class="h-card-desc">
+                                面向海外短视频平台拆解强反转短剧剧本，负责悬念钩子与情绪爆发点的动态分镜设计；运用 AI 视效工具产出多机位素材并维护角色一致性，结合 DaVinci Resolve 完成多轨剪辑、调色与双语包装。
+                            </p>
+                        </div>
+                        <div class="h-card-foot">
+                            <span>海外短剧 · DaVinci Resolve</span>
+                            <span>实习实践</span>
+                        </div>
+                    </article>
+
+                    <!-- 3. 2026.07 校园数字孪生智能平台 (项目经历) -->
+                    <article class="liquid-glass h-timeline-card is-project clickable" onclick="openVisionModal('smart_campus')">
+                        <div>
+                            <div class="h-timeline-dot"></div>
+                            <div class="h-timeline-top">
+                                <span class="h-type-badge">项目经历</span>
+                                <span class="h-date-text">2026.07</span>
+                            </div>
+                            <h3 class="h-card-title">《校园数字孪生智能平台》</h3>
+                            <div class="h-card-sub">UE5 三维可视化能耗大屏</div>
+                            <p class="h-card-desc">
+                                在 UE5 中搭建校区场景并集成气象控制器，打通 UI 控件与环境参数的蓝图事件绑定，实现晴雨、昼夜一键平滑过渡及全景相机轨道跟随。
+                            </p>
+                        </div>
+                        <div class="h-card-foot">
+                            <span>UE5 蓝图 · 智慧可视化</span>
+                            <span>查看演示 ↗</span>
+                        </div>
+                    </article>
+
+                    <!-- 4. 2026.06 Sugar Dock (项目经历) -->
+                    <article class="liquid-glass h-timeline-card is-project clickable" onclick="openVisionModal('sugar_dock')">
+                        <div>
+                            <div class="h-timeline-dot"></div>
+                            <div class="h-timeline-top">
+                                <span class="h-type-badge">项目经历</span>
+                                <span class="h-date-text">2026.06</span>
+                            </div>
+                            <h3 class="h-card-title">《Sugar Dock》探索小游戏</h3>
+                            <div class="h-card-sub">UE5 独立小游戏 · 关卡与角色控制</div>
+                            <p class="h-card-desc">
+                                负责马卡龙粉紫海湾全场景地形关卡搭建与柔和光照调优；通过 UE 蓝图实现第三人称角色探索移动控制、触发器交互逻辑及治愈系粒子反馈。
+                            </p>
+                        </div>
+                        <div class="h-card-foot">
+                            <span>关卡搭建 · 蓝图交互</span>
+                            <span>查看画廊 ↗</span>
+                        </div>
+                    </article>
+
+                    <!-- 5. 2026.05 海外移动端钱包金融 App (项目经历) -->
+                    <article class="liquid-glass h-timeline-card is-project clickable" onclick="openVisionModal('finance_app')">
+                        <div>
+                            <div class="h-timeline-dot"></div>
+                            <div class="h-timeline-top">
+                                <span class="h-type-badge">项目经历</span>
+                                <span class="h-date-text">2026.05</span>
+                            </div>
+                            <h3 class="h-card-title">全球化海外钱包金融 App 全案</h3>
+                            <div class="h-card-sub">移动端全流程体验 · 多币种交互规范</div>
+                            <p class="h-card-desc">
+                                确立稳健深蓝与呼吸白主色调，规范梳理多币种实时折算与表单防错机制，建立清晰组件体系有效缓解跨国资金划转操作焦虑。
+                            </p>
+                        </div>
+                        <div class="h-card-foot">
+                            <span>Figma 规范 · 交互全案</span>
+                            <span>查看画廊 ↗</span>
+                        </div>
+                    </article>
+
+                    <!-- 6. 2026.04 一念越界，终须担责 (项目经历) -->
+                    <article class="liquid-glass h-timeline-card is-project clickable" onclick="openVisionModal('ai_corruption_film')">
+                        <div>
+                            <div class="h-timeline-dot"></div>
+                            <div class="h-timeline-top">
+                                <span class="h-type-badge">项目经历</span>
+                                <span class="h-date-text">2026.04</span>
+                            </div>
+                            <h3 class="h-card-title">《一念越界，终须担责》短片</h3>
+                            <div class="h-card-sub">“玉琮杯”征集作品 · 分镜/动效/合成</div>
+                            <p class="h-card-desc">
+                                融合手绘剪纸与档案拼贴风格，借助 AI 生成角色与道具分层资产，完成分镜构思、图层精细抠像绑定及三段式情绪光影合成。
+                            </p>
+                        </div>
+                        <div class="h-card-foot">
+                            <span>AIGC 动画 · 合成叙事</span>
+                            <span>查看演示 ↗</span>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 核心作品展台 -->
+        <section id="showcase" class="showcase-section">
+            <div class="showcase-header">
+                <div>
+                    <div class="showcase-eyebrow">Selected Works</div>
+                    <h2 class="showcase-title">核心作品展台</h2>
+                </div>
+
+                <!-- 苹果分段控制器（带平滑位移白色滑块） -->
+                <div class="segmented-control" id="segControl">
+                    <div class="seg-glider" id="segGlider"></div>
+                    <button class="seg-btn active" data-cat="all">全部作品</button>
+                    <button class="seg-btn" data-cat="aigc">AIGC 影视</button>
+                    <button class="seg-btn" data-cat="ue5">UE5 三维</button>
+                    <button class="seg-btn" data-cat="ux">体验全案</button>
+                </div>
+            </div>
+
+            <div class="works-grid">
+
+                <!-- 作品 1 -->
+                <article class="liquid-glass work-glass-card" data-cat="aigc" onclick="openVisionModal('ai_corruption_film')">
+                    <div class="work-media-frame">
+                        <span class="glass-tag-pill">AIGC 视效动画</span>
+                        <video src="corruption.mp4" poster="corruption.png" preload="none" muted loop playsinline></video>
+                        <div class="play-orb-btn"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="work-card-body">
+                        <h3 class="work-card-title">《一念越界，终须担责》廉洁警示动画短片</h3>
+                        <p class="work-card-desc">
+                            “玉琮杯”征集作品 · 动画短片制作。围绕职场青年步步妥协的叙事展开，融合手绘剪纸与档案拼贴风格，构建三段式情绪光影隐喻体系。
+                        </p>
+                        <div class="work-card-footer">
+                            <span class="work-sub-tag">分镜 / 动效 / 合成</span>
+                            <span class="work-action-link">沉浸预览 <i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 作品 2 -->
+                <article class="liquid-glass work-glass-card" data-cat="ue5" onclick="openVisionModal('smart_campus')">
+                    <div class="work-media-frame">
+                        <span class="glass-tag-pill">UE5 三维可视化</span>
+                        <video src="campus.mp4" preload="none" muted loop playsinline></video>
+                        <div class="play-orb-btn"><i class="fa-solid fa-play"></i></div>
+                    </div>
+                    <div class="work-card-body">
+                        <h3 class="work-card-title">《校园数字孪生智能平台》三维可视化能耗大屏</h3>
+                        <p class="work-card-desc">
+                            在 UE5 中搭建校区场景并集成气象控制器，打通 UI 控件与环境参数事件绑定，实现晴雨、昼夜一键平滑过渡及全景轨道跟随。
+                        </p>
+                        <div class="work-card-footer">
+                            <span class="work-sub-tag">UE5 蓝图 / 智慧可视化</span>
+                            <span class="work-action-link">沉浸预览 <i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 作品 3 -->
+                <article class="liquid-glass work-glass-card" data-cat="ue5" onclick="openVisionModal('sugar_dock')">
+                    <div class="work-media-frame">
+                        <span class="glass-tag-pill">UE5 独立小游戏</span>
+                        <img src="sugar_dock.png" alt="Sugar Dock" loading="lazy" onerror="this.src='https://placehold.co/800x475/1e293b/64d2ff?text=Sugar+Dock'">
+                        <div class="play-orb-btn"><i class="fa-solid fa-images"></i></div>
+                    </div>
+                    <div class="work-card-body">
+                        <h3 class="work-card-title">《Sugar Dock》二次元疗愈系轻互动探索小游戏</h3>
+                        <p class="work-card-desc">
+                            海湾全场景地形关卡搭建与柔和光照调优，通过 UE 蓝图实现第三人称角色探索移动控制、场景触发器交互与治愈系粒子反馈。
+                        </p>
+                        <div class="work-card-footer">
+                            <span class="work-sub-tag">关卡搭建 / 角色操控</span>
+                            <span class="work-action-link">浏览画廊 <i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 作品 4 -->
+                <article class="liquid-glass work-glass-card" data-cat="ux" onclick="openVisionModal('finance_app')">
+                    <div class="work-media-frame">
+                        <span class="glass-tag-pill">移动端体验全案</span>
+                        <img src="finance.jpg" alt="全球化海外钱包金融全案" loading="lazy" onerror="this.src='https://placehold.co/800x475/0f172a/38bdf8?text=Finance+App'">
+                        <div class="play-orb-btn"><i class="fa-solid fa-images"></i></div>
+                    </div>
+                    <div class="work-card-body">
+                        <h3 class="work-card-title">全球化海外移动端钱包金融 App 体验全案</h3>
+                        <p class="work-card-desc">
+                            确立稳健深蓝与呼吸白主色调，规范梳理多币种实时折算与表单防错机制，建立清晰组件体系缓解资金划转操作焦虑。
+                        </p>
+                        <div class="work-card-footer">
+                            <span class="work-sub-tag">交互规范 / 多币种适配</span>
+                            <span class="work-action-link">浏览画廊 <i class="fa-solid fa-chevron-right"></i></span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- visionOS 悬浮详情模态框 -->
+    <div class="modal-backdrop" id="visionModal" onclick="closeVisionModal()">
+        <div class="vision-modal" onclick="event.stopPropagation()">
+            <button class="modal-close-orb" onclick="closeVisionModal()">&times;</button>
+            <div class="modal-screen" id="modalScreen"></div>
+            <div class="modal-content-scroll">
+                <span class="modal-pill" id="modalTag">分类标签</span>
+                <h2 class="modal-title" id="modalTitle">作品名称</h2>
+                <p class="modal-desc" id="modalDesc">作品详细描述...</p>
+                <div class="modal-tech-panel">
+                    <strong>涉及工具与核心实现方法：</strong>
+                    <p id="modalTech"></p>
                 </div>
             </div>
         </div>
     </div>
 
+    <div class="glass-toast" id="glassToast">已复制到剪贴板</div>
+
     <footer>
-        <p>&copy; 2026 朱晋. 个人多媒体作品展台与工程实践档案.</p>
+        <p>© 2026 朱晋 · 数字媒体与交互体验作品展台</p>
     </footer>
 
     <script>
-        const worksDatabase = {
-            ai_corruption_film: {
-                title: "《一念越界，终须担责》廉洁警示教育动画短片",
-                tag: "“玉琮杯”征集作品· 动画短片制作 / AIGC 视觉叙事",
-                type: "video",
-                mediaUrl: "corruption.mp4",
-                poster: "corruption.png",
-                desc: "以职场青年小王步步失守的抉择为叙事核心，采用复古档案拼贴与手绘剪纸画风。创作中综合运用 AI 工具辅助生成角色多视角、分层姿态与道具资产，完成抠像、分级骨骼绑定与动态视效合成。影片核心设计了光影递进隐喻：从开篇平淡安稳的暖黄平光，到利欲滋生时的局促深褐暗调，再到结局违纪暴露时冰冷刺目的强光，让环境光影、道具状态与心理防线崩解同频共振。",
-                tech: "corruption.mp4 / AI 分层绘图 / 复古档案剪纸风 / 镜头动效合成 / 光影隐喻体系"
-            },
-            smart_campus: {
-                title: "《校园数字孪生智能平台》三维大屏可视化",
-                tag: "数字孪生系统 / B端大屏交互",
-                type: "video",
-                mediaUrl: "campus.mp4",
-                desc: "针对传统智慧校园监控大屏数据繁杂堆叠的痛点，创新设计半透明双翼卡片化界面，将底层安防、能耗及车辆监控信息归集展示。深度打通虚幻引擎 5 关卡气象与光影系统通信蓝图，通过界面控件触发昼夜平滑过渡、晴雨切换及全景相机轨道跟随轨迹，兼具工业级落地性与视觉科技感。",
-                tech: "campus.mp4 / Unreal Engine 5 蓝图交互 / 气象控制器数据通信 / 镜头轨道动画绑定 / B端卡片布局规范"
-            },
-            sugar_dock: {
-                title: "《Sugar Dock》二次元唯美探索小游戏",
-                tag: "UE5 独立小游戏 / 轻度探索",
-                type: "gallery",
-                images: ["sugar_dock.png", "sugar_dock_2.png", "sugar_dock_3.png"],
-                desc: "在虚幻引擎 5 中搭建马卡龙粉紫配色的治愈系海湾关卡。设计了第三人称轻盈跳跃移动操控、探索收集物触发及治愈系环境音画粒子反馈。针对 3D 复杂背景，专门调校了带高亮白色描边、半透明磨砂质感的触控界面与微动效热区，保障了高易读性与沉浸感。",
-                tech: "Unreal Engine 5 关卡场景搭建 / 角色移动与交互蓝图 / 唯美粉色系调色 / 动效粒子反馈"
-            },
-            finance_app: {
-                title: "全球化海外移动端钱包金融 App 体验全案",
-                tag: "移动端体验设计 / UI/UX 全案",
-                type: "gallery",
-                images: ["finance.jpg", "finance_2.jpg", "finance_3.jpg"],
-                desc: "立足跨国金融场景设计的电子钱包交互全流程方案。合理规划账户登录验证、多币种实时折算及快速转账页面的视觉层级与操作链路。采用呼吸感极强的清透深蓝与大面积留白，有效降低金融交易中的操作焦虑，全链路动效验证了转账业务闭环。",
-                tech: "Figma 高保真组件库 / 多语言界面适配 / 金融业务状态流全链路推演"
-            }
-        };
+        // 1. 默认深色模式，支持点击右上角按钮手动切换深/浅色
+        const rootEl = document.documentElement;
+        const themeIcon = document.getElementById('themeIcon');
 
-        let currentGalleryIndex = 0;
-        let activeGalleryList = [];
+        function getEffectiveTheme() {
+            return rootEl.getAttribute('data-theme') || 'dark';
+        }
 
-        function slideCarousel(direction) {
-            const track = document.getElementById('stageTrack');
-            const step = 380;
-            if (direction === 'left') {
-                track.scrollLeft -= step;
+        function updateThemeIcon() {
+            const current = getEffectiveTheme();
+            if (current === 'light') {
+                themeIcon.className = 'fa-solid fa-moon';
             } else {
-                track.scrollLeft += step;
+                themeIcon.className = 'fa-solid fa-sun';
             }
         }
 
-        document.querySelectorAll('.work-card').forEach(card => {
+        function toggleColorTheme() {
+            const current = getEffectiveTheme();
+            const next = current === 'dark' ? 'light' : 'dark';
+            rootEl.setAttribute('data-theme', next);
+            updateThemeIcon();
+            showToast(next === 'light' ? '已切换至浅色液态玻璃模式' : '已切换至深色液态玻璃模式');
+        }
+
+        updateThemeIcon();
+
+        // 2. 白色液态玻璃滑块（Glider）平滑位移计算
+        function moveGlider(gliderEl, targetEl) {
+            if (!gliderEl || !targetEl) return;
+            gliderEl.style.width = `${targetEl.offsetWidth}px`;
+            gliderEl.style.height = `${targetEl.offsetHeight}px`;
+            gliderEl.style.transform = `translate(${targetEl.offsetLeft}px, ${targetEl.offsetTop}px)`;
+        }
+
+        const segGlider = document.getElementById('segGlider');
+        const islandGlider = document.getElementById('islandGlider');
+
+        function syncAllGliders() {
+            const activeSeg = document.querySelector('.seg-btn.active');
+            const activeIsland = document.querySelector('.island-link.active');
+            moveGlider(segGlider, activeSeg);
+            moveGlider(islandGlider, activeIsland);
+        }
+
+        window.addEventListener('DOMContentLoaded', syncAllGliders);
+        window.addEventListener('load', syncAllGliders);
+        window.addEventListener('resize', syncAllGliders);
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(syncAllGliders);
+        }
+
+        // 苹果分段控制器筛选交互
+        document.querySelectorAll('.seg-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                moveGlider(segGlider, btn);
+                const cat = btn.getAttribute('data-cat');
+
+                document.querySelectorAll('.work-glass-card').forEach(card => {
+                    if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // 3. 悬停卡片按需缓冲视频
+        document.querySelectorAll('.work-glass-card').forEach(card => {
             const video = card.querySelector('video');
             if (video) {
                 card.addEventListener('mouseenter', () => {
+                    video.preload = 'auto';
                     video.play().catch(() => {});
                 });
                 card.addEventListener('mouseleave', () => {
@@ -1067,85 +2034,171 @@
             }
         });
 
-        function openWorkModal(id) {
-            const data = worksDatabase[id];
-            if (!data) return;
+        // 4. 作品详情数据库与弹窗逻辑
+        const worksDB = {
+            ai_corruption_film: {
+                title: "《一念越界，终须担责》廉洁警示动画短片",
+                tag: "“玉琮杯”征集作品 · 动画短片制作（分镜/动效/合成）",
+                type: "video",
+                mediaUrl: "corruption.mp4",
+                poster: "corruption.png",
+                desc: "围绕职场青年“小王”步步妥协的叙事展开，采用手绘剪纸与档案拼贴风格。利用 AI 工具辅助生成角色多角度姿态、表情及单据公章等道具资产，自主完成短片分镜构思与剪辑落地；负责各视觉图层精细抠像、分层绑定与定格微动效合成，并配合情节调试三段式画面光影氛围（安稳平光 → 昏暗压抑 → 结局警示冷光）。",
+                tech: "AIGC 分层资产生成 / 分镜构思 / 图层抠像与骨骼绑定 / 定格微动效合成 / 光影情绪叙事"
+            },
+            smart_campus: {
+                title: "《校园数字孪生智能平台》三维可视化能耗大屏",
+                tag: "UE5 蓝图交互 · 三维场景搭建 · 智慧可视化全案",
+                type: "video",
+                mediaUrl: "campus.mp4",
+                desc: "在 UE5 中搭建校区场景并集成天空球与气象控制器，设计对称双翼半透明可视化界面归集安防与能耗数据；打通 UI 控件与场景环境参数的蓝图事件绑定，实现晴雨、昼夜一键平滑过渡以及全景相机平滑轨道跟随。",
+                tech: "Unreal Engine 5 蓝图交互 / 天空球与气象控制器通信 / 相机轨道动画绑定 / 可视化卡片架构"
+            },
+            sugar_dock: {
+                title: "《Sugar Dock》二次元疗愈系轻互动探索小游戏",
+                tag: "UE5 独立小游戏 · 关卡场景搭建 · 角色操控与交互反馈",
+                type: "gallery",
+                images: ["sugar_dock.png", "sugar_dock_2.png", "sugar_dock_3.png"],
+                desc: "负责马卡龙粉紫配色海湾全场景地形关卡搭建、体积雾与柔和光照调优；通过 UE 蓝图实现第三人称角色探索移动控制、场景触发器交互逻辑，并调优治愈系环境音效与轻量粒子反馈动效。",
+                tech: "Unreal Engine 5 关卡地形搭建 / 体积雾与光照调优 / 第三人称移动控制蓝图 / 粒子反馈动效"
+            },
+            finance_app: {
+                title: "全球化海外移动端钱包金融 App 体验全案",
+                tag: "移动端全流程体验 · 交互设计规范 · 多语言多币种适配",
+                type: "gallery",
+                images: ["finance.jpg", "finance_2.jpg", "finance_3.jpg"],
+                desc: "面向跨国金融场景的移动端电子钱包全流程体验设计。确立深邃稳健的深蓝与大面积呼吸白作为主色调，规范化梳理多币种实时汇率折算与表单交互防错机制；建立清晰的信息层级与卡片组件体系，有效缓解资金划转流程中的操作焦虑。",
+                tech: "Figma 组件规范库 / 多币种实时换算流 / 表单防错状态推演 / 移动端交互原型"
+            }
+        };
 
-            document.getElementById('modalTitle').innerText = data.title;
-            document.getElementById('modalTag').innerText = data.tag;
-            document.getElementById('modalDesc').innerText = data.desc;
-            document.getElementById('modalTech').innerText = data.tech;
+        let slideIndex = 0;
+        let slideList = [];
+
+        function openVisionModal(key) {
+            const item = worksDB[key];
+            if (!item) return;
+
+            document.getElementById('modalTitle').innerText = item.title;
+            document.getElementById('modalTag').innerText = item.tag;
+            document.getElementById('modalDesc').innerText = item.desc;
+            document.getElementById('modalTech').innerText = item.tech;
 
             const screen = document.getElementById('modalScreen');
             screen.innerHTML = '';
 
-            if (data.type === 'video') {
+            if (item.type === 'video') {
                 screen.innerHTML = `
-                    <video src="${data.mediaUrl}" 
-                           ${data.poster ? `poster="${data.poster}"` : ''} 
-                           autoplay controls playsinline 
-                           style="width: 100%; height: 100%; object-fit: contain; background: #000;">
+                    <video src="${item.mediaUrl}" ${item.poster ? `poster="${item.poster}"` : ''}
+                           autoplay controls playsinline
+                           style="width:100%;height:100%;object-fit:contain;background:#000;">
                     </video>
                 `;
-            } else if (data.type === 'gallery') {
-                activeGalleryList = data.images;
-                currentGalleryIndex = 0;
-
-                let slidesHtml = '';
-                activeGalleryList.forEach(src => {
-                    slidesHtml += `
-                        <div class="gallery-item">
-                            <img src="${src}" onerror="this.src='https://placehold.co/800x450/e2e8f0/64748b?text=Image+Load+Failed'">
-                        </div>
-                    `;
-                });
+            } else {
+                slideList = item.images;
+                slideIndex = 0;
+                const slidesHtml = slideList.map(src => `
+                    <div class="gallery-slide">
+                        <img src="${src}" onerror="this.src='https://placehold.co/800x450/1e293b/64d2ff?text=Preview+Image'">
+                    </div>
+                `).join('');
 
                 screen.innerHTML = `
-                    <div style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+                    <div style="position:relative;width:100%;height:100%;overflow:hidden;">
                         <div class="gallery-rail" id="galleryRail">${slidesHtml}</div>
-                        <button class="gallery-control-btn gallery-prev" onclick="shiftGallery(event, -1)">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </button>
-                        <button class="gallery-control-btn gallery-next" onclick="shiftGallery(event, 1)">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
+                        <button class="gallery-arrow prev" onclick="moveSlide(event, -1)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="gallery-arrow next" onclick="moveSlide(event, 1)"><i class="fa-solid fa-chevron-right"></i></button>
                     </div>
                 `;
             }
 
-            document.getElementById('workModal').classList.add('active');
+            document.getElementById('visionModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        function shiftGallery(e, step) {
+        function moveSlide(e, dir) {
             if (e) e.stopPropagation();
-            currentGalleryIndex = (currentGalleryIndex + step + activeGalleryList.length) % activeGalleryList.length;
+            slideIndex = (slideIndex + dir + slideList.length) % slideList.length;
             const rail = document.getElementById('galleryRail');
-            if (rail) {
-                rail.style.transform = `translateX(-${currentGalleryIndex * 100}%)`;
-            }
+            if (rail) rail.style.transform = `translateX(-${slideIndex * 100}%)`;
         }
 
-        function dismissModal() {
+        function closeVisionModal() {
             const screen = document.getElementById('modalScreen');
-            const video = screen.querySelector('video');
-            if (video) video.pause();
-            document.getElementById('workModal').classList.remove('active');
+            const vid = screen.querySelector('video');
+            if (vid) vid.pause();
+            document.getElementById('visionModal').classList.remove('active');
             document.body.style.overflow = '';
-            setTimeout(() => { screen.innerHTML = ''; }, 300);
+            setTimeout(() => { screen.innerHTML = ''; }, 350);
         }
 
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        // 5. 复制反馈
+        function copyInfo(text, msg) {
+            const input = document.createElement('input');
+            input.value = text;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            showToast(msg);
+        }
+
+        let toastTimer;
+        function showToast(text) {
+            const toast = document.getElementById('glassToast');
+            toast.innerText = text;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+        }
+
+        // 6. 滚动导航联动与灵动岛滑块平移
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.island-link');
+
+        navItems.forEach(link => {
+            link.addEventListener('click', () => {
+                navItems.forEach(item => item.classList.remove('active'));
                 link.classList.add('active');
-                const target = document.querySelector(link.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
+                moveGlider(islandGlider, link);
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            let activeId = '';
+            sections.forEach(sec => {
+                if (window.scrollY >= sec.offsetTop - 160) {
+                    activeId = sec.getAttribute('id');
+                }
+            });
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === `#${activeId}`) {
+                    item.classList.add('active');
+                    moveGlider(islandGlider, item);
                 }
             });
         });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeVisionModal();
+        });
+
+        // 7. 横向经历时间轴按钮滑动与鼠标滚轮横向映射
+        const hTimelineTrack = document.getElementById('hTimelineTrack');
+
+        function scrollTimeline(offset) {
+            if (!hTimelineTrack) return;
+            hTimelineTrack.scrollBy({ left: offset, behavior: 'smooth' });
+        }
+
+        if (hTimelineTrack) {
+            hTimelineTrack.addEventListener('wheel', (e) => {
+                if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                    e.preventDefault();
+                    hTimelineTrack.scrollLeft += e.deltaY;
+                }
+            }, { passive: false });
+        }
     </script>
 </body>
 </html>
